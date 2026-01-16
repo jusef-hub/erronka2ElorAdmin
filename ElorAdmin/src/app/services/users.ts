@@ -1,0 +1,32 @@
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {User as UserI} from '../interface/interfaces';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class Users {
+   private apiUrl='http://localhost:3000';
+    http: HttpClient=inject(HttpClient);
+  
+    getUser(){
+      return this.http.get<UserI[]>(this.apiUrl+'/users');
+    }
+
+    getUserById(id: number){
+      return this.http.get<UserI>(`${this.apiUrl}/users/${id}`);
+    }
+    
+    addUser(item: UserI) {
+      return this.http.post<UserI>(this.apiUrl, item);
+    }
+  
+    updateUser(item: UserI) {
+     return this.http.put<UserI>(`${this.apiUrl}/${item.id}`, item);
+    }
+  
+  
+    deleteUser(id: number) {
+      return this.http.delete<UserI>(`${this.apiUrl}/${id}`);
+    }
+}

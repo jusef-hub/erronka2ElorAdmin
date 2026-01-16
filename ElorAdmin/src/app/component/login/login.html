@@ -1,0 +1,29 @@
+<div class="login-container">
+  <div class="login-card">  
+    <h2>Login</h2>
+          <div *ngIf="loginError" class="simple-alert">
+        Erabiltzaile edo pasahitza okerra
+    </div>
+    <form (ngSubmit)="login()">
+        
+      <input
+        type="text"
+        [(ngModel)]="userForm.value.email"
+        name="email"
+        placeholder="posta@email.com"
+        required
+      /><br>
+
+      <input
+        type="password"
+        [(ngModel)]="userForm.value.password"
+        name="password"
+        placeholder="Pasahitza"
+        required
+      />
+
+
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+</div>
