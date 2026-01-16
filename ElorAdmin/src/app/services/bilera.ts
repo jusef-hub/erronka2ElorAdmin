@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Reunion } from '../interface/interfaces';
-
+import { Observable } from 'rxjs/internal/Observable';
 @Injectable({
   providedIn: 'root',
 })
@@ -9,19 +9,19 @@ export class Bilera {
   private apiUrl='http://localhost:3000';
   http: HttpClient=inject(HttpClient);
 
-  getBilera(){
+  getBilera():  Observable<Reunion[]> {
     return this.http.get<Reunion[]>(this.apiUrl+'/reuniones');
   }
 
-  getBileraById(id: number){
+  getBileraById(id: number): Observable<Reunion> {
     return this.http.get<Reunion>(`${this.apiUrl}/reuniones/${id}`);
   }
-  
-  addBilera(item: Reunion) {
+
+  addBilera(item: Reunion): Observable<Reunion> {
     return this.http.post<Reunion>(this.apiUrl, item);
   }
 
-  updateBilera(item: Reunion) {
+  updateBilera(item: Reunion): Observable<Reunion> {
    return this.http.put<Reunion>(`${this.apiUrl}/${item.id_reunion}`, item);
   }
 

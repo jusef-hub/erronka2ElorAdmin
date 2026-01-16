@@ -1,23 +1,49 @@
 <nav>
-    <div>
+    <div id="kopurua">
         <div>
-            <img src="../../../assets/alumno.png">
-            <p>Ikasle kopurua</p>
+            <img src="alumno.png" width="50" alt="Icono de alumno">
+            <p>Número de alumnos: {{ kopuruakArray[0] }}</p>
         </div>
         <div>
-            <img src="../../../assets/profe.png">
-            <p>Irakasle kopurua</p>
+            <img src="profe.png" width="50" alt="Icono de profesor">
+            <p>Número de profesores: {{ kopuruakArray[1] }}</p>
         </div>
         <div>
-            <img src="../../../assets/reunion.png">
-            <p>Gaurko bileren kopurua</p>
+            <img src="reunion.png" width="50" alt="Icono de reunión">
+            <p>Número de reuniones de hoy: {{ kopuruakArray[2] }}</p>
         </div>
     </div>
-</nav>
-
+</nav>      
 <main>
 
-</main>
+ <select id="aukeratu" name="aukeratu" [(ngModel)]="selected" (ngModelChange)="filtratu($event)">
+  <option value="Guztiak">Todos</option>
+    @for (option of Aukeratu; track option) {
+        <option value="{{ option }}">{{ option }}</option>
+    }
+</select>
+{{ selected }}
+
+{{ filteredList.length}}
+
+    <div id="lista">
+       <div>
+
+        @if (users$ | async) { 
+
+            <ul>
+                @for (user of filteredList; track user.id) {
+                    <li>
+                        {{ user.nombre }} - {{ user.email }}
+                    </li>
+                }
+            </ul>
+        }            
+       
+    </div>
+
+    </div>
+</main> 
 
 <footer>
 

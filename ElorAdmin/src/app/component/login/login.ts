@@ -13,7 +13,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './login.css',
 })
 export class Login {
-  nireservicio:Users=inject(Users);
   protected readonly title=signal('fronted');
  
   usersS:Users=inject(Users)
