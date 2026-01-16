@@ -46,6 +46,21 @@ nav {
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
+
+  #Kendu {
+    background-color: #b3272a;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    padding: 5px 9px;
+    cursor: pointer;
+  }
+
+  #Kendu:hover {
+    background-color: #d9363e;
+    transform: scale(1.1);
+  }
+
 #kopurua div:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.35);
@@ -99,12 +114,18 @@ select#aukeratu:hover, select#aukeratu:focus {
   box-shadow: 0 15px 30px rgba(0,0,0,0.25);
   transition: transform 0.3s, box-shadow 0.3s;
   animation: fadeIn 0.8s ease;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #lista li:hover {
   transform: translateY(-3px);
   box-shadow: 0 20px 35px rgba(0,0,0,0.35);
 }
+#ezkutatuta {
+  display: none;
+} 
 
 /* Animación */
 @keyframes fadeIn {

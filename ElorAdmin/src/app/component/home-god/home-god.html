@@ -35,10 +35,84 @@
                 @for (user of filteredList; track user.id) {
                     <li>
                         {{ user.nombre }} - {{ user.email }}
+                        <div>
+                            <a><img src="editar.png" width="15"></a>
+                            <button id="Kendu" (click)="kendu(user.id)">X</button>
+                        </div>    
                     </li>
+                    
                 }
             </ul>
-        }            
+        }        
+        <button (click)="erakutsiForm()">+</button>   
+        @if(ezkutatuta){
+        <div id="ezkutatuta">
+             <form (ngSubmit)="gehitu()">
+                    <input
+                        type="text"
+                        formControlName="nombre"
+                        
+                        name="nombre"
+                        placeholder="Nombre"
+                        required>
+                    <input
+                        type="email"
+                        formControlName="email"
+                        name="email"
+                        placeholder="Email"
+                        required>
+                        <input
+                        type="username"
+                        formControlName="username"
+                        name="username"
+                        placeholder="Nombre de usuario"
+                        required>
+                    <input
+                        type="password"
+                        formControlName="password"
+                        name="password"
+                        placeholder="Contraseña"
+                        required>
+                    <input
+                        type="nombre"
+                        formControlName="nombre"
+                        name="nombre"
+                        placeholder="Nombre"
+                        required>
+                    <input
+                        type="dni"
+                        formControlName="dni"
+                        name="dni"
+                        placeholder="DNI"
+                        >
+                    <input
+                        type="direccion"
+                        formControlName="direccion"
+                        name="direccion"
+                        placeholder="Dirección"
+                        required>
+                    <input
+                        type="telefono"
+                        formControlName="telefono"
+                        name="telefono"
+                        placeholder="Teléfono"
+                        >
+                    <input
+                        type="telefono2"
+                        formControlName="telefono2"
+                        name="telefono2"
+                        placeholder="Teléfono secundario"
+                        >
+                   <select id="aukeratu" name="aukeratu" [(ngModel)]="selected">
+                    <option value=" "></option>
+                        @for (option of Aukeratu; track option) {
+                            <option value="{{ option }}">{{ option }}</option>
+                        }
+                    </select>
+
+             </form>
+        </div>
+    }
        
     </div>
 
