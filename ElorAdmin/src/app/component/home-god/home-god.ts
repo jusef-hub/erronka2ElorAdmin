@@ -65,7 +65,7 @@ modUser= new FormGroup({
     direccion: new FormControl(''),
     telefono: new FormControl('', [Validators.pattern('^[0-9]{9}$')]),
     telefono2: new FormControl('', [Validators.pattern('^[0-9]{9}$')]),
-tipo_id: new FormControl<number | null>(null)
+    tipo_id: new FormControl<number | null>(null)
 });
 
 constructor(private router: Router){
@@ -177,8 +177,8 @@ kendu(id: number) {
           apellidos: this.newUser.value.apellidos!,
           dni:dniValor,
           direccion: this.newUser.value.direccion|| '',
-          telefono1: Number(this.newUser.value.telefono || 0),
-          telefono2: Number(this.newUser.value.telefono2 || 0),
+          telefono1: this.newUser.value.telefono ? Number(this.newUser.value.telefono) : null,
+          telefono2: this.newUser.value.telefono2 ? Number(this.newUser.value.telefono2) : null,
           tipo_id: this.newUser.value.tipo_id!,
           argazkia_url: 'foto.webp',
           created_at: new Date(), 
@@ -265,8 +265,8 @@ erakutsiForm() {
           apellidos: this.modUser.value.apellidos!,
           dni:dniValor,
           direccion: this.modUser.value.direccion|| '',
-          telefono1: Number(this.modUser.value.telefono || 0),
-          telefono2: Number(this.modUser.value.telefono2 || 0),
+          telefono1: Number(this.modUser.value.telefono),
+          telefono2: Number(this.modUser.value.telefono2),
           tipo_id: this.modUser.value.tipo_id!,
           argazkia_url: 'foto.webp', 
           updated_at: new Date()
