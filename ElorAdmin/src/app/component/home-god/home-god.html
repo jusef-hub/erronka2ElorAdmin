@@ -2,123 +2,137 @@
     <div id="kopurua">
         <div>
             <img src="alumno.png" width="50" alt="Icono de alumno">
-            <p>Número de alumnos: {{ kopuruakArray[0] }}</p>
+            <p>{{ 'admin.num_alumnos' | translate }}: {{ kopuruakArray[0] }}</p>
         </div>
         <div>
             <img src="profe.png" width="50" alt="Icono de profesor">
-            <p>Número de profesores: {{ kopuruakArray[1] }}</p>
+            <p>{{ 'admin.num_profesores' | translate }}: {{ kopuruakArray[1] }}</p>
         </div>
         <div>
             <img src="reunion.png" width="50" alt="Icono de reunión">
-            <p>Número de reuniones de hoy: {{ kopuruakArray[2] }}</p>
+            <p>{{ 'admin.num_reuniones' | translate }}: {{ kopuruakArray[2] }}</p>
         </div>
     </div>
-</nav>      
+</nav>
+     
 <main>
+    <select id="aukeratu" name="aukeratu" [(ngModel)]="selected" (ngModelChange)="filtratu($event)">
+        <option value="Guztiak">{{ 'admin.filtro_todos' | translate }}</option>
+        
+        @for (option of aukeratu; track option) {
+            <option value="{{ option }}">{{ option }}</option>
+        }
+    </select>
 
- <select id="aukeratu" name="aukeratu" [(ngModel)]="selected" (ngModelChange)="filtratu($event)">
-  <option value="Guztiak">Todos</option>
-    @for (option of Aukeratu; track option) {
-        <option value="{{ option }}">{{ option }}</option>
-    }
-</select>
-{{ selected }}
-
-{{ filteredList.length}}
+    {{ selected }}
+    {{ filteredList.length}}
 
     <div id="lista">
        <div>
-
-        @if (users$ | async) { 
-
+        @if (users$ | async ) { 
             <ul>
-                @for (user of filteredList; track user.id) {
+                @for (user of filteredList|paginate:{ itemsPerPage: 10, currentPage: currentPage }; track user.id ) {
                     <li>
                         {{ user.nombre }} - {{ user.email }}
                         <div>
-                            <a><img src="editar.png" width="15"></a>
+                            <img id="modifikatu" (click)="formMod(user)" src="editar.png" width="15">
                             <button id="Kendu" (click)="kendu(user.id)">X</button>
                         </div>    
                     </li>
-                    
                 }
             </ul>
+             <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
         }        
-        <button (click)="erakutsiForm()">+</button>   
+        
+        <button id="gehitu" (click)="erakutsiForm()">+</button>   
+
         @if(ezkutatuta){
-        <div id="ezkutatuta">
-             <form (ngSubmit)="gehitu()">
-                    <input
-                        type="text"
-                        formControlName="nombre"
+        <div class="ezkutatuta">
+             <form (ngSubmit)="gehitu()" [formGroup]="newUser">
+                    <input type="email" formControlName="email" 
+                           [placeholder]="'admin.placeholder_email' | translate" required>
+                    
+                    <input type="text" formControlName="username" 
+                           [placeholder]="'admin.placeholder_user' | translate" required>
+                    
+                    <input type="password" formControlName="password" 
+                           [placeholder]="'admin.placeholder_pass' | translate" required>
+                    
+                    <input type="text" formControlName="nombre" 
+                           [placeholder]="'admin.placeholder_nombre' | translate" required>
+                    <input type="text" formControlName="apellidos" 
+                            [placeholder]="'admin.placeholder_apellido' | translate" required>
+                    <input type="text" formControlName="dni" 
+                           [placeholder]="'admin.placeholder_dni' | translate">
+                    
+                    <input type="text" formControlName="direccion" 
+                           [placeholder]="'admin.placeholder_dir' | translate">
+                    
+                    <input type="tel" formControlName="telefono" 
+                           [placeholder]="'admin.placeholder_tel' | translate">
+                    
+                    <input type="tel" formControlName="telefono2" 
+                           [placeholder]="'admin.placeholder_tel2' | translate">
+                    
+                    <select id="tipo_usuario" formControlName="tipo_id"> 
+                        <option value=" ">{{ 'admin.select_tipo_defecto' | translate }}</option>
                         
-                        name="nombre"
-                        placeholder="Nombre"
-                        required>
-                    <input
-                        type="email"
-                        formControlName="email"
-                        name="email"
-                        placeholder="Email"
-                        required>
-                        <input
-                        type="username"
-                        formControlName="username"
-                        name="username"
-                        placeholder="Nombre de usuario"
-                        required>
-                    <input
-                        type="password"
-                        formControlName="password"
-                        name="password"
-                        placeholder="Contraseña"
-                        required>
-                    <input
-                        type="nombre"
-                        formControlName="nombre"
-                        name="nombre"
-                        placeholder="Nombre"
-                        required>
-                    <input
-                        type="dni"
-                        formControlName="dni"
-                        name="dni"
-                        placeholder="DNI"
-                        >
-                    <input
-                        type="direccion"
-                        formControlName="direccion"
-                        name="direccion"
-                        placeholder="Dirección"
-                        required>
-                    <input
-                        type="telefono"
-                        formControlName="telefono"
-                        name="telefono"
-                        placeholder="Teléfono"
-                        >
-                    <input
-                        type="telefono2"
-                        formControlName="telefono2"
-                        name="telefono2"
-                        placeholder="Teléfono secundario"
-                        >
-                   <select id="aukeratu" name="aukeratu" [(ngModel)]="selected">
-                    <option value=" "></option>
-                        @for (option of Aukeratu; track option) {
-                            <option value="{{ option }}">{{ option }}</option>
+                        @for (mota of motaList; track mota.id) {
+                            <option [ngValue]="mota.id">{{ mota.name }}</option>
                         }
                     </select>
-
+                    <button id="atras" type="button" (click)="atzera()">{{ 'admin.btn_atras' | translate }}</button>
+                    <button type="submit" [disabled]="!newUser.valid">
+                        {{ 'admin.btn_guardar' | translate }}
+                    </button>
              </form>
         </div>
-    }
-       
+        }
+        @if(ezkutatutaMod){
+        <div class="ezkutatuta">
+             <form (ngSubmit)="modifikatu()" [formGroup]="modUser">
+                    <input type="email" formControlName="email" 
+                           [placeholder]="'admin.placeholder_email' | translate" >
+                    
+                    <input type="text" formControlName="username" 
+                           [placeholder]="'admin.placeholder_user' | translate" >
+                    
+                    <input type="password" formControlName="password" 
+                           [placeholder]="'admin.placeholder_pass' | translate" >
+                    
+                    <input type="text" formControlName="nombre" 
+                           [placeholder]="'admin.placeholder_nombre' | translate" >
+                    <input type="text" formControlName="apellidos" 
+                            [placeholder]="'admin.placeholder_apellido' | translate" >
+                    <input type="text" formControlName="dni" 
+                           [placeholder]="'admin.placeholder_dni' | translate">
+                    
+                    <input type="text" formControlName="direccion" 
+                           [placeholder]="'admin.placeholder_dir' | translate">
+                    
+                    <input type="tel" formControlName="telefono" 
+                           [placeholder]="'admin.placeholder_tel' | translate">
+                    
+                    <input type="tel" formControlName="telefono2" 
+                           [placeholder]="'admin.placeholder_tel2' | translate">
+                    
+                    <select id="tipo_usuario" formControlName="tipo_id"> 
+                        <option value="null">{{ 'admin.select_tipo_defecto' | translate }}</option>
+                        
+                        @for (mota of motaList; track mota.id) {
+                            <option [ngValue]="mota.id">{{ mota.name }}</option>
+                        }
+                    </select>
+                    <button class="atras" type="button" (click)="atzera()">{{ 'admin.btn_atras' | translate }}</button>
+                    <button type="submit" [disabled]="!modUser.valid">
+                        {{ 'admin.btn_guardar' | translate }}
+                    </button>
+             </form>
+        </div>
+        }
     </div>
-
     </div>
 </main> 
 
 <footer>
-
 </footer>

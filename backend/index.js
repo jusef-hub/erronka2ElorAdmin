@@ -86,13 +86,19 @@ app.get('/ciclos', (req, res) => {
 
 app.post('/users', (req, res) => {
     const newItem = req.body;
+    delete newItem.id; 
     const query = 'INSERT INTO users SET ?';
     db.query(query, newItem, (err, results) => {
-        if (err) throw err;
+        if (err) {
+            // 🛑 ESTO EVITA QUE SE CIERRE EL SERVIDOR
+            console.error("❌ Error SQL:", err.sqlMessage); // Muestra el error en la terminal
+            return res.status(500).json({ error: err.sqlMessage }); // Avisa a Angular
+        }
+        
+        // Si todo va bien
         res.send({ id: results.insertId, ...newItem });
     });
 });
-
 app.post('/reuniones', (req, res) => {
     const newItem = req.body;
     const query = 'INSERT INTO reuniones SET ?';

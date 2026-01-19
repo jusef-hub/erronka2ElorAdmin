@@ -19,15 +19,15 @@ export class Users {
     }
     
     addUser(item: UserI): Observable<UserI> {
-      return this.http.post<UserI>(this.apiUrl, item);
+      return this.http.post<UserI>(this.apiUrl+'/users', item);
     }
 
     updateUser(item: UserI): Observable<UserI> {
-     return this.http.put<UserI>(`${this.apiUrl}/${item.id}`, item);
+     return this.http.put<UserI>(`${this.apiUrl+'/users'}/${item.id}`, item);
     }
   
   
     deleteUser(id: number): Observable<UserI>{
-      return this.http.delete<UserI>(`${this.apiUrl}/${id}`);
+      return this.http.delete<UserI>(`${this.apiUrl+'/users'}/${id}`);
     }
 }

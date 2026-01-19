@@ -5,15 +5,17 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import{FormsModule} from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TranslatePipe, TranslateDirective, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterOutlet,CommonModule,FormsModule],
+  imports: [RouterOutlet,CommonModule,FormsModule, TranslateDirective, TranslatePipe],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
   protected readonly title=signal('fronted');
+  private translate=inject(TranslateService);
  
   usersS:Users=inject(Users)
   UserList:User[]=[];
@@ -28,6 +30,10 @@ userForm = new FormGroup({
 });
 
    constructor(private router: Router){
+    this.translate.get('login.titulo').subscribe({
+        next: (res) => console.log('Traducción cargada:', res),
+        error: (err) => console.error('Error traducción:', err)
+    });
     this.usersS.getUser().subscribe({
       next:value => {
         this.UserList=value;

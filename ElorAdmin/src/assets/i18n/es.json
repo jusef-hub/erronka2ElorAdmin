@@ -1,0 +1,27 @@
+{
+  "login": {
+    "titulo": "Login",
+    "error_msg": "Usuario o contraseña incorrecta",
+    "placeholder_email": "correo@ejemplo.com",
+    "placeholder_pass": "Contraseña",
+    "btn_entrar": "Entrar"
+  },
+  "admin": {
+    "num_alumnos": "Número de alumnos",
+    "num_profesores": "Número de profesores",
+    "num_reuniones": "Número de reuniones de hoy",
+    "filtro_todos": "Todos",
+    "placeholder_email": "Email",
+    "placeholder_user": "Nombre de usuario",
+    "placeholder_pass": "Contraseña",
+    "placeholder_nombre": "Nombre completo",
+    "placeholder_apellido": "Apellidos",
+    "placeholder_dni": "DNI (12345678X)",
+    "placeholder_dir": "Dirección",
+    "placeholder_tel": "Teléfono",
+    "placeholder_tel2": "Teléfono secundario",
+    "select_tipo_defecto": "Selecciona un tipo",
+    "btn_atras":"Atrás",
+    "btn_guardar": "Guardar"
+  }
+}

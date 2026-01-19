@@ -7,12 +7,12 @@ export interface User {
     apellidos: string;
     dni?: string;
     direccion?: string;
-    telefono1: number;
-    telefono2?: number;
+    telefono1: number| null;
+    telefono2?: number| null;
     tipo_id: number;
     argazkia_url?: string;
-    creation_date: Date;
-    update_date?: Date;
+    created_at?: Date;
+    updated_at?: Date;
 }
 export interface Tipo{
     id: number;

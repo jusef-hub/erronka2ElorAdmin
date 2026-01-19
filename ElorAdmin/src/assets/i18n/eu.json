@@ -1,0 +1,27 @@
+{
+  "login": {
+    "titulo": "Saioa hasi",
+    "error_msg": "erabiltzailea edo pasahitza okerra",
+    "placeholder_email": "posta@adibidea.eus",
+    "placeholder_pass": "pasahitza",
+    "btn_entrar": "sartu"
+  },
+  "admin": {
+    "num_alumnos": "Ikasle kopurua",
+    "num_profesores": "Irakasle kopurua",
+    "num_reuniones": "Gaurko bilera kopurua",
+    "filtro_todos": "Guztiak",
+    "placeholder_email": "Posta elektronikoa",
+    "placeholder_user": "Erabiltzaile izena",
+    "placeholder_pass": "Pasahitza",
+    "placeholder_nombre": "Izen osoa",
+    "placeholder_apellido": "Abizena",
+    "placeholder_dni": "NAN (12345678X)",
+    "placeholder_dir": "Helbidea",
+    "placeholder_tel": "Telefonoa",
+    "placeholder_tel2": "2. Telefonoa",
+    "select_tipo_defecto": "Mota aukeratu",
+    "btn_atras":"Atzera",
+    "btn_guardar": "Gorde"
+  }
+}

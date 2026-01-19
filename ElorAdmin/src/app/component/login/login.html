@@ -1,10 +1,11 @@
 <div class="login-container">
   <div class="login-card">
-    <img src="logo.png" alt="Logo" class="login-logo" width="300" />  
-    <h2>Login</h2>
+    <img src="logo.png" alt="Logo" class="login-logo" width="300" />
+    
+    <h2>{{ 'login.titulo' | translate }}</h2>
 
     <div *ngIf="loginError" class="simple-alert">
-      Usuario o contraseña incorrecta
+      {{ 'login.error_msg' | translate }}
     </div>
 
     <form (ngSubmit)="login()">
@@ -12,7 +13,7 @@
         type="text"
         [(ngModel)]="userForm.value.email"
         name="email"
-        placeholder="correo@ejemplo.com"
+        [placeholder]="'login.placeholder_email' | translate"
         required
       /><br>
 
@@ -20,11 +21,13 @@
         type="password"
         [(ngModel)]="userForm.value.password"
         name="password"
-        placeholder="Contraseña"
+        [placeholder]="'login.placeholder_pass' | translate"
         required
       />
 
-      <button type="submit">Entrar</button>
+      <button type="submit">
+        {{ 'login.btn_entrar' | translate }}
+      </button>
     </form>
   </div>
 </div>

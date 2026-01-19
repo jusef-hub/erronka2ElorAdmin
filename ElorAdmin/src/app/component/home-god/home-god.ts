@@ -10,11 +10,14 @@ import { FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angula
 import { Observable } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { TranslatePipe, TranslateDirective, TranslateService } from '@ngx-translate/core';
+import { disabled } from '@angular/forms/signals';
+import{NgxPaginationModule} from 'ngx-pagination';
 
 
 @Component({
   selector: 'app-home-god',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslatePipe, NgxPaginationModule],
   templateUrl: './home-god.html',
   styleUrl: './home-god.css',
 })
@@ -22,12 +25,13 @@ export class HomeGod {
   bileraS:Bilera=inject(Bilera)
   usersS:Users=inject(Users)
   motaS:Mota=inject(Mota)
+  private translate=inject(TranslateService);
 
-  ReunionList:Reunion[]=[];
-  MotaList:Tipo[]=[];
+  reunionList:Reunion[]=[];
+  motaList:Tipo[]=[];
   kopuruakArray: number[] = [];
   selected:string = "Guztiak";
-  Aukeratu:string[] = [];
+  aukeratu:string[] = [];
   filteredList: User[] = []
    UserList: User[] = [];
   users$: Observable<User[]>;
@@ -35,21 +39,40 @@ export class HomeGod {
   motak$: Observable<Tipo[]>;
 
   ezkutatuta=false;
+  ezkutatutaMod=false;
+  currentPage=1;
+  idEditatzeko=0;
  
 newUser= new FormGroup({
     nombre: new FormControl('', [Validators.required]),
-    email: new FormControl('',  [Validators.required]),
+    email: new FormControl('',  [Validators.required, Validators.email]),
     username: new FormControl('', [Validators.required]),
     apellidos: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
-    dni: new FormControl(null, [Validators.required,Validators.pattern('^[0-9]{8}$')]),
+    dni: new FormControl('', [Validators.pattern('^[0-9]{8}[A-Za-z]$')]),
     direccion: new FormControl(''),
-    telefono: new FormControl(null, [Validators.pattern('^[0-9]{9}$')]),
-    telefono2: new FormControl(null, [Validators.pattern('^[0-9]{9}$')]),
-    tipo_id: new FormControl(null,  [Validators.pattern('^[1-4]$')]) 
+    telefono: new FormControl('', [Validators.pattern('^[0-9]{9}$')]),
+    telefono2: new FormControl('', [Validators.pattern('^[0-9]{9}$')]),
+   tipo_id: new FormControl(null, [Validators.required])
+});
+modUser= new FormGroup({
+    nombre: new FormControl(''),
+    email: new FormControl('',  [Validators.email]),
+    username: new FormControl('' ),
+    apellidos: new FormControl(''),
+    password: new FormControl(''),
+    dni: new FormControl('', [Validators.pattern('^[0-9]{8}[A-Za-z]$')]),
+    direccion: new FormControl(''),
+    telefono: new FormControl('', [Validators.pattern('^[0-9]{9}$')]),
+    telefono2: new FormControl('', [Validators.pattern('^[0-9]{9}$')]),
+tipo_id: new FormControl<number | null>(null)
 });
 
 constructor(private router: Router){
+   this.translate.get('admin.titulo').subscribe({
+        next: (res) => console.log('Traducción cargada:', res),
+        error: (err) => console.error('Error traducción:', err)
+    });
   this.users$ = this.usersS.getUser();
   this.users$.subscribe({
     next: (users: User[]) => {
@@ -67,7 +90,7 @@ constructor(private router: Router){
   this.bilerak$.subscribe({
     next: (bileraList: Reunion[]) => {
       console.log(bileraList);
-      this.ReunionList = bileraList;
+      this.reunionList = bileraList;
       this.kopuruak();
 
       
@@ -80,9 +103,9 @@ constructor(private router: Router){
   this.motak$.subscribe({
     next: (motaList: Tipo[]) => {
       console.log(motaList);
-      this.MotaList = motaList;
-      this.Aukeratu = [...new Set(this.MotaList.map(j => j.name))];
-      console.log("Aukeratu: "+ this.Aukeratu);
+      this.motaList = motaList;
+      this.aukeratu = [...new Set(this.motaList.map(j => j.name))];
+      console.log("aukeratu: "+ this.aukeratu);
     },
     error: err => console.log(err)
   });
@@ -98,7 +121,7 @@ kopuruak(): void {
       irKop++;
     }
   }
-  let gaurkoBilKop=this.ReunionList.length;
+  let gaurkoBilKop=this.reunionList.length;
   this.kopuruakArray = [ikKop, irKop, gaurkoBilKop];
 }
 
@@ -108,7 +131,7 @@ filtratu(selectedValue: string) {
   if (selectedValue === 'Guztiak') {
     this.filteredList = [...this.UserList];
   }else {
-    const selectedMota = this.MotaList.find(m => m.name === selectedValue);
+    const selectedMota = this.motaList.find(m => m.name === selectedValue);
     if (selectedMota) {
       const selectedMotaId = selectedMota.id;
       this.filteredList = this.UserList.filter(user => user.tipo_id === selectedMotaId);
@@ -121,14 +144,23 @@ filtratu(selectedValue: string) {
 kendu(id: number) {
     this.usersS.deleteUser(id).subscribe({
       next: () => {
-        console.log(`Heroe ${id} kenduta`);
+        console.log(`Erabiltzaile ${id} kenduta`);
         this.users$ = this.usersS.getUser();
+        window.location.reload();
       },
       error: (err) => console.error('Errorea kentzean:', err)
     });
   }
-  gehitu() {
+ gehitu() {
   if (this.newUser.valid) {
+    const dniValor = this.newUser.value.dni || '';
+        if (dniValor !== '') {
+        const nanOndo = this.konprobatuNAN(dniValor);
+        if (!nanOndo) {
+            alert("NAN-a txarto (El formato o la letra no coinciden)");
+            return;
+        }
+    }
     this.users$.subscribe({
       next: (users) => {
         const hurrengoId =
@@ -143,24 +175,27 @@ kendu(id: number) {
           password: this.newUser.value.password!,
           nombre: this.newUser.value.nombre!,
           apellidos: this.newUser.value.apellidos!,
-          dni: this.newUser.value.dni!,
-          direccion: this.newUser.value.direccion!,
-          telefono1: this.newUser.value.telefono!,
-          telefono2: this.newUser.value.telefono2!,
+          dni:dniValor,
+          direccion: this.newUser.value.direccion|| '',
+          telefono1: Number(this.newUser.value.telefono || 0),
+          telefono2: Number(this.newUser.value.telefono2 || 0),
           tipo_id: this.newUser.value.tipo_id!,
           argazkia_url: 'foto.webp',
-          creation_date: new Date(),
-          update_date: new Date()
+          created_at: new Date(), 
+          updated_at: new Date()
         };
+        
 
-        this.users$.subscribe({
+        this.usersS.addUser(AddUser).subscribe({
           next: (userSortuta) => {
             console.log('Erabiltzailea gehitua:', userSortuta);
             this.users$ = this.usersS.getUser();
-            this.ezkutatuta = true;
+            this.ezkutatuta = false;
+            window.location.reload();
+            this.newUser.reset();
           },
           error: (err) => {
-            console.error('Errorea heroia sortzerakoan:', err);
+            console.error('Errorea erabiltzailea sortzerakoan:', err);
           }
         });
       },
@@ -169,8 +204,88 @@ kendu(id: number) {
   }
 }
 
+konprobatuNAN(nan:string):boolean{
+  if (!/^[0-9]{8}[A-Za-z]$/.test(nan)) {
+    return false;
+  }
+
+  const zbk = parseInt(nan.substring(0, 8));
+  const letraUsuario = nan.substring(8).toUpperCase();
+
+  const letrasValidas = "TRWAGMYFPDXBNJZSQVHLCKE";
+  const letraCorrecta = letrasValidas[zbk % 23];
+
+  return letraUsuario === letraCorrecta;
+}
+
+
+
 erakutsiForm() {
     this.ezkutatuta = !this.ezkutatuta;
+  }
+
+  atzera(){
+    this.ezkutatuta=false;
+    this.ezkutatutaMod=false;
+  }
+  formMod(user:User){
+    this.ezkutatutaMod =true ;
+    this.idEditatzeko=user.id;
+    this.modUser.patchValue({
+        nombre: user.nombre,
+        email: user.email,
+        username: user.username,
+        apellidos: user.apellidos,
+        dni: user.dni,
+        direccion: user.direccion,
+        telefono:user.telefono1 ? user.telefono1.toString() : '', 
+        telefono2: user.telefono2 ? user.telefono2.toString() : '',
+        tipo_id: user.tipo_id,
+        password: '' 
+    });
+  }
+
+  modifikatu(){
+    if(this.modUser.valid){
+      this.idEditatzeko;
+       const dniValor = this.modUser.value.dni || '';
+        if (dniValor !== '') {
+        const nanOndo = this.konprobatuNAN(dniValor);
+        if (!nanOndo) {
+            alert("NAN-a txarto (El formato o la letra no coinciden)");
+            return;
+        }
+    }
+      const modiUser: User = {
+          id:this.idEditatzeko,
+          email: this.modUser.value.email!,
+          username: this.modUser.value.username!,
+          password: this.modUser.value.password!,
+          nombre: this.modUser.value.nombre!,
+          apellidos: this.modUser.value.apellidos!,
+          dni:dniValor,
+          direccion: this.modUser.value.direccion|| '',
+          telefono1: Number(this.modUser.value.telefono || 0),
+          telefono2: Number(this.modUser.value.telefono2 || 0),
+          tipo_id: this.modUser.value.tipo_id!,
+          argazkia_url: 'foto.webp', 
+          updated_at: new Date()
+        };
+        this.usersS.updateUser(modiUser).subscribe({
+        next: () => {
+          alert('Ondo modifikatu da');
+         this.usersS.getUser();
+          this.ezkutatutaMod = false;
+          this.modUser.reset();
+          window.location.reload();
+
+        },
+        error: (err) => {
+          console.error('Errorea eguneratzean:', err);
+          alert('Ez da eguneratu.');
+        }
+      });
+    }
   }
 
 }

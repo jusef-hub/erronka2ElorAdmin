@@ -1,5 +1,10 @@
 <div id="nav">
     <img src="logo.png" id="logo" width="200px">
+    <select id="aukeratu" name="aukeratu" #langSelect
+        (change)="aldatuHizkuntza(langSelect.value)">
+       <option value="Es" [selected]="translate.currentLang === 'es'">Es</option>
+        <option value="Eu" [selected]="translate.currentLang === 'eu'">Eu</option>
+    </select>
 </div>
 <router-outlet></router-outlet>
 <div id="footer">
