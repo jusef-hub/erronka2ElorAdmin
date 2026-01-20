@@ -1,4 +1,11 @@
 {
+  "footer": {
+    "descripcion": "Formación Profesional de calidad en Bilbao. Tu futuro empieza aquí.",
+    "contacto": "Contacto",
+    "enlaces": "Enlaces de interés",
+    "aviso_legal": "Aviso Legal",
+    "derechos": "Todos los derechos reservados."
+  },
   "login": {
     "titulo": "Login",
     "error_msg": "Usuario o contraseña incorrecta",
@@ -21,7 +28,38 @@
     "placeholder_tel": "Teléfono",
     "placeholder_tel2": "Teléfono secundario",
     "select_tipo_defecto": "Selecciona un tipo",
-    "btn_atras":"Atrás",
+    "btn_atras": "Atrás",
     "btn_guardar": "Guardar"
+  },
+  "perfil": {
+    "no_foto": "No hay foto",
+    "usuario": "Usuario",
+    "nombre_apellidos": "Nombre y Apellidos",
+    "email": "Email",
+    "telefono": "Teléfono",
+    "dni": "DNI",
+    "direccion": "Dirección"
+  },
+  "menu_irakasle": {
+    "datos": "Datos",
+    "horario": "Horario",
+    "reuniones": "Reuniones",
+    "alumnos": "Alumnos",
+    "error_no_profesor": "Este usuario no es profesor"
+  },
+  "ordutegia": {
+    "titulo": "Horario de:",
+    "tabla": {
+      "hora": "Hora",
+      "modulo": "Módulo",
+      "aula": "Aula"
+    },
+    "dias": {
+      "LUNES": "Lunes",
+      "MARTES": "Martes",
+      "MIERCOLES": "Miércoles",
+      "JUEVES": "Jueves",
+      "VIERNES": "Viernes"
+    }
   }
 }

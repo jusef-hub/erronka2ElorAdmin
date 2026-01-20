@@ -1,26 +1,29 @@
 import { Component, inject } from '@angular/core';
 import { User } from '../../interface/interfaces';
 import { Users } from '../../services/users';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RouterOutlet, RouterLink, Router, ActivatedRoute } from '@angular/router';
+import { RouterOutlet, Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
 @Component({
-  selector: 'app-home-irakasle',
-  imports: [RouterLink, AsyncPipe, RouterOutlet, TranslatePipe],
-  templateUrl: './home-irakasle.html',
-  styleUrl: './home-irakasle.css',
+  selector: 'app-datuak',
+  imports: [AsyncPipe, TranslatePipe],
+  templateUrl: './datuak.html',
+  styleUrl: './datuak.css',
 })
-export class HomeIrakasle {
-  userService=inject(Users)
+export class Datuak {
+  userService=inject(Users);
   private translate=inject(TranslateService)
-  user$!:Observable<User>
+  user$!: Observable<User>;
+  originalUser!: User;
 
   constructor(private router:Router, private route:ActivatedRoute){
     this.route.params.subscribe(params => {
       const id = +params['id'];
       this.user$ = this.userService.getUserById(id);
       this.user$.subscribe(user => {
+        this.originalUser=user;
         console.log(user);
       });
     });

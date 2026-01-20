@@ -52,17 +52,11 @@ export interface Matriculacion{
     fecha:Date;
 }
 
-export enum Dia {
-  LUNES = 'LUNES',
-  MARTES = 'MARTES',
-  MIERCOLES = 'MIERCOLES',
-  JUEVES = 'JUEVES',
-  VIERNES = 'VIERNES'
-}
+
 
 export interface Horario{
     id:number;
-    dia:Dia;
+    dia:string;
     hora:number;
     profe_id:number;
     modulo_id:number;

@@ -19,15 +19,15 @@ export class Egutegia {
     }
 
     addEgutegia(item: Horario): Observable<Horario> {
-      return this.http.post<Horario>(this.apiUrl, item);
+      return this.http.post<Horario>(this.apiUrl + "/horarios/", item);
     }
 
     updateEgutegia(item: Horario): Observable<Horario> {
-     return this.http.put<Horario>(`${this.apiUrl}/${item.id}`, item);
+     return this.http.put<Horario>(`${this.apiUrl + "/horarios/"}/${item.id}`, item);
     }
   
   
     deleteEgutegia(id: number): Observable<Horario> {
-      return this.http.delete<Horario>(`${this.apiUrl}/${id}`);
+      return this.http.delete<Horario>(`${this.apiUrl + "/horarios/"}/${id}`);
     }
 }

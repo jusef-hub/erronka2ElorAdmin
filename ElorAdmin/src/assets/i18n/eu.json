@@ -1,27 +1,65 @@
 {
+  "footer": {
+    "descripcion": "Lanbide Heziketa kalitatezkoa Bilbon. Zure etorkizuna hemen hasten da.",
+    "contacto": "Harremana",
+    "enlaces": "Lotura interesgarriak",
+    "aviso_legal": "Lege oharra",
+    "derechos": "Eskubide guztiak erreserbatuta."
+  },
   "login": {
     "titulo": "Saioa hasi",
-    "error_msg": "erabiltzailea edo pasahitza okerra",
-    "placeholder_email": "posta@adibidea.eus",
-    "placeholder_pass": "pasahitza",
-    "btn_entrar": "sartu"
+    "error_msg": "Erabiltzailea edo pasahitza okerra",
+    "placeholder_email": "posta@adibidea.com",
+    "placeholder_pass": "Pasahitza",
+    "btn_entrar": "Sartu"
   },
   "admin": {
     "num_alumnos": "Ikasle kopurua",
     "num_profesores": "Irakasle kopurua",
     "num_reuniones": "Gaurko bilera kopurua",
-    "filtro_todos": "Guztiak",
+    "filtro_todos": "Denak",
     "placeholder_email": "Posta elektronikoa",
     "placeholder_user": "Erabiltzaile izena",
     "placeholder_pass": "Pasahitza",
     "placeholder_nombre": "Izen osoa",
-    "placeholder_apellido": "Abizena",
+    "placeholder_apellido": "Abizenak",
     "placeholder_dni": "NAN (12345678X)",
     "placeholder_dir": "Helbidea",
     "placeholder_tel": "Telefonoa",
-    "placeholder_tel2": "2. Telefonoa",
-    "select_tipo_defecto": "Mota aukeratu",
-    "btn_atras":"Atzera",
+    "placeholder_tel2": "Bigarren telefonoa",
+    "select_tipo_defecto": "Aukeratu mota bat",
+    "btn_atras": "Atzera",
     "btn_guardar": "Gorde"
+  },
+  "perfil": {
+    "no_foto": "Ez dago argazkirik",
+    "usuario": "Erabiltzailea",
+    "nombre_apellidos": "Izena eta Abizenak",
+    "email": "Posta elektronikoa",
+    "telefono": "Telefonoa",
+    "dni": "NAN",
+    "direccion": "Helbidea"
+  },
+  "menu_irakasle": {
+    "datos": "Datuak",
+    "horario": "Ordutegia",
+    "reuniones": "Bilerak",
+    "alumnos": "Ikasleak",
+    "error_no_profesor": "Erabiltzaile hau ez da irakaslea"
+  },
+  "ordutegia": {
+    "titulo": "Ordutegia:",
+    "tabla": {
+      "hora": "Ordua",
+      "modulo": "Modulua",
+      "aula": "Gela"
+    },
+    "dias": {
+      "LUNES": "Astelehena",
+      "MARTES": "Asteartea",
+      "MIERCOLES": "Asteazkena",
+      "JUEVES": "Osteguna",
+      "VIERNES": "Ostirala"
+    }
   }
 }

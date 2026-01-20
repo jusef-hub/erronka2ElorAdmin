@@ -241,7 +241,8 @@ app.get('/users/:id', (req, res) => {
     const query = 'SELECT * FROM users WHERE id = ?';
     db.query(query, [id], (err, results) => {
         if (err) throw err;
-        res.send(results);
+        if (results.length != 1) throw err;
+        res.send(results[0]);
     });
 });
 
@@ -250,6 +251,7 @@ app.get('/tipos/:id', (req, res) => {
     const query = 'SELECT * FROM tipos WHERE id = ?';
     db.query(query, [id], (err, results) => {
         if (err) throw err;
+         if (results.length != 1) throw err;
         res.send(results);
     });
 });
@@ -258,6 +260,7 @@ app.get('/reuniones/:id_reunion', (req, res) => {
     const query = 'SELECT * FROM reuniones WHERE id_reunion = ?';
     db.query(query, [id_reunion], (err, results) => {
         if (err) throw err;
+        if (results.length != 1) throw err;
         res.send(results);
     });
 });
@@ -267,6 +270,7 @@ app.get('/matriculaciones/:id', (req, res) => {
     const query = 'SELECT * FROM matriculaciones WHERE id = ?';
     db.query(query, [id], (err, results) => {
         if (err) throw err;
+        if (results.length != 1) throw err;
         res.send(results);
     });
 });
@@ -276,6 +280,7 @@ app.get('/horarios/:id', (req, res) => {
     const query = 'SELECT * FROM horarios WHERE id = ?';
     db.query(query, [id], (err, results) => {
         if (err) throw err;
+        if (results.length != 1) throw err;
         res.send(results);
     });
 });
@@ -285,6 +290,7 @@ app.get('/ciclos/:id', (req, res) => {
     const query = 'SELECT * FROM ciclos WHERE id = ?';
     db.query(query, [id], (err, results) => {
         if (err) throw err;
+        if (results.length != 1) throw err;
         res.send(results);
     });
 });

@@ -9,7 +9,7 @@ import { TranslatePipe, TranslateDirective, TranslateService } from '@ngx-transl
 
 @Component({
   selector: 'app-login',
-  imports: [RouterOutlet,CommonModule,FormsModule, TranslateDirective, TranslatePipe],
+  imports: [CommonModule,FormsModule, TranslatePipe],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -21,7 +21,7 @@ export class Login {
   UserList:User[]=[];
   aurkituta=false;
   loginError = false;
-  errorMessage = '';
+
 
 
 userForm = new FormGroup({

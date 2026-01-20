@@ -81,7 +81,7 @@
                             <option [ngValue]="mota.id">{{ mota.name }}</option>
                         }
                     </select>
-                    <button id="atras" type="button" (click)="atzera()">{{ 'admin.btn_atras' | translate }}</button>
+                    <button class="atras" type="button" (click)="atzera()">{{ 'admin.btn_atras' | translate }}</button>
                     <button type="submit" [disabled]="!newUser.valid">
                         {{ 'admin.btn_guardar' | translate }}
                     </button>

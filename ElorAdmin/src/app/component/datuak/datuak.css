@@ -1,0 +1,42 @@
+.user-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 500px;
+  margin: 20px auto; /* Centrado */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: sans-serif;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.image-container img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover; /* Evita que la imagen se deforme */
+  border-radius: 50%; /* Imagen redonda */
+  border: 3px solid #3f51b5; /* Borde azul */
+}
+
+.user-info > div {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+.user-info > div:last-child {
+  border-bottom: none;
+}
+
+label strong {
+  color: #555;
+}

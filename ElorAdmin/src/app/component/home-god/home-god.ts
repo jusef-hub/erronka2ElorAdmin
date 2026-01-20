@@ -33,7 +33,7 @@ export class HomeGod {
   selected:string = "Guztiak";
   aukeratu:string[] = [];
   filteredList: User[] = []
-   UserList: User[] = [];
+  UserList: User[] = [];
   users$: Observable<User[]>;
   bilerak$: Observable<Reunion[]>;
   motak$: Observable<Tipo[]>;

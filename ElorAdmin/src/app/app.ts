@@ -3,21 +3,23 @@ import { RouterOutlet, Router } from '@angular/router';
 import { TranslateService, TranslatePipe, TranslateDirective } from '@ngx-translate/core';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, TranslatePipe],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('ElorAdmin');
-  public translate=inject(TranslateService);
-  constructor(){
+  title = signal('ElorAdmin');
+  public translate = inject(TranslateService);
+
+  constructor() {
     this.translate.addLangs(['eu', 'es']);
-    this.translate.setFallbackLang('es');
-    this.translate.use('es');
+    this.translate.setDefaultLang('eu'); 
+    this.translate.use('eu');
   }
-    aldatuHizkuntza(idioma:string){
-      console.log(idioma);
-      this.translate.use(idioma.toLowerCase());
-    }
+
+  aldatuHizkuntza(idioma: string) {
+    console.log("Cambiando a:", idioma);
+    this.translate.use(idioma);
+  }
   
 }

@@ -19,15 +19,15 @@ export class Moduloa {
     }
 
     addBilera(item: Modulo): Observable<Modulo> {
-      return this.http.post<Modulo>(this.apiUrl, item);
+      return this.http.post<Modulo>(this.apiUrl+'/modulos', item);
     }
 
     updateBilera(item: Modulo): Observable<Modulo> {
-     return this.http.put<Modulo>(`${this.apiUrl}/${item.id}`, item);
+     return this.http.put<Modulo>(`${this.apiUrl+'/modulos'}/${item.id}`, item);
     }
   
   
     deleteBilera(id: number): Observable<Modulo> {
-      return this.http.delete<Modulo>(`${this.apiUrl}/${id}`);
+      return this.http.delete<Modulo>(`${this.apiUrl+'/modulos'}/${id}`);
     }
 }

@@ -1,0 +1,87 @@
+/* CONTENEDOR GENERAL */
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* TÍTULO */
+.container h2 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* TABLA */
+.tabla-horario {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+/* CABECERA */
+.tabla-horario thead th {
+  background: linear-gradient(135deg, #004e92, #000428);
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px 8px 0 0;
+  font-weight: 600;
+}
+
+/* FILAS */
+.tabla-horario tbody tr {
+  border-bottom: 1px solid #ddd;
+  transition: background 0.2s;
+}
+
+.tabla-horario tbody tr:hover {
+  background-color: #f4f6f8;
+}
+
+/* CELDAS DE HORAS */
+.hora-celda {
+  font-weight: 500;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+}
+
+/* INFORMACIÓN DE LA CLASE */
+.clase-info {
+  background-color: #e1f0ff;
+  color: #003366;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 2px 0;
+}
+
+/* CELDAS */
+.tabla-horario td {
+  padding: 8px 6px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .tabla-horario thead th,
+  .tabla-horario td {
+    padding: 6px 4px;
+    font-size: 12px;
+  }
+
+  .clase-info {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+}

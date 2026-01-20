@@ -1,0 +1,50 @@
+@if (user$ | async; as user) {
+  <div class="user-card">
+    
+    <div class="image-container">
+      @if (user.argazkia_url) {
+        <img [src]="user.argazkia_url" [alt]="user.username">
+      } @else {
+        <p>{{ 'perfil.no_foto' | translate }}</p>
+      }
+    </div>
+
+    <div>
+      
+      <div>
+        <label><strong>{{ 'perfil.usuario' | translate }}:</strong></label>
+        <span> {{ user.username }} </span>
+      </div>
+
+      <div>
+        <label><strong>{{ 'perfil.nombre_apellidos' | translate }}:</strong></label>
+        <span> {{ user.nombre }} {{ user.apellidos }} </span>
+      </div>
+
+      <div>
+        <label><strong>{{ 'perfil.email' | translate }}:</strong></label>
+        <span> {{ user.email }} </span>
+      </div>
+
+      <div>
+        <label><strong>{{ 'perfil.telefono' | translate }}:</strong></label>
+        <span> {{ user.telefono1 }} </span>
+      </div>
+
+      @if (user.dni) {
+        <div>
+          <label><strong>{{ 'perfil.dni' | translate }}:</strong></label>
+          <span> {{ user.dni }} </span>
+        </div>
+      }
+
+      @if (user.direccion) {
+        <div>
+          <label><strong>{{ 'perfil.direccion' | translate }}:</strong></label>
+          <span> {{ user.direccion }} </span>
+        </div>
+      }
+
+    </div>
+  </div>
+}
