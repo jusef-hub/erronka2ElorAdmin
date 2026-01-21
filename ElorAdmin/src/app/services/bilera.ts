@@ -22,11 +22,11 @@ export class Bilera {
   }
 
   updateBilera(item: Reunion): Observable<Reunion> {
-   return this.http.put<Reunion>(`${this.apiUrl}/${item.id_reunion}`, item);
+   return this.http.put<Reunion>(`${this.apiUrl+'/reuniones'}/${item.id_reunion}`, item);
   }
 
 
   deleteBilera(id: number) {
-    return this.http.delete<Reunion>(`${this.apiUrl}/${id}`);
+    return this.http.delete<Reunion>(`${this.apiUrl+'/reuniones'}/${id}`);
   }
 }

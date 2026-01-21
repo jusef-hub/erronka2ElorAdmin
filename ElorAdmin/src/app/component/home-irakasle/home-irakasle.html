@@ -1,10 +1,10 @@
 <div>
     @if(user$| async; as user){
 
-            <div [routerLink]="['/irakasle', user.id, 'datuP', user.id]">{{ 'menu_irakasle.datos' | translate }}</div>
-            <div [routerLink]="['/irakasle', user.id, 'ordutegia', user.id]" >{{ 'menu_irakasle.horario' | translate }}</div>
-            <div [routerLink]="['/irakasle', user.id, 'bilera', user.id]">{{ 'menu_irakasle.reuniones' | translate }}</div>
-            <div [routerLink]="['/irakasle', user.id, 'ikasleak', user.id]">{{ 'menu_irakasle.alumnos' | translate }}</div>
+            <div [routerLink]="['/irakasle', user.id, 'datuP', user.id]">{{ 'menu_user.datos' | translate }}</div>
+            <div [routerLink]="['/irakasle', user.id, 'ordutegia', user.id]" >{{ 'menu_user.horario' | translate }}</div>
+            <div [routerLink]="['/irakasle', user.id, 'bilera', user.id]">{{ 'menu_user.reuniones' | translate }}</div>
+            <div [routerLink]="['/irakasle', user.id, 'ikasleak', user.id]">{{ 'menu_user.alumnos' | translate }}</div>
         
     }
 </div>
@@ -12,7 +12,7 @@
     @if(user.tipo_id==3){
         <router-outlet></router-outlet>
     }@else{
-        <p>{{ 'menu_irakasle.error_no_profesor' | translate }}</p>
+        <p>{{ 'menu_user.error_no_profesor' | translate }}</p>
     }
 
 }

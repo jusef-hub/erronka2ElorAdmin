@@ -1,1 +1,63 @@
-<p>ikasleak works!</p>
+<div class="ikasleak-container">
+  
+  <div class="header-section">
+    <h1>{{ 'ikasleak.titulo' | translate }}</h1>
+
+    <div class="orden-control">
+      <label for="orden">{{ 'ikasleak.ordenar_por' | translate }}</label>
+      <select 
+        id="orden" 
+        [(ngModel)]="criterioOrden" 
+        (change)="ordenarLista()"
+        class="form-select">
+          <option value="izena">{{ 'ikasleak.opcion_nombre' | translate }}</option>
+          <option value="apellidos">{{ 'ikasleak.opcion_apellidos' | translate }}</option>
+          <option value="email">Email</option>
+      </select>
+    </div>
+  </div>
+
+  @if(ikasleak$ | async; as ikasleak){
+    
+    <div class="table-responsive">
+      <table class="table table-striped" >
+        <thead>
+          <tr>
+            <th>{{ 'ikasleak.tabla.nombre' | translate }}</th>
+            <th>{{ 'ikasleak.tabla.apellidos' | translate }}</th>
+            <th>{{ 'ikasleak.tabla.email' | translate }}</th>
+            <th>{{ 'ikasleak.tabla.telefono' | translate }}</th>
+            <th>{{ 'ikasleak.tabla.direccion' | translate }}</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          @for(ikasle of ikasleak | paginate: { itemsPerPage: 10, currentPage: currentPage }; track ikasle.id) {
+            <tr>
+              <td>{{ ikasle.nombre }}</td>
+              <td>{{ ikasle.apellidos }}</td>
+              <td>{{ ikasle.email }}</td>
+              <td>{{ ikasle.telefono1 }}</td> 
+              <td>{{ ikasle.direccion }}</td> 
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    
+    @if(ikasleak.length > 0){
+      <div class="pagination-area">
+        <pagination-controls 
+          (pageChange)="currentPage = $event"
+          [previousLabel]="'ikasleak.paginacion.anterior' | translate"
+          [nextLabel]="'ikasleak.paginacion.siguiente' | translate">
+        </pagination-controls>
+      </div>
+    } @else {
+      <div class="alert alert-info">
+        {{ 'ikasleak.sin_resultados' | translate }}
+      </div>
+    }
+
+  }
+</div>

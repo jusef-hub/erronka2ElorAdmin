@@ -1,0 +1,155 @@
+/* =====================================
+   CONTENEDOR GENERAL (IGUAL QUE .container)
+   ===================================== */
+.container-bilerak {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* =====================================
+   TÍTULO
+   ===================================== */
+.container-bilerak h2 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* =====================================
+   TABLA (IGUAL QUE .tabla-horario)
+   ===================================== */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+/* =====================================
+   CABECERA
+   ===================================== */
+.table thead th {
+  background: linear-gradient(135deg, #004e92, #000428);
+  color: #ffffff;
+  padding: 10px;
+  font-weight: 600;
+}
+
+/* Bordes redondeados solo arriba */
+.table thead th:first-child {
+  border-radius: 8px 0 0 0;
+}
+
+.table thead th:last-child {
+  border-radius: 0 8px 0 0;
+}
+
+/* =====================================
+   FILAS
+   ===================================== */
+.table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  transition: background-color 0.2s;
+}
+
+.table tbody tr:hover {
+  background-color: #f4f6f8;
+}
+
+/* =====================================
+   CELDAS
+   ===================================== */
+.table td {
+  padding: 8px 6px;
+  vertical-align: middle;
+}
+
+/* =====================================
+   COLUMNA ESTADO
+   ===================================== */
+.td-estado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Badge (como clase-info) */
+.badge-texto {
+  background-color: #e1f0ff;
+  color: #003366;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Variantes de estado */
+.badge-texto.pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.badge-texto.aceptada {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge-texto.denegada {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.badge-texto.conflicto {
+  background-color: #e1f0ff;
+  color: #003366;
+}
+
+/* =====================================
+   SELECT
+   ===================================== */
+.select-estado {
+  font-size: 14px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #cccccc;
+}
+
+/* =====================================
+   ALERTA SIN REUNIONES
+   ===================================== */
+.alert-info {
+  background-color: #e1f0ff;
+  color: #003366;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* =====================================
+   RESPONSIVE
+   ===================================== */
+@media (max-width: 768px) {
+  .container-bilerak {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .table thead th,
+  .table td {
+    padding: 6px 4px;
+    font-size: 12px;
+  }
+
+  .td-estado {
+    flex-direction: column;
+    gap: 6px;
+  }
+}

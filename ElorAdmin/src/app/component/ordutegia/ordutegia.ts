@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common'; 
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -17,6 +17,9 @@ import { Users } from '../../services/users';
 export class Ordutegia {
   egutegiaService = inject(Egutegia);
   userService = inject(Users);
+  private cd = inject(ChangeDetectorRef);
+
+  esProfesor:boolean=false;
   
   dias = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES'];
 
@@ -38,9 +41,12 @@ export class Ordutegia {
       this.user$ = this.userService.getUserById(id);
       
       this.user$.subscribe(user => {
+        this.esProfesor = user.tipo_id===3
+        
         this.egutegiaService.getEgutegia().subscribe({
           next: (egutegiList: Horario[]) => {
             this.egutegia = egutegiList.filter(e => e.profe_id === user.id);
+            this.cd.detectChanges();
           }
         });
       });

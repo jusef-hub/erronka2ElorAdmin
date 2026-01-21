@@ -1,1 +1,63 @@
-<p>bilerak works!</p>
+<div class="container-bilerak">
+@if(currentUser){
+  <h2>
+    {{ 'bilerak.titulo_usuario' | translate: { nombre: currentUser.nombre } }}
+  </h2>
+}
+
+  @if (bilerak.length > 0) {
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{{ 'bilerak.tabla.fecha' | translate }}</th>
+            <th>{{ 'bilerak.tabla.asunto' | translate }}</th>
+            
+            <th>
+               {{ (esProfesor ? 'bilerak.tabla.alumno' : 'Profesor') | translate }}
+            </th>
+            
+            <th class="col-estado">{{ 'bilerak.tabla.estado' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (reunion of bilerak; track reunion.id_reunion) {
+            <tr>
+              <td>{{ reunion.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ reunion.asunto }}</td>
+              
+              <td><strong>{{ getNombreInterlocutor(reunion) }}</strong></td> 
+              
+              <td class="td-estado">
+                <div class="estado-container">
+                  
+                  <span class="badge-texto" [class]="reunion.estado">
+                    {{ reunion.estado | titlecase }}
+                  </span>
+
+                  @if (esProfesor) {
+                    <select 
+                      class="select-mini" 
+                      [value]="reunion.estado"
+                      (change)="actualizarDesdeSelect(reunion, $event)">
+                      
+                      <option [value]="eEstado.pendiente">Pendiente</option>
+                      <option [value]="eEstado.aceptada">Aceptada</option>
+                      <option [value]="eEstado.denegada">Denegada</option>
+                      <option [value]="eEstado.conflicto">Conflicto</option>
+                    </select>
+                  }
+                  
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="alert alert-info">
+      {{ 'bilerak.sin_reuniones' | translate }}
+    </div>
+  }
+</div>

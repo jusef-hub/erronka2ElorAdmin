@@ -40,12 +40,13 @@
     "dni": "NAN",
     "direccion": "Helbidea"
   },
-  "menu_irakasle": {
+  "menu_user": {
     "datos": "Datuak",
     "horario": "Ordutegia",
     "reuniones": "Bilerak",
     "alumnos": "Ikasleak",
-    "error_no_profesor": "Erabiltzaile hau ez da irakaslea"
+    "error_no_profesor": "Erabiltzaile hau ez da irakaslea",
+    "error_no_alumno": "Erabiltzaile hau ez de ikaslea"
   },
   "ordutegia": {
     "titulo": "Ordutegia:",
@@ -61,5 +62,33 @@
       "JUEVES": "Osteguna",
       "VIERNES": "Ostirala"
     }
+  }, 
+  "ikasleak": {
+    "titulo": "Ikasleen Zerrenda",
+    "ordenar_por": "Ordenatu honen arabera:",
+    "opcion_nombre": "Izena",
+    "opcion_apellidos": "Abizenak",
+    "tabla": {
+        "nombre": "Izena",
+        "apellidos": "Abizenak",
+        "email": "Posta",
+        "telefono": "Telefonoa",
+        "direccion": "Helbidea"
+    },
+    "paginacion": {
+        "anterior": "Aurrekoa",
+        "siguiente": "Hurrengoa"
+    },
+    "sin_resultados": "Ez da ikaslerik aurkitu."
+  },
+"bilerak": {
+  "titulo_usuario": "{{nombre}}-(r)en Bilerak",
+  "sin_reuniones": "Ez daukazu bilerarik programatuta.",
+  "tabla": {
+    "fecha": "Data eta Ordua",
+    "asunto": "Gaia",
+    "alumno": "Ikaslea",
+    "estado": "Egoera"
   }
+}
 }

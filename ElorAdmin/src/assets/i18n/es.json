@@ -40,12 +40,13 @@
     "dni": "DNI",
     "direccion": "Dirección"
   },
-  "menu_irakasle": {
+  "menu_user": {
     "datos": "Datos",
     "horario": "Horario",
     "reuniones": "Reuniones",
     "alumnos": "Alumnos",
-    "error_no_profesor": "Este usuario no es profesor"
+    "error_no_profesor": "Este usuario no es profesor",
+    "error_no_alumno": "Este usuario no es profesor"
   },
   "ordutegia": {
     "titulo": "Horario de:",
@@ -61,5 +62,33 @@
       "JUEVES": "Jueves",
       "VIERNES": "Viernes"
     }
+  },
+  "ikasleak": {
+    "titulo": "Listado de Alumnos",
+    "ordenar_por": "Ordenar por:",
+    "opcion_nombre": "Nombre",
+    "opcion_apellidos": "Apellidos",
+    "tabla": {
+        "nombre": "Nombre",
+        "apellidos": "Apellidos",
+        "email": "Email",
+        "telefono": "Teléfono",
+        "direccion": "Dirección"
+    },
+    "paginacion": {
+        "anterior": "Anterior",
+        "siguiente": "Siguiente"
+    },
+    "sin_resultados": "No se han encontrado alumnos."
+  },
+"bilerak": {
+  "titulo_usuario": "Reuniones de {{nombre}}",
+  "sin_reuniones": "No tienes ninguna reunión programada.",
+  "tabla": {
+    "fecha": "Fecha y Hora",
+    "asunto": "Asunto",
+    "alumno": "Alumno/a",
+    "estado": "Estado"
   }
+}
 }

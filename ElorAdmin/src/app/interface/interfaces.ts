@@ -20,9 +20,17 @@ export interface Tipo{
     name_eu: string;
 }
 
+export enum Estado {
+  pendiente = 'pendiente',
+  aceptada = 'aceptada',
+  denegada = 'denegada',
+  conflicto = 'conflicto',
+}
+
+
 export interface Reunion{
     id_reunion: number;
-    estado: string;
+    estado: Estado;
     estado_eus?: string;
     profesor_id?: number;
     alumno_id: number;
@@ -46,7 +54,7 @@ export interface Modulo{
 
 export interface Matriculacion{
     id:number;
-    akum_id:number;
+    alum_id:number;
     ciclo_id:number;
     curso:number;
     fecha:Date;
