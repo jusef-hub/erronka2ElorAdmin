@@ -1,58 +1,75 @@
 <body>
-    <div id="aukeratuZentroa">
-        <h2>Aukeratu Zentroa</h2>
-@if(user){
-        <div id="lista">
-        <ul>
-            @if (ikastetxeak$| async; as zerrenda){
-                @for (ikastetxea of zerrenda; track ikastetxea.CCEN) {
-                    <div id="zentroa">
-                    <li>{{ ikastetxea.NOM }}
-                        <div id="aukerak">
-                            <img (click)="cargarMapa(ikastetxea.LATITUD, ikastetxea.LONGITUD)" src="lupa.png" width="20px">
-                            <button  type="button">+</button>
-                        </div>
-                    </li>
-                    </div>
-                    
-                }
-            }@else{
-                <p>Cargando datos...</p>
-            }
-        </ul>
-        </div>
-       <div id="mapa">
-            @if (mapaUrl) {
-                <iframe 
-                    [src]="mapaUrl" 
-                    width="100%" 
-                    height="450" 
-                    frameborder="0" 
-                    style="border:0;" 
-                    allowfullscreen>
-                </iframe>
-            } @else {
-                <p>Haz clic en un centro para ver su ubicación.</p>
-            }
-        </div>
-    }
-    </div>
-    <div id="aukeratuIrakaslea">
-        @if(irakasleak$| async; as zerrenda){
-            @for(irakaslea of zerrenda; track irakaslea.id){
-                <div id="zentroa">
-                    <li>{{ irakaslea.nombre }} {{irakaslea.apellidos}}
-                        <div id="aukerak">
-                            <button  type="button">+</button>
-                        </div>
-                        </li>
-                        </div>
-            }
-        }
-        <div id="aukeratuEguna">
-            
-        </div>
+  <form [formGroup]="bileraForm" (ngSubmit)="guardarReunion()">
+    
+    <div id="contenedor-principal">
+      
+      <div id="aukeratuZentroa">
+        <h2>1. Aukeratu Zentroa</h2>
         
+        <div id="lista-centros">
+          <ul>
+            @if (ikastetxeak$ | async; as zerrenda) {
+              @for (ikastetxea of zerrenda; track ikastetxea.CCEN) {
+                <li (click)="seleccionarCentro(ikastetxea)" 
+                    [class.seleccionado]="bileraForm.get('centroId')?.value === ikastetxea.CCEN">
+                  
+                  <span>{{ ikastetxea.NOM }}</span>
+                  <button type="button" class="btn-select">+</button>
+                </li>
+              }
+            } @else {
+              <p>Cargando centros...</p>
+            }
+          </ul>
+        </div>
+
+        <div id="mapa">
+          @if (mapaUrl) {
+            <iframe [src]="mapaUrl" width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen></iframe>
+          } @else {
+            <div class="mapa-placeholder">Aukeratu zentro bat mapan ikusteko</div>
+          }
+        </div>
+      </div>
+
+      <div id="aukeratuIrakaslea">
+        <h2>2. Aukeratu Irakaslea</h2>
+        <div id="lista-profes">
+          <ul>
+            @if (irakasleak$ | async; as zerrenda) {
+              @for (irakaslea of zerrenda; track irakaslea.id) {
+                
+                <li (click)="seleccionarProfesor(irakaslea)"
+                    [class.seleccionado]="bileraForm.get('profesorId')?.value === irakaslea.id">
+                  
+                  <span>{{ irakaslea.nombre }} {{ irakaslea.apellidos }}</span>
+                  <button type="button" class="btn-select">+</button>
+                </li>
+              }
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div id="aukeratuData">
+        <h2>3. Eguna eta Ordua</h2>
+        
+        <div class="input-group">
+          <label>Eguna:</label>
+          <input type="date" formControlName="fecha">
+        </div>
+
+        <div class="input-group">
+          <label>Ordua:</label>
+          <input type="time" formControlName="hora">
+        </div>
+      </div>
 
     </div>
-    </body>
+
+    <button type="submit" [disabled]="!bileraForm.valid" class="btn-guardar">
+      Sortu Bilera
+    </button>
+
+  </form>
+</body>
