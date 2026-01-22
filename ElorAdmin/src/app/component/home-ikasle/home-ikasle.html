@@ -1,11 +1,11 @@
 <div>
-    @if(user$ | async; as user){
-    <div  [routerLink]="['/ikasle', user.id, 'datuP', user.id]">{{ 'menu_user.datos' | translate }}</div>
-    <div [routerLink]="['/ikasle', user.id, 'ordutegia', user.id]">{{ 'menu_user.horario' | translate }}</div>
-    <div [routerLink]="['/ikasle', user.id, 'bilera', user.id]">{{ 'menu_user.reuniones' | translate }}</div>
+    @if(user){
+    <div  [routerLink]="['/ikasle', user.id, 'datuP']">{{ 'menu_user.datos' | translate }}</div>
+    <div [routerLink]="['/ikasle', user.id, 'ordutegia']">{{ 'menu_user.horario' | translate }}</div>
+    <div [routerLink]="['/ikasle', user.id, 'bilera']">{{ 'menu_user.reuniones' | translate }}</div>
     }
 </div>
-@if(user$ | async; as user){
+@if(user){
     @if(user.tipo_id==4){
         <router-outlet></router-outlet>
     }@else{

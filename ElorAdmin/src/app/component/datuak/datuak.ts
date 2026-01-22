@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { User } from '../../interface/interfaces';
 import { Users } from '../../services/users';
 import { Observable } from 'rxjs';
@@ -15,17 +15,16 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 export class Datuak {
   userService=inject(Users);
   private translate=inject(TranslateService)
-  user$!: Observable<User>;
-  originalUser!: User;
+  user: User| undefined;
+    private cd = inject(ChangeDetectorRef);
 
   constructor(private router:Router, private route:ActivatedRoute){
-    this.route.params.subscribe(params => {
-      const id = +params['id'];
-      this.user$ = this.userService.getUserById(id);
-      this.user$.subscribe(user => {
-        this.originalUser=user;
-        console.log(user);
-      });
-    });
+   let datuak = sessionStorage.getItem('usuarioLogueado');
+    
+    if (datuak) {
+      this.user = JSON.parse(datuak);
+      console.log(this.user)
+      
+    }
   }
 }

@@ -46,8 +46,10 @@ userForm = new FormGroup({
   login(){
     for (let i=0;i<this.UserList.length;i++){
       if(this.userForm.value.email==this.UserList[i].email && this.userForm.value.password==this.UserList[i].password){
+        const erabiltzailea=this.UserList[i]
         this.aurkituta=true;
         console.log("Login exitoso");
+        sessionStorage.setItem('usuarioLogueado', JSON.stringify(erabiltzailea) )
         const id= this.UserList[i].id;
         const tipoid= this.UserList[i].tipo_id;
         switch(tipoid){
@@ -68,10 +70,7 @@ userForm = new FormGroup({
             return;
           
           }
-       
-
-        
-        break;
+  return;
       }
     }
     this.loginError = true;

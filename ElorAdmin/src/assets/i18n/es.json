@@ -89,6 +89,7 @@
     "asunto": "Asunto",
     "alumno": "Alumno/a",
     "estado": "Estado"
-  }
+  },
+  "boton_anadir":"Solicitar una reunion"
 }
 }

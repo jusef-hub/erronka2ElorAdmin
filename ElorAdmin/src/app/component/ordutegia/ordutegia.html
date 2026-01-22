@@ -1,7 +1,7 @@
 <div class="container">
-  @if(user$ | async; as user) {
+  @if(currentUser) {
     
-    <h2>{{ 'ordutegia.titulo' | translate }} {{ user.nombre }}</h2>
+    <h2>{{ 'ordutegia.titulo' | translate }} {{ currentUser.nombre }}</h2>
 
     <table class="tabla-horario" id="taula">
       <thead>
@@ -17,13 +17,22 @@
         @for (franja of franjasHorarias; track franja.id) {
           <tr>
             <td class="hora-celda">{{ franja.texto }}</td>
+            
             @for (dia of dias; track dia) {
               <td>
-                @let clase = getClase(dia, franja.id);
-                @if (clase) {
+                @if (getClase(dia, franja.id); as clase) {
                   <div class="clase-info">
-                    <strong>{{ 'ordutegia.tabla.modulo' | translate }}: {{ clase.modulo_id }}</strong><br>
-                    <span>{{ 'ordutegia.tabla.aula' | translate }}: {{ clase.aula }}</span>
+                    
+                    <strong>
+                      {{ 'ordutegia.tabla.modulo' | translate }}: {{ clase.modulo_id }}
+                    </strong>
+                    <br>
+
+                    @if (clase.aula) {
+                      <span>
+                        {{ 'ordutegia.tabla.aula' | translate }}: {{ clase.aula }}
+                      </span>
+                    }
                   </div>
                 }
               </td>

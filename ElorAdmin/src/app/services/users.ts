@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Users {
-   private apiUrl='http://localhost:3000';
+   private apiUrl='http://localhost:3004';
     http: HttpClient=inject(HttpClient);
   
     getUser(): Observable<UserI[]> {

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root',
 })
 export class Mota {
-   private apiUrl='http://localhost:3000';
+   private apiUrl='http://localhost:3004';
     http: HttpClient=inject(HttpClient);
   
     getMota():  Observable<Tipo[]> {
@@ -19,15 +19,15 @@ export class Mota {
     }
 
     addMota(item: Tipo): Observable<Tipo> {
-      return this.http.post<Tipo>(this.apiUrl, item);
+      return this.http.post<Tipo>(this.apiUrl+'/tipos', item);
     }
 
     updateMota(item: Tipo): Observable<Tipo> {
-     return this.http.put<Tipo>(`${this.apiUrl}/${item.id}`, item);
+     return this.http.put<Tipo>(`${this.apiUrl+'/tipos'}/${item.id}`, item);
     }
   
   
     deleteMota(id: number): Observable<Tipo> {
-      return this.http.delete<Tipo>(`${this.apiUrl}/${id}`);
+      return this.http.delete<Tipo>(`${this.apiUrl+'/tipos'}/${id}`);
     }
 }

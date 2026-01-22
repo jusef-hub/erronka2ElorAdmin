@@ -1,9 +1,17 @@
 <div class="container-bilerak">
-@if(currentUser){
-  <h2>
-    {{ 'bilerak.titulo_usuario' | translate: { nombre: currentUser.nombre } }}
-  </h2>
-}
+  @if(currentUser; as user){
+    <div class="header-container">
+      <h2>
+        {{ 'bilerak.titulo_usuario' | translate: { nombre: user.nombre } }}
+      </h2>
+
+      @if (!esProfesor) {
+        <button class="btn btn-primary" [routerLink]="['/ikasle', user.id, 'addBilerak']">
+           {{ 'bilerak.boton_anadir' | translate }} 
+        </button>
+      }
+    </div>
+  }
 
   @if (bilerak.length > 0) {
     <div class="table-responsive">
@@ -12,11 +20,9 @@
           <tr>
             <th>{{ 'bilerak.tabla.fecha' | translate }}</th>
             <th>{{ 'bilerak.tabla.asunto' | translate }}</th>
-            
             <th>
                {{ (esProfesor ? 'bilerak.tabla.alumno' : 'Profesor') | translate }}
             </th>
-            
             <th class="col-estado">{{ 'bilerak.tabla.estado' | translate }}</th>
           </tr>
         </thead>
@@ -25,12 +31,9 @@
             <tr>
               <td>{{ reunion.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
               <td>{{ reunion.asunto }}</td>
-              
               <td><strong>{{ getNombreInterlocutor(reunion) }}</strong></td> 
-              
               <td class="td-estado">
                 <div class="estado-container">
-                  
                   <span class="badge-texto" [class]="reunion.estado">
                     {{ reunion.estado | titlecase }}
                   </span>
@@ -40,14 +43,12 @@
                       class="select-mini" 
                       [value]="reunion.estado"
                       (change)="actualizarDesdeSelect(reunion, $event)">
-                      
                       <option [value]="eEstado.pendiente">Pendiente</option>
                       <option [value]="eEstado.aceptada">Aceptada</option>
                       <option [value]="eEstado.denegada">Denegada</option>
                       <option [value]="eEstado.conflicto">Conflicto</option>
                     </select>
                   }
-                  
                 </div>
               </td>
             </tr>

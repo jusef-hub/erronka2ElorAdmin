@@ -8,22 +8,21 @@ import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home-ikasle',
-  imports: [RouterLink, RouterOutlet, AsyncPipe, TranslatePipe],
+  imports: [RouterLink, RouterOutlet, TranslatePipe],
   templateUrl: './home-ikasle.html',
   styleUrl: './home-ikasle.css',
 })
 export class HomeIkasle {
   userService=inject(Users)
   private translate=inject(TranslateService)
-  user$!:Observable<User>
+  user:User |undefined
 
-  constructor(private router:Router, private route:ActivatedRoute){
-    this.route.params.subscribe(params => {
-      const id = +params['id'];
-      this.user$ = this.userService.getUserById(id);
-      this.user$.subscribe(user => {
-        console.log(user);
-      });
-    });
+  constructor(){
+    let datuak = sessionStorage.getItem('usuarioLogueado');
+    
+    if (datuak) {
+      this.user = JSON.parse(datuak);
+      console.log(this.user)
+    }
   }
 }

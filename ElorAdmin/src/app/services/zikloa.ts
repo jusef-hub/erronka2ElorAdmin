@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Zikloa {
-   private apiUrl='http://localhost:3000';
+   private apiUrl='http://localhost:3004';
     http: HttpClient=inject(HttpClient);
 
     getZikloa():Observable<Ciclo[]> {
@@ -19,15 +19,15 @@ export class Zikloa {
     }
 
     addZikloa(item: Ciclo): Observable<Ciclo> {
-      return this.http.post<Ciclo>(this.apiUrl, item);
+      return this.http.post<Ciclo>(this.apiUrl+'/ciclos', item);
     }
 
     updateZikloa(item: Ciclo) {
-     return this.http.put<Ciclo>(`${this.apiUrl}/${item.id}`, item);
+     return this.http.put<Ciclo>(`${this.apiUrl+'/ciclos'}/${item.id}`, item);
     }
 
 
     deleteZikloa(id: number): Observable<Ciclo>{
-      return this.http.delete<Ciclo>(`${this.apiUrl}/${id}`);
+      return this.http.delete<Ciclo>(`${this.apiUrl+'/ciclos'}/${id}`);
     }
 }

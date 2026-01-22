@@ -3,6 +3,8 @@
   <div id="nav">
     <img src="logo.png" id="logo" width="200px" alt="Logo Elorrieta">
     
+    <button [routerLink]="['']" type="button">Log out</button>
+
     <select id="aukeratu" #langSelect (change)="aldatuHizkuntza(langSelect.value)">
       <option value="es" [selected]="translate.currentLang === 'es'">ES</option>
       <option value="eu" [selected]="translate.currentLang === 'eu'">EU</option>

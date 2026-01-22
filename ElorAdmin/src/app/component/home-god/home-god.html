@@ -34,10 +34,12 @@
                 @for (user of filteredList|paginate:{ itemsPerPage: 10, currentPage: currentPage }; track user.id ) {
                     <li>
                         {{ user.nombre }} - {{ user.email }}
-                        <div>
-                            <img id="modifikatu" (click)="formMod(user)" src="editar.png" width="15">
-                            <button id="Kendu" (click)="kendu(user.id)">X</button>
-                        </div>    
+                        @if(user.tipo_id!=1){
+                            <div>
+                                <img id="modifikatu" (click)="formMod(user)" src="editar.png" width="15">
+                                <button id="Kendu" (click)="kendu(user.id)">X</button>
+                            </div>
+                        }    
                     </li>
                 }
             </ul>
@@ -102,8 +104,10 @@
                     
                     <input type="text" formControlName="nombre" 
                            [placeholder]="'admin.placeholder_nombre' | translate" >
+
                     <input type="text" formControlName="apellidos" 
                             [placeholder]="'admin.placeholder_apellido' | translate" >
+
                     <input type="text" formControlName="dni" 
                            [placeholder]="'admin.placeholder_dni' | translate">
                     

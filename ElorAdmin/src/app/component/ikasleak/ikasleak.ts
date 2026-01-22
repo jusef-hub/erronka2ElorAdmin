@@ -29,9 +29,9 @@ export class Ikasleak {
   criterioOrden: string = 'izena'; 
 
   constructor(private router: Router, private route: ActivatedRoute) {
-    this.route.params.subscribe(params => {
-      const id = +params['id'];
-      if (id) {
+    let datuak=sessionStorage.getItem('usuarioLogueado');
+      if (datuak) {
+        let user$ =JSON.parse(datuak)
         this.userService.getUser().subscribe((users: User[]) => {
             
             const alumnosFiltrados = users.filter(u => u.tipo_id == 4);
@@ -39,7 +39,7 @@ export class Ikasleak {
             this.ikasleakSubject.next(alumnosFiltrados);
         });
       }
-    });
+    
   }
 
   ordenarLista() {

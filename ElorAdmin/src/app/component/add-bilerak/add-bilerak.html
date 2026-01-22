@@ -1,0 +1,58 @@
+<body>
+    <div id="aukeratuZentroa">
+        <h2>Aukeratu Zentroa</h2>
+@if(user){
+        <div id="lista">
+        <ul>
+            @if (ikastetxeak$| async; as zerrenda){
+                @for (ikastetxea of zerrenda; track ikastetxea.CCEN) {
+                    <div id="zentroa">
+                    <li>{{ ikastetxea.NOM }}
+                        <div id="aukerak">
+                            <img (click)="cargarMapa(ikastetxea.LATITUD, ikastetxea.LONGITUD)" src="lupa.png" width="20px">
+                            <button  type="button">+</button>
+                        </div>
+                    </li>
+                    </div>
+                    
+                }
+            }@else{
+                <p>Cargando datos...</p>
+            }
+        </ul>
+        </div>
+       <div id="mapa">
+            @if (mapaUrl) {
+                <iframe 
+                    [src]="mapaUrl" 
+                    width="100%" 
+                    height="450" 
+                    frameborder="0" 
+                    style="border:0;" 
+                    allowfullscreen>
+                </iframe>
+            } @else {
+                <p>Haz clic en un centro para ver su ubicación.</p>
+            }
+        </div>
+    }
+    </div>
+    <div id="aukeratuIrakaslea">
+        @if(irakasleak$| async; as zerrenda){
+            @for(irakaslea of zerrenda; track irakaslea.id){
+                <div id="zentroa">
+                    <li>{{ irakaslea.nombre }} {{irakaslea.apellidos}}
+                        <div id="aukerak">
+                            <button  type="button">+</button>
+                        </div>
+                        </li>
+                        </div>
+            }
+        }
+        <div id="aukeratuEguna">
+            
+        </div>
+        
+
+    </div>
+    </body>

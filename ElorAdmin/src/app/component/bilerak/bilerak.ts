@@ -4,12 +4,12 @@ import { Bilera } from '../../services/bilera';
 import { Users } from '../../services/users';
 import { Reunion, User, Estado } from '../../interface/interfaces';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-bilerak',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, RouterLink],
   templateUrl: './bilerak.html',
   styleUrl: './bilerak.css',
 })
@@ -31,28 +31,32 @@ export class Bilerak {
   esProfesor: boolean = false;
 
   constructor() {
-    this.route.params.subscribe(params => {
-      const id = +params['id']; 
-      
+    let datuak=sessionStorage.getItem('usuarioLogueado');
+    if(datuak){
+      this.currentUser=JSON.parse(datuak)
+      if(this.currentUser){
+        this.esProfesor= this.currentUser.tipo_id===3;
+        this.datuakKargatu()
+      }
+    }
+        }
 
-      this.userService.getUserById(id).subscribe({
-        next: (user) => {
-          this.currentUser = user;
-          this.esProfesor = this.currentUser.tipo_id === 3; 
-
-          this.userService.getUser().subscribe({
+  datuakKargatu(){
+    this.userService.getUser().subscribe({
             next: (allUsers) => {
               this.listaUsuarios = allUsers;
 
               this.bileraService.getBilera().subscribe({
                 next: (allBilerak) => {
                   let misReuniones: Reunion[] = [];
-
+                  if(this.currentUser){
+                    const erabiltzaile=this.currentUser
                   if (this.esProfesor) {
-                    misReuniones = allBilerak.filter(b => b.profesor_id === user.id);
+                    misReuniones = allBilerak.filter(b => b.profesor_id === erabiltzaile.id);
                   } else {
-                    misReuniones = allBilerak.filter(b => b.alumno_id === user.id);
+                    misReuniones = allBilerak.filter(b => b.alumno_id === erabiltzaile.id);
                   }
+                }
 
                   // Normalizar el estado a minúsculas para evitar errores
                   this.bilerak = misReuniones.map(r => {
@@ -62,14 +66,10 @@ export class Bilerak {
 
                   this.cd.detectChanges();
                 },
-                error: (e) => console.error('Error cargando reuniones', e)
-              });
-            },
-            error: (e) => console.error('Error cargando usuarios', e)
-          });
-        },
-        error: (e) => console.error('Error cargando usuario actual', e)
-      });
+          error: (e) => console.error('Error cargando reuniones', e)
+        });
+      },
+      error: (e) => console.error('Error cargando usuarios', e)
     });
   }
 
@@ -108,5 +108,9 @@ export class Bilerak {
         alert('Error al guardar el estado.');
       }
     });
+  }
+
+  Logina(){
+
   }
 }

@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
       }),
       defaultLanguage:'es',
       fallbackLang:'es',
-      lang:'es'
+      lang: localStorage.getItem('lang') || 'es'
     })
   ]
 };

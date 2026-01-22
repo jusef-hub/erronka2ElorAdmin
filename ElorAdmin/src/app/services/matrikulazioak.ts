@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root',
 })
 export class Matrikulazioak {
-   private apiUrl='http://localhost:3000';
+   private apiUrl='http://localhost:3004';
     http: HttpClient=inject(HttpClient);
   
     getMatrikulazioak(): Observable<Matriculacion[]> {

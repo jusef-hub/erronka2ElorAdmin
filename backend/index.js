@@ -90,20 +90,20 @@ app.post('/users', (req, res) => {
     const query = 'INSERT INTO users SET ?';
     db.query(query, newItem, (err, results) => {
         if (err) {
-            // 🛑 ESTO EVITA QUE SE CIERRE EL SERVIDOR
-            console.error("❌ Error SQL:", err.sqlMessage); // Muestra el error en la terminal
-            return res.status(500).json({ error: err.sqlMessage }); // Avisa a Angular
+            console.error("Error SQL:", err.sqlMessage); 
+            return res.status(500).json({ error: err.sqlMessage });
         }
-        
-        // Si todo va bien
         res.send({ id: results.insertId, ...newItem });
     });
 });
 app.post('/reuniones', (req, res) => {
     const newItem = req.body;
     const query = 'INSERT INTO reuniones SET ?';
-    db.query(query, newItem, (err, results) => {
-        if (err) throw err;
+     db.query(query, newItem, (err, results) => {
+        if (err) {
+            console.error("Error SQL:", err.sqlMessage); 
+            return res.status(500).json({ error: err.sqlMessage });
+        }
         res.send({ id: results.insertId, ...newItem });
     });
 });
@@ -112,7 +112,10 @@ app.post('/modulos', (req, res) => {
     const newItem = req.body;
     const query = 'INSERT INTO modulos SET ?';
     db.query(query, newItem, (err, results) => {
-        if (err) throw err;
+        if (err) {
+            console.error("Error SQL:", err.sqlMessage); 
+            return res.status(500).json({ error: err.sqlMessage });
+        }
         res.send({ id: results.insertId, ...newItem });
     });
 });
@@ -120,7 +123,10 @@ app.post('/matriculaciones', (req, res) => {
     const newItem = req.body;
     const query = 'INSERT INTO matriculaciones SET ?';
     db.query(query, newItem, (err, results) => {
-        if (err) throw err;
+        if (err) {
+            console.error("Error SQL:", err.sqlMessage); 
+            return res.status(500).json({ error: err.sqlMessage });
+        }
         res.send({ id: results.insertId, ...newItem });
     });
 });
@@ -129,7 +135,10 @@ app.post('/horarios', (req, res) => {
     const newItem = req.body;
     const query = 'INSERT INTO horarios SET ?';
     db.query(query, newItem, (err, results) => {
-        if (err) throw err;
+        if (err) {
+            console.error("Error SQL:", err.sqlMessage); 
+            return res.status(500).json({ error: err.sqlMessage });
+        }
         res.send({ id: results.insertId, ...newItem });
     });
 });
@@ -297,8 +306,8 @@ app.get('/ciclos/:id', (req, res) => {
 
 
 
-// Iniciar el servidor
-const PORT = 3000;
+
+const PORT = 3004;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

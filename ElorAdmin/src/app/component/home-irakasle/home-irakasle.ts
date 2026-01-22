@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { User } from '../../interface/interfaces';
 import { Users } from '../../services/users';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
@@ -13,16 +13,18 @@ import { AsyncPipe } from '@angular/common';
 })
 export class HomeIrakasle {
   userService=inject(Users)
+  cd=inject(ChangeDetectorRef)
   private translate=inject(TranslateService)
   user$!:Observable<User>
+  user:User | undefined
 
-  constructor(private router:Router, private route:ActivatedRoute){
-    this.route.params.subscribe(params => {
-      const id = +params['id'];
-      this.user$ = this.userService.getUserById(id);
-      this.user$.subscribe(user => {
-        console.log(user);
-      });
-    });
+
+  constructor(){
+    let datuak = sessionStorage.getItem('usuarioLogueado');
+    
+    if (datuak) {
+      this.user = JSON.parse(datuak);
+      console.log(this.user)
+    }
   }
 }
