@@ -1,87 +1,115 @@
-/* CONTENEDOR GENERAL */
+/* 1. CONTENEDOR PRINCIPAL */
 .container {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 2rem auto;
-  padding: 1.5rem;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  padding: 0 1rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: auto; /* IMPORTANTE: Permite scroll horizontal en móviles */
 }
 
-/* TÍTULO */
-.container h2 {
-  text-align: center;
-  color: #003366;
+/* 2. TÍTULO */
+h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
   margin-bottom: 1.5rem;
-  font-weight: 600;
+  border-bottom: 3px solid #4a90e2;
+  display: inline-block;
+  padding-bottom: 5px;
 }
 
-/* TABLA */
+/* 3. ESTRUCTURA DE LA TABLA */
 .tabla-horario {
   width: 100%;
-  border-collapse: collapse;
-  text-align: center;
+  border-collapse: collapse; /* Elimina espacios entre bordes */
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  table-layout: fixed; /* IMPORTANTE: Hace que todas las columnas de días midan lo mismo */
+  min-width: 800px; /* Asegura que no se aplaste demasiado en móviles */
 }
 
-/* CABECERA */
-.tabla-horario thead th {
-  background: linear-gradient(135deg, #004e92, #000428);
-  color: #fff;
-  padding: 10px;
-  border-radius: 8px 8px 0 0;
-  font-weight: 600;
-}
-
-/* FILAS */
-.tabla-horario tbody tr {
-  border-bottom: 1px solid #ddd;
-  transition: background 0.2s;
-}
-
-.tabla-horario tbody tr:hover {
-  background-color: #f4f6f8;
-}
-
-/* CELDAS DE HORAS */
-.hora-celda {
-  font-weight: 500;
-  background-color: #f0f0f0;
-  border-radius: 6px;
-}
-
-/* INFORMACIÓN DE LA CLASE */
-.clase-info {
-  background-color: #e1f0ff;
-  color: #003366;
-  padding: 6px 8px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  margin: 2px 0;
-}
-
-/* CELDAS */
+/* Bordes generales de celdas */
+.tabla-horario th, 
 .tabla-horario td {
-  padding: 8px 6px;
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle; /* Contenido centrado verticalmente */
 }
 
-/* RESPONSIVE */
+/* 4. CABECERA (Días de la semana) */
+.tabla-horario thead th {
+  background-color: #2c3e50; /* Fondo oscuro */
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding: 15px;
+  letter-spacing: 1px;
+}
+
+/* 5. PRIMERA COLUMNA (Las Horas) */
+.hora-celda {
+  background-color: #f8f9fa; /* Gris muy clarito */
+  color: #555;
+  font-weight: bold;
+  width: 100px; /* Ancho fijo para la columna de hora */
+  font-size: 0.9rem;
+}
+
+/* 6. CELDAS CON CLASE (Contenido) */
+/* Estilo del div .clase-info que envuelve el texto */
+.clase-info {
+  background-color: #eef6fc; /* Fondo azul muy pálido */
+  border-left: 4px solid #4a90e2; /* Borde azul a la izquierda para destacar */
+  padding: 8px;
+  border-radius: 4px;
+  text-align: left; /* Texto alineado a la izquierda queda mejor aquí */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+/* Efecto al pasar el ratón por encima de una clase */
+.clase-info:hover {
+  background-color: #ddebf7;
+  transform: translateY(-2px); /* Pequeña elevación */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Texto del Módulo (Negrita) */
+.clase-info strong {
+  color: #2c3e50;
+  font-size: 0.95rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Texto del Aula (Más pequeño) */
+.clase-info span {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+/* 7. RESPONSIVE (Móviles) */
 @media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-    margin: 1rem;
-  }
-
-  .tabla-horario thead th,
+  /* En móviles, reducimos el padding para ganar espacio */
+  .tabla-horario th, 
   .tabla-horario td {
-    padding: 6px 4px;
-    font-size: 12px;
+    padding: 5px;
+  }
+  
+  .hora-celda {
+    width: 70px;
+    font-size: 0.8rem;
   }
 
-  .clase-info {
-    font-size: 12px;
-    padding: 4px 6px;
+  .clase-info strong {
+    font-size: 0.8rem;
+  }
+  
+  .clase-info span {
+    font-size: 0.75rem;
   }
 }

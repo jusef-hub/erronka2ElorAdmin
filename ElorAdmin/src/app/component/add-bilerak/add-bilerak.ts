@@ -1,88 +1,147 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router'; 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User, Ikastetxea } from '../../interface/interfaces';
+import { User, Ikastetxea, Reunion, Estado } from '../../interface/interfaces';
 import { Users } from '../../services/users';
 import { Ikastetxeak } from '../../services/ikastetxeak';
-import { AsyncPipe, NgClass } from '@angular/common'; // Importar NgClass
+import { AsyncPipe, NgClass } from '@angular/common'; 
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Bilera } from '../../services/bilera';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-bilerak',
   standalone: true,
-  imports: [RouterLink, AsyncPipe, ReactiveFormsModule, NgClass], // Añadir ReactiveFormsModule y NgClass
+  imports: [AsyncPipe, ReactiveFormsModule, TranslatePipe, FormsModule], 
   templateUrl: './add-bilerak.html',
   styleUrl: './add-bilerak.css',
 })
 export class AddBilerak {
-  // Inyecciones
   private userService = inject(Users);
   private ikastetxeService = inject(Ikastetxeak);
   private sanitizer = inject(DomSanitizer);
-  private fb = inject(FormBuilder);
+  private bileraService = inject(Bilera);
+  private translate=inject(TranslateService)
 
-  // Variables de datos
   user: User | undefined;
   irakasleak$!: Observable<User[]>;
   ikastetxeak$!: Observable<Ikastetxea[]>;
+  bilerak$!: Observable<Reunion[]>;
+  bilerak: Reunion[] = [];
+  filteredList:Ikastetxea[]=[]
+  allIkastetxeak: Ikastetxea[] = [];
   mapaUrl: SafeResourceUrl | undefined;
 
-  // Formulario
-  bileraForm: FormGroup;
+  selected: string = "Guztiak";
+  aukeratu: string[] = [];
+
+  bileraForm = new FormGroup({
+     centro: new FormControl<number | null>(null, [Validators.required]),  
+     profesorId: new FormControl<number | null>(null, [Validators.required]),
+     fecha: new FormControl('', [Validators.required]),
+     hora: new FormControl('', [Validators.required])
+  });
 
   constructor() {
-    // 1. Inicializar Formulario
-    this.bileraForm = this.fb.group({
-      centroId: ['', Validators.required],   // Guardará el CCEN
-      profesorId: ['', Validators.required], // Guardará el ID del profe
-      fecha: ['', Validators.required],
-      hora: ['', Validators.required]
-    });
-
-    // 2. Cargar Usuario Logueado
-    let datuak = sessionStorage.getItem('usuarioLogueado');
+    const datuak = sessionStorage.getItem('usuarioLogueado');
     if (datuak) {
       this.user = JSON.parse(datuak);
     }
 
-    // 3. Cargar Centros
     this.ikastetxeak$ = this.ikastetxeService.getIkastetxeak();
+    this.ikastetxeak$.subscribe({
+      next: (data) => {
+        
+        this.allIkastetxeak = data;      
+        this.filteredList = [...data];   
+        this.aukeratu=[...new Set(this.allIkastetxeak.map(i=>i.DTERRC))]
+      },
+      error: (err) => console.error('Errorea:', err)
+    });
 
-    // 4. Cargar Profesores (Filtrando correctamente con pipe y map)
-    // Esto asegura que el HTML solo reciba los tipo_id 3
     this.irakasleak$ = this.userService.getUser().pipe(
       map(users => users.filter(u => u.tipo_id === 3))
     );
+
+
+    this.bilerak$ = this.bileraService.getBilera();
+    this.bilerak$.subscribe({
+      next: (allBilerak) => {
+        this.bilerak = allBilerak;
+      }
+    });
   }
 
-  // --- MÉTODOS DE SELECCIÓN ---
-
   seleccionarCentro(centro: Ikastetxea) {
-    this.bileraForm.patchValue({ centroId: centro.CCEN }); // Guardar en formulario
-    this.cargarMapa(centro.LATITUD, centro.LONGITUD);      // Actualizar mapa
+
+    this.bileraForm.patchValue({ centro: centro.CCEN });
+    
+
+    this.cargarMapa(centro.LONGITUD, centro.LATITUD);
   }
 
   seleccionarProfesor(profe: User) {
+
     this.bileraForm.patchValue({ profesorId: profe.id });
   }
 
+
+
   cargarMapa(lat: number, lon: number) {
     if (lat && lon) {
-      // Url corregida para embed de Google Maps
       const url = `https://maps.google.com/maps?q=${lat},${lon}&z=15&output=embed`;
       this.mapaUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
   }
 
-  guardarReunion() {
-    if (this.bileraForm.valid) {
-      console.log('Datos a enviar:', this.bileraForm.value);
-      // Aquí llamarías a tu servicio para guardar: 
-      // this.reunionesService.add(this.bileraForm.value).subscribe(...)
+
+
+  gehitu() {
+    if (this.bileraForm.valid && this.user) {
+      
+      const hurrengoId = this.bilerak.length > 0
+           ? Math.max(...this.bilerak.map(h => h.id_reunion)) + 1
+           : 1;
+           
+      const fechaString = this.bileraForm.value.fecha; 
+      const horaString = this.bileraForm.value.hora; 
+
+      const fechaCompleta = new Date(`${fechaString}T${horaString}`);
+
+      const addBilera: Reunion = {
+          id_reunion: hurrengoId,
+          estado: Estado.pendiente, 
+          profesor_id: Number(this.bileraForm.value.profesorId), 
+          alumno_id: this.user.id, 
+          id_centro: Number(this.bileraForm.value.centro), 
+          fecha: fechaCompleta, 
+          created_at: new Date(),
+          updated_at: new Date()
+      };
+
+      this.bileraService.addBilera(addBilera).subscribe({
+        next: (sortuBilera) => {
+          console.log("Sortu da bilera", sortuBilera);
+          alert('Reunión creada correctamente');
+        },
+        error: (err) => console.error(err)
+      });
+
     } else {
-      alert('Por favor, selecciona centro, profesor, fecha y hora.');
+      alert('Por favor, completa todos los campos (Centro, Profesor, Fecha y Hora).');
     }
+  }
+
+   filtratu(selectedValue: string) {
+    console.log("filtratu", selectedValue);
+    if (selectedValue === 'Guztiak') {
+      this.filteredList = [...this.allIkastetxeak];
+    } else {
+     const probintziakoak = this.allIkastetxeak.filter(m => m.DTERRC === selectedValue);
+      this.filteredList = [...probintziakoak];
+    }
+    console.log(this.filteredList);
   }
 }

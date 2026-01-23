@@ -1,70 +1,90 @@
-/* CONTENEDOR DEL MENÚ CENTRADO */
-div {
+/* 1. BARRA DE NAVEGACIÓN (El contenedor de las pestañas) */
+.submenu-nav {
   display: flex;
-  justify-content: center; /* centrado horizontal */
-  align-items: center;     /* centrado vertical */
-  gap: 1rem;
-  padding: 1rem 2rem;
-  background: linear-gradient(135deg, #004e92, #000428);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  justify-content: center; /* Centrar las pestañas horizontalmente */
+  background-color: #ffffff; /* Fondo blanco limpio */
+  padding: 0 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sombra suave abajo */
+  margin-bottom: 2rem; /* Separación con el contenido */
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap; /* Para que en móviles bajen si no caben */
 }
 
-/* OPCIONES DEL MENÚ */
-div > div {
-  padding: 0.6rem 1.4rem;
-  border-radius: 20px;
-  color: #ffffff;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* HOVER */
-div > div:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-}
-
-/* CLICK */
-div > div:active {
-  transform: translateY(0);
-  box-shadow: none;
-}
-
-/* ITEM CON ROUTERLINK */
-div[routerlink] {
+/* 2. LOS BOTONES (Items del menú) */
+.menu-item {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
-}
-
-
-/* MENSAJE DE ERROR */
-p {
-  background-color: #ffecec;
-  color: #c62828;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 15px;
+  color: #7f8c8d; /* Gris para texto normal */
+  cursor: pointer;
+  position: relative; /* Para la línea de abajo */
+  transition: all 0.3s ease;
   text-align: center;
-  max-width: 400px;
-  margin: 1rem auto;  /* centrado horizontal */
 }
 
-router-outlet {
-  display: block;
-  margin-top: 1rem;
+/* Efecto Hover (Al pasar el ratón) */
+.menu-item:hover {
+  color: #4a90e2; /* Azul */
+  background-color: #f9fbfd;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  div {
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    padding: 1rem;
+/* 3. ESTADO ACTIVO (Gracias a routerLinkActive="active") */
+.menu-item.active {
+  color: #4a90e2; /* Texto azul */
+}
+
+/* La línea azul debajo de la pestaña activa */
+.menu-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px; /* Grosor de la línea */
+  background-color: #4a90e2;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+/* 4. ÁREA DE CONTENIDO (Donde sale el router-outlet) */
+.content-area {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 40px 20px;
+  min-height: 300px; /* Altura mínima para que no se vea vacío */
+}
+
+/* 5. MENSAJE DE ERROR */
+.error-msg {
+  text-align: center;
+  color: #e74c3c;
+  font-weight: bold;
+  background-color: #fadbd8;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+/* 6. RESPONSIVE (Móviles) */
+@media (max-width: 600px) {
+  .submenu-nav {
+    flex-direction: column; /* Pone los botones uno debajo de otro */
+    padding: 10px;
   }
 
-  div > div {
-    flex: 1 1 45%;
-    text-align: center;
+  .menu-item {
+    width: 100%; /* Ocupa todo el ancho */
+    border-bottom: 1px solid #f0f0f0;
+    padding: 10px;
+  }
+  
+  /* En móvil quitamos la línea inferior y ponemos fondo azul suave al activo */
+  .menu-item.active::after {
+    display: none;
+  }
+  
+  .menu-item.active {
+    background-color: #eef6fc;
+    border-radius: 6px;
   }
 }

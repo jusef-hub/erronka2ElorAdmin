@@ -20,6 +20,7 @@
     "filtro_todos": "Denak",
     "placeholder_email": "Posta elektronikoa",
     "placeholder_user": "Erabiltzaile izena",
+    "placeholder_barra_buscar":"Bilatu",
     "placeholder_pass": "Pasahitza",
     "placeholder_nombre": "Izen osoa",
     "placeholder_apellido": "Abizenak",
@@ -92,5 +93,15 @@
     
   },
   "boton_anadir":"Bilera bat eskatu "
-}
+},
+"crear_bilera": {
+    "titulo_centro": "1. Aukeratu Zentroa",
+    "cargando_centros": "Zentroen zerrenda kargatzen...",
+    "mapa_placeholder": "Aukeratu zentro bat zerrendatik mapan ikusteko",
+    "titulo_profe": "2. Aukeratu Irakaslea",
+    "titulo_fecha": "3. Eguna eta Ordua",
+    "label_dia": "Eguna:",
+    "label_hora": "Ordua:",
+    "btn_crear": "Bilera Sortu"
+  }
 }

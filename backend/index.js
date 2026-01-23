@@ -304,8 +304,10 @@ app.get('/ciclos/:id', (req, res) => {
     });
 });
 
-
-
+app.get('/centros', (req, res) => {
+    const jsonData = require('./ikastetxeak.json');
+    res.json(jsonData.CENTROS)
+});
 
 const PORT = 3004;
 app.listen(PORT, () => {

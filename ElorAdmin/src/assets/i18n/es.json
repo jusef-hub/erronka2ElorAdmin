@@ -18,6 +18,7 @@
     "num_profesores": "Número de profesores",
     "num_reuniones": "Número de reuniones de hoy",
     "filtro_todos": "Todos",
+    "placeholder_barra_buscar":"Buscar",
     "placeholder_email": "Email",
     "placeholder_user": "Nombre de usuario",
     "placeholder_pass": "Contraseña",
@@ -91,5 +92,15 @@
     "estado": "Estado"
   },
   "boton_anadir":"Solicitar una reunion"
-}
+},
+"sortu_bilera": {
+    "titulo_centro": "1. Selecciona el Centro",
+    "cargando_centros": "Cargando lista de centros...",
+    "mapa_placeholder": "Selecciona un centro de la lista para verlo en el mapa",
+    "titulo_profe": "2. Selecciona el Profesor/a",
+    "titulo_fecha": "3. Fecha y Hora",
+    "label_dia": "Día:",
+    "label_hora": "Hora:",
+    "btn_crear": "Crear Reunión"
+  }
 }

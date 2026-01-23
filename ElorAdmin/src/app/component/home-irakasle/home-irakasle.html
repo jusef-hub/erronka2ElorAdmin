@@ -1,18 +1,26 @@
-<div>
+<div class="submenu-nav">
     @if(user){
-
-            <div [routerLink]="['/irakasle', user.id, 'datuP']">{{ 'menu_user.datos' | translate }}</div>
-            <div [routerLink]="['/irakasle', user.id, 'ordutegia']" >{{ 'menu_user.horario' | translate }}</div>
-            <div [routerLink]="['/irakasle', user.id, 'bilera']">{{ 'menu_user.reuniones' | translate }}</div>
-            <div [routerLink]="['/irakasle', user.id, 'ikasleak']">{{ 'menu_user.alumnos' | translate }}</div>
-        
+        <div class="menu-item" [routerLink]="['/irakasle', user.id, 'datuP']" routerLinkActive="active">
+            {{ 'menu_user.datos' | translate }}
+        </div>
+        <div class="menu-item" [routerLink]="['/irakasle', user.id, 'ordutegia']" routerLinkActive="active">
+            {{ 'menu_user.horario' | translate }}
+        </div>
+        <div class="menu-item" [routerLink]="['/irakasle', user.id, 'bilera']" routerLinkActive="active">
+            {{ 'menu_user.reuniones' | translate }}
+        </div>
+        <div class="menu-item" [routerLink]="['/irakasle', user.id, 'ikasleak']" routerLinkActive="active">
+            {{ 'menu_user.alumnos' | translate }}
+        </div>
     }
 </div>
-@if(user){
-    @if(user.tipo_id==3){
-        <router-outlet></router-outlet>
-    }@else{
-        <p>{{ 'menu_user.error_no_profesor' | translate }}</p>
-    }
 
-}
+<div class="content-area">
+    @if(user){
+        @if(user.tipo_id == 3){
+            <router-outlet></router-outlet>
+        }@else{
+            <p class="error-msg">{{ 'menu_user.error_no_profesor' | translate }}</p>
+        }
+    }
+</div>

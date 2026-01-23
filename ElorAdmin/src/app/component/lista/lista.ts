@@ -1,29 +1,28 @@
-import { Component, inject, OnInit } from '@angular/core'; // Importamos OnInit
+import { Component, inject } from '@angular/core';
 import { User, Reunion, Tipo } from '../../interface/interfaces';
 import { Users } from '../../services/users';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Bilera } from '../../services/bilera';
 import { Mota } from '../../services/mota';
-import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { ChangeDetectorRef } from '@angular/core';
-import { TranslatePipe, TranslateDirective, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { debounceTime, distinctUntilKeyChanged } from 'rxjs';
 
 @Component({
-  selector: 'app-home-god',
-  standalone: true,
+  selector: 'app-lista',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslatePipe, NgxPaginationModule],
-  templateUrl: './home-god.html',
-  styleUrl: './home-god.css',
+  templateUrl: './lista.html',
+  styleUrl: './lista.css',
 })
-export class HomeGod { 
-  bileraS: Bilera = inject(Bilera);
+export class Lista {
+ bileraS: Bilera = inject(Bilera);
   usersS: Users = inject(Users);
   motaS: Mota = inject(Mota);
   private translate = inject(TranslateService);
+  searchCOntrol= new FormControl('')
 
   reunionList: Reunion[] = [];
   motaList: Tipo[] = [];
@@ -43,7 +42,7 @@ export class HomeGod {
   ezkutatutaMod = false;
   currentPage = 1;
   idEditatzeko = 0;
-
+  bilatuTextua=''
 
   newUser = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
@@ -82,7 +81,7 @@ export class HomeGod {
     if (datuak) {
       this.currentUser = JSON.parse(datuak);
       console.log('Usuario logueado:', this.currentUser);
-      this.cargarDatos();
+      this.kargatuDatuak();
 
     } else {
       console.warn('No hay sesión activa. Redirigiendo...');
@@ -90,7 +89,7 @@ export class HomeGod {
     }
   }
 
-  cargarDatos() {
+  kargatuDatuak() {
     this.users$ = this.usersS.getUser();
     this.users$.subscribe({
       next: (users: User[]) => {
@@ -158,6 +157,35 @@ export class HomeGod {
       }
     }
     console.log(this.filteredList);
+  }
+
+  bilatu(){
+
+    let resultados = [...this.UserList];
+
+
+    if (this.selected !== 'Guztiak') {
+       const motaEncontrada = this.motaList.find(m => m.name === this.selected);
+       if (motaEncontrada) {
+         resultados = resultados.filter(u => u.tipo_id === motaEncontrada.id);
+       }
+    }
+
+    const texto = this.bilatuTextua.trim().toLowerCase();
+    
+    if (texto !== '') {
+        resultados = resultados.filter(user => {
+            return (
+                user.nombre.toLowerCase().includes(texto) ||
+                user.apellidos.toLowerCase().includes(texto) ||
+                user.email.toLowerCase().includes(texto) ||
+                (user.dni && user.dni.toLowerCase().includes(texto))
+            );
+        });
+    }
+    this.filteredList = resultados;
+    this.currentPage = 1;
+
   }
 
   kendu(id: number) {

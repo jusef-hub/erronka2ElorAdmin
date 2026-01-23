@@ -1,233 +1,167 @@
-/* ===============================
-   CONTENEDOR GENERAL
-================================ */
+/* 1. CONTENEDOR PRINCIPAL */
 .container-bilerak {
-  max-width: 900px;
-  margin: 2.5rem auto;
-  padding: 2rem;
-  background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ===============================
-   CABECERA + BOTÓN
-================================ */
+/* 2. CABECERA (Título y Botón) */
 .header-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Título izq, Botón der */
   align-items: center;
-  margin-bottom: 1.8rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; /* Para móviles */
   gap: 1rem;
 }
 
-.container-bilerak h2 {
-  color: #003366;
-  font-weight: 600;
+.header-container h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
   margin: 0;
+  border-bottom: 3px solid #4a90e2;
+  padding-bottom: 5px;
 }
 
-/* ===============================
-   TABLA
-================================ */
+/* Botón "Añadir Reunión" */
+.btn-primary {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none; /* Por si es un enlace */
+  transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  background-color: #357abd;
+}
+
+/* 3. TABLA DE REUNIONES */
+.table-responsive {
+  overflow-x: auto; /* Scroll horizontal en móvil */
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
-  text-align: center;
-  background-color: #ffffff;
+  min-width: 600px; /* Ancho mínimo para que no se deforme */
 }
 
-/* ===============================
-   CABECERA TABLA
-================================ */
+/* Cabecera de la tabla */
 .table thead th {
-  background: linear-gradient(135deg, #004e92, #000428);
-  color: #ffffff;
-  padding: 12px 10px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 15px;
+  text-align: left;
   font-weight: 600;
-  letter-spacing: 0.3px;
 }
 
-.table thead th:first-child {
-  border-radius: 10px 0 0 0;
-}
-
-.table thead th:last-child {
-  border-radius: 0 10px 0 0;
-}
-
-/* ===============================
-   FILAS
-================================ */
-.table tbody tr {
-  border-bottom: 1px solid #e0e0e0;
-  transition: background-color 0.2s ease;
-}
-
-.table tbody tr:hover {
-  background-color: #f4f6f8;
-}
-
-/* ===============================
-   CELDAS
-================================ */
-.table td {
-  padding: 10px 8px;
+/* Filas */
+.table tbody td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
   vertical-align: middle;
-  font-size: 14px;
+  color: #555;
 }
 
-/* ===============================
-   COLUMNA ESTADO
-================================ */
-.td-estado {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Efecto Hover en filas */
+.table tbody tr:hover {
+  background-color: #f9fbfd;
+}
+
+/* 4. COLUMNA DE ESTADO (Badges y Select) */
+.col-estado {
+  width: 250px; /* Anchura fija para que quepan el badge y el select */
 }
 
 .estado-container {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
-/* ===============================
-   BADGE ESTADO
-================================ */
+/* Estilo base de la etiqueta (Badge) */
 .badge-texto {
-  min-width: 90px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  min-width: 80px;
   text-align: center;
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* Estados */
-.badge-texto.pendiente {
-  background-color: #fff3cd;
-  color: #856404;
+/* --- COLORES SEGÚN EL ESTADO --- */
+/* Estas clases deben coincidir con lo que devuelve 'reunion.estado' */
+
+.pendiente {
+  background-color: #f39c12; /* Naranja */
 }
 
-.badge-texto.aceptada {
-  background-color: #d4edda;
-  color: #155724;
+.aceptada {
+  background-color: #27ae60; /* Verde */
 }
 
-.badge-texto.denegada {
-  background-color: #f8d7da;
-  color: #721c24;
+.denegada {
+  background-color: #c0392b; /* Rojo */
 }
 
-.badge-texto.conflicto {
-  background-color: #e1f0ff;
-  color: #003366;
+.conflicto {
+  background-color: #8e44ad; /* Morado */
 }
 
-/* ===============================
-   SELECT PROFESOR
-================================ */
+/* --- SELECT DEL PROFESOR --- */
 .select-mini {
-  font-size: 13px;
-  padding: 5px 8px;
-  border-radius: 8px;
-  border: 1px solid #cccccc;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  background-color: white;
   cursor: pointer;
-  background-color: #ffffff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.select-mini:hover {
-  border-color: #004e92;
+  outline: none;
 }
 
 .select-mini:focus {
-  outline: none;
-  border-color: #004e92;
-  box-shadow: 0 0 0 2px rgba(0, 78, 146, 0.2);
+  border-color: #4a90e2;
 }
 
-/* ===============================
-   ALERTA SIN REUNIONES
-================================ */
+/* 5. MENSAJE VACÍO (Sin reuniones) */
 .alert-info {
-  background-color: #e1f0ff;
-  color: #003366;
-  padding: 12px;
-  border-radius: 10px;
+  background-color: #e3f2fd;
+  color: #0c5460;
+  padding: 20px;
+  border-radius: 8px;
   text-align: center;
-  font-weight: 600;
+  border: 1px solid #b8daff;
 }
 
-/* ===============================
-   BOTÓN AÑADIR REUNIÓN
-================================ */
-.header-container .btn.btn-primary {
-  background: linear-gradient(135deg, #004e92, #000428);
-  border: none;
-  border-radius: 12px;
-  padding: 8px 18px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #ffffff;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-  transition: 
-    background 0.25s ease,
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-/* Hover */
-.header-container .btn.btn-primary:hover {
-  background: linear-gradient(135deg, #0061b5, #00124d);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Active (click) */
-.header-container .btn.btn-primary:active {
-  transform: translateY(0);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
-}
-
-/* Focus accesible */
-.header-container .btn.btn-primary:focus {
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(0, 78, 146, 0.35),
-    0 6px 14px rgba(0, 0, 0, 0.25);
-}
-
-
-/* ===============================
-   RESPONSIVE
-================================ */
-@media (max-width: 768px) {
-  .container-bilerak {
-    padding: 1.2rem;
-    margin: 1rem;
-  }
-
+/* 6. RESPONSIVE */
+@media (max-width: 600px) {
   .header-container {
     flex-direction: column;
-    text-align: center;
+    align-items: stretch; /* Botón ocupa todo el ancho */
   }
-
-  .table thead th,
-  .table td {
-    padding: 6px 4px;
-    font-size: 12px;
+  
+  .btn-primary {
+    justify-content: center; /* Centrar texto del botón */
   }
 
   .estado-container {
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .badge-texto {
-    min-width: auto;
+    flex-direction: column; /* Pone el badge arriba y el select abajo en móvil */
+    align-items: flex-start;
   }
 }

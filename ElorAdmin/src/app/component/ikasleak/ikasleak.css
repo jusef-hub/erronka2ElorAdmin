@@ -1,161 +1,145 @@
-/* =====================================
-   CONTENEDOR GENERAL
-   ===================================== */
+/* 1. CONTENEDOR PRINCIPAL */
 .ikasleak-container {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 2rem auto;
-  padding: 1.5rem;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  padding: 0 1.5rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* =====================================
-   CABECERA (TÍTULO + ORDEN)
-   ===================================== */
+/* 2. CABECERA (Título y Filtro) */
 .header-section {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Título a la izq, filtro a la derecha */
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; /* Para que baje en móviles */
   gap: 1rem;
 }
 
 .header-section h1 {
+  color: #2c3e50;
+  font-size: 1.8rem;
   margin: 0;
-  color: #003366;
-  font-size: 1.6rem;
-  font-weight: 600;
+  border-bottom: 3px solid #4a90e2; /* Detalle azul debajo del título */
+  display: inline-block;
+  padding-bottom: 5px;
 }
 
-/* =====================================
-   CONTROL DE ORDEN
-   ===================================== */
+/* 3. CONTROL DE ORDEN (Select) */
 .orden-control {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 10px;
+  background-color: #f8f9fa;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
 }
 
 .orden-control label {
-  font-weight: 500;
-  color: #003366;
-  white-space: nowrap;
+  font-weight: 600;
+  color: #555;
+  font-size: 0.9rem;
 }
 
-.orden-control .form-select {
-  font-size: 14px;
-  padding: 6px 8px;
-  border-radius: 6px;
-  border: 1px solid #cccccc;
+.form-select {
+  padding: 6px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: white;
+  color: #495057;
+  cursor: pointer;
+  outline: none;
 }
 
-/* =====================================
-   TABLA (MISMO ESTILO QUE ORDUTEGI)
-   ===================================== */
+.form-select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* 4. TABLA DE DATOS */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; /* Scroll horizontal en móviles si no cabe */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  border-radius: 8px;
+  background-color: white;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
-  text-align: center;
+  min-width: 600px; /* Ancho mínimo para que no se aplaste */
 }
 
+/* Cabecera de la tabla */
 .table thead th {
-  background: linear-gradient(135deg, #004e92, #000428);
-  color: #ffffff;
-  padding: 10px;
+  background-color: #2c3e50; /* Fondo oscuro */
+  color: white;
+  padding: 15px;
+  text-align: left;
   font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-/* Bordes redondeados */
-.table thead th:first-child {
-  border-radius: 8px 0 0 0;
+/* Celdas del cuerpo */
+.table tbody td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  color: #555;
+  font-size: 0.95rem;
 }
 
-.table thead th:last-child {
-  border-radius: 0 8px 0 0;
+/* Efecto Zebra (Filas alternas) */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9fbfd; /* Azul muy muy clarito */
 }
 
-.table tbody tr {
-  border-bottom: 1px solid #dddddd;
-  transition: background-color 0.2s;
-}
-
+/* Efecto Hover (Al pasar el ratón por una fila) */
 .table tbody tr:hover {
-  background-color: #f4f6f8;
+  background-color: #eef6fc;
+  transition: background-color 0.2s ease;
 }
 
-/* Celdas */
-.table td {
-  padding: 8px 6px;
-  vertical-align: middle;
-}
-
-/* =====================================
-   PAGINACIÓN
-   ===================================== */
+/* 5. PAGINACIÓN */
 .pagination-area {
-  margin-top: 1.5rem;
   display: flex;
   justify-content: center;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
 }
 
-/* Ajuste visual de ngx-pagination */
-.pagination-area ::ng-deep .ngx-pagination {
-  padding: 0;
+/* Estilar los controles de paginación (ngx-pagination) */
+::ng-deep .ngx-pagination .current {
+  background: #4a90e2 !important;
+  border-radius: 4px;
 }
 
-.pagination-area ::ng-deep .ngx-pagination li {
-  border-radius: 6px;
+::ng-deep .ngx-pagination a:hover {
+  text-decoration: none;
+  color: #4a90e2;
 }
 
-.pagination-area ::ng-deep .ngx-pagination .current {
-  background: #004e92;
-  border-radius: 6px;
-}
-
-/* =====================================
-   ALERTA
-   ===================================== */
+/* 6. MENSAJES DE ALERTA (Sin resultados) */
 .alert-info {
-  background-color: #e1f0ff;
-  color: #003366;
-  padding: 10px;
-  border-radius: 8px;
+  background-color: #e3f2fd;
+  color: #0c5460;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #b8daff;
   text-align: center;
-  font-weight: 500;
-  margin-top: 1rem;
+  margin-top: 20px;
 }
 
-/* =====================================
-   RESPONSIVE
-   ===================================== */
+/* 7. RESPONSIVE (Móviles) */
 @media (max-width: 768px) {
-  .ikasleak-container {
-    padding: 1rem;
-    margin: 1rem;
-  }
-
   .header-section {
     flex-direction: column;
     align-items: flex-start;
   }
-
-  .header-section h1 {
-    font-size: 1.4rem;
-  }
-
+  
   .orden-control {
     width: 100%;
-  }
-
-  .orden-control .form-select {
-    width: 100%;
-  }
-
-  .table thead th,
-  .table td {
-    padding: 6px 4px;
-    font-size: 12px;
+    justify-content: space-between;
   }
 }

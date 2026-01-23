@@ -54,10 +54,10 @@ userForm = new FormGroup({
         const tipoid= this.UserList[i].tipo_id;
         switch(tipoid){
           case 1:
-          this.router.navigate(['/god', id]);
+          this.router.navigate(['/lista', id]);
             break;
           case 2:
-            this.router.navigate(['/admin', id]);
+            this.router.navigate(['/lista', id]);
             break;
           case 3:
             this.router.navigate(['/irakasle', id]);

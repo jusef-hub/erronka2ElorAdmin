@@ -16,6 +16,8 @@
 </nav>
      
 <main>
+    <input type="text" [(ngModel)]="bilatuTextua" placeholder="{{'admin.placeholder_barra_buscar' | translate}}">
+    <button type="button" id="botoiaBilatu" (click)="bilatu()">{{'admin.placeholder_barra_buscar'| translate }}</button>
     <select id="aukeratu" name="aukeratu" [(ngModel)]="selected" (ngModelChange)="filtratu($event)">
         <option value="Guztiak">{{ 'admin.filtro_todos' | translate }}</option>
         
@@ -33,13 +35,18 @@
             <ul>
                 @for (user of filteredList|paginate:{ itemsPerPage: 10, currentPage: currentPage }; track user.id ) {
                     <li>
+                       @if (user.argazkia_url) {
+                        <img [src]="user.argazkia_url" alt="Foto de usuario">
+                        } @else {
+                        <img src="foto.webp" alt="Foto por defecto">
+                        }
                         {{ user.nombre }} - {{ user.email }}
                         @if(currentUser){
-                         @if(currentUser.tipo_id!=1){
+                         @if(user.tipo_id!=1 ){
                             <div>
                                 <img id="modifikatu" (click)="formMod(user)" src="editar.png" width="15">
                                 
-                                @if(currentUser.tipo_id!=2){
+                                @if(currentUser.tipo_id != user.tipo_id ){
                                 <button id="Kendu" (click)="kendu(user.id)">X</button>
                                 }
                             </div>

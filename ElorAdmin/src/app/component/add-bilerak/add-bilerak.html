@@ -1,39 +1,51 @@
 <body>
-  <form [formGroup]="bileraForm" (ngSubmit)="guardarReunion()">
+  <form [formGroup]="bileraForm" (ngSubmit)="gehitu()">
     
     <div id="contenedor-principal">
       
       <div id="aukeratuZentroa">
-        <h2>1. Aukeratu Zentroa</h2>
-        
-        <div id="lista-centros">
-          <ul>
-            @if (ikastetxeak$ | async; as zerrenda) {
-              @for (ikastetxea of zerrenda; track ikastetxea.CCEN) {
-                <li (click)="seleccionarCentro(ikastetxea)" 
-                    [class.seleccionado]="bileraForm.get('centroId')?.value === ikastetxea.CCEN">
-                  
-                  <span>{{ ikastetxea.NOM }}</span>
-                  <button type="button" class="btn-select">+</button>
-                </li>
-              }
-            } @else {
-              <p>Cargando centros...</p>
-            }
-          </ul>
-        </div>
+        <h2>{{ 'sortu_bilera.titulo_centro' | translate }}</h2>
+       <select id="aukeratu" name="aukeratu" 
+        [(ngModel)]="selected" 
+        (ngModelChange)="filtratu($event)"
+        [ngModelOptions]="{standalone: true}"> <option value="Guztiak">{{ 'admin.filtro_todos' | translate }}</option>
+    
+    @for (option of aukeratu; track option) {
+        <option value="{{ option }}">{{ option }}</option>
+    }
+</select>
 
-        <div id="mapa">
-          @if (mapaUrl) {
+<div id="listaMapa">
+    <div id="lista-centros">
+        <ul>
+            @for (ikastetxea of filteredList; track ikastetxea.CCEN) {
+            
+                <li (click)="seleccionarCentro(ikastetxea)" 
+                    [class.seleccionado]="bileraForm.get('centro')?.value === ikastetxea.CCEN">
+                    
+                    <span>{{ ikastetxea.NOM }}</span>                
+                </li>
+
+            } @empty {
+                <p>Ez da ikastetxerik aurkitu.</p>
+            }
+        </ul>
+    </div>
+
+    <div id="mapa">
+        @if (mapaUrl) {
             <iframe [src]="mapaUrl" width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen></iframe>
-          } @else {
-            <div class="mapa-placeholder">Aukeratu zentro bat mapan ikusteko</div>
-          }
-        </div>
+        } @else {
+            <div class="mapa-placeholder">
+                {{ 'sortu_bilera.mapa_placeholder' | translate }}
+            </div>
+        }
+    </div>
+</div>
       </div>
 
       <div id="aukeratuIrakaslea">
-        <h2>2. Aukeratu Irakaslea</h2>
+        <h2>{{ 'sortu_bilera.titulo_profe' | translate }}</h2>
         <div id="lista-profes">
           <ul>
             @if (irakasleak$ | async; as zerrenda) {
@@ -43,7 +55,6 @@
                     [class.seleccionado]="bileraForm.get('profesorId')?.value === irakaslea.id">
                   
                   <span>{{ irakaslea.nombre }} {{ irakaslea.apellidos }}</span>
-                  <button type="button" class="btn-select">+</button>
                 </li>
               }
             }
@@ -52,15 +63,15 @@
       </div>
 
       <div id="aukeratuData">
-        <h2>3. Eguna eta Ordua</h2>
+        <h2>{{ 'sortu_bilera.titulo_fecha' | translate }}</h2>
         
         <div class="input-group">
-          <label>Eguna:</label>
+          <label>{{ 'sortu_bilera.label_dia' | translate }}</label>
           <input type="date" formControlName="fecha">
         </div>
 
         <div class="input-group">
-          <label>Ordua:</label>
+          <label>{{ 'sortu_bilera.label_hora' | translate }}</label>
           <input type="time" formControlName="hora">
         </div>
       </div>
@@ -68,7 +79,7 @@
     </div>
 
     <button type="submit" [disabled]="!bileraForm.valid" class="btn-guardar">
-      Sortu Bilera
+      {{ 'sortu_bilera.btn_crear' | translate }}
     </button>
 
   </form>

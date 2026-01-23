@@ -5,7 +5,7 @@
       @if (user.argazkia_url) {
         <img [src]="user.argazkia_url" [alt]="user.username">
       } @else {
-        <p>{{ 'perfil.no_foto' | translate }}</p>
+         <img src="foto.webp" [alt]="user.username">
       }
     </div>
 

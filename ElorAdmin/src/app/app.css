@@ -1,141 +1,164 @@
+/* 1. ESTRUCTURA PRINCIPAL (Sticky Footer) */
+/* Esto asegura que el footer siempre esté abajo del todo */
 .page-container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh; /* Altura mínima: toda la pantalla */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f8;
+  background-color: #f4f7f6;
 }
 
-/* NAV */
+/* El contenido crece para empujar el footer hacia abajo */
+.content-wrap {
+  flex: 1;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px; /* Ancho máximo para que no se estire demasiado en pantallas gigantes */
+  margin: 0 auto; /* Centrar el contenido */
+  box-sizing: border-box;
+}
+
+/* 2. BARRA DE NAVEGACIÓN (NAV) */
 #nav {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Centrar verticalmente */
+  background-color: #ffffff;
   padding: 0.8rem 2rem;
-  background: linear-gradient(135deg, #004e92, #000428);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Para que quede por encima del contenido */
 }
 
+/* El logo */
 #logo {
-  max-height: 55px;
+  height: 50px; /* Altura fija, ancho automático */
+  width: auto;
 }
 
-/* BOTÓN LOGOUT (sin cambiar HTML) */
+/* BOTÓN LOGOUT */
+/* Usamos margin-left: auto para empujar el botón y el select a la DERECHA */
 #nav button {
-  padding: 6px 14px;
-  border-radius: 8px;
-  border: none;
-  background-color: #ff4d4d;
-  color: #ffffff;
-  font-weight: 600;
+  margin-left: auto; 
+  margin-right: 15px;
+  padding: 8px 16px;
+  background-color: transparent;
+  border: 1px solid #d32f2f; /* Borde rojo */
+  color: #d32f2f;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 #nav button:hover {
-  background-color: #e63939;
-  transform: translateY(-1px);
+  background-color: #d32f2f;
+  color: white;
 }
 
-#nav button:active {
-  transform: translateY(0);
-}
-
-/* SELECT IDIOMA */
-#aukeratu {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: none;
-  font-size: 14px;
+/* SELECTOR DE IDIOMA */
+#nav select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #f9f9f9;
   cursor: pointer;
-  background-color: #ffffff;
-  color: #003366;
-  font-weight: 500;
+  font-size: 0.9rem;
 }
 
-#aukeratu:focus {
-  outline: 2px solid #cce4ff;
+#nav select:focus {
+  outline: none;
+  border-color: #4a90e2;
 }
 
-/* CONTENIDO */
-.content-wrap {
-  flex: 1;
-  padding: 2rem;
-}
-
-/* FOOTER */
+/* 3. FOOTER */
 #footer {
-  background-color: #003366;
-  color: #ffffff;
-  padding: 2rem 1.5rem 1rem;
+  background-color: #2c3e50; /* Azul oscuro elegante */
+  color: #ecf0f1; /* Blanco grisáceo */
+  padding: 3rem 2rem 1rem; /* Arriba, Lados, Abajo */
+  margin-top: auto;
 }
 
 .footer-content {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  /* Columnas automáticas: Mínimo 250px, si hay sitio se estiran */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto; /* Centrado */
 }
 
-.footer-content > div {
-  flex: 1 1 250px;
-}
-
+/* Títulos del footer */
 #footer h3 {
-  margin-bottom: 0.7rem;
-  font-weight: 600;
+  color: #ffffff;
+  border-bottom: 2px solid #4a90e2; /* Rayita azul debajo del título */
+  display: inline-block;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
 }
 
-#footer p,
-#footer li {
-  font-size: 14px;
+#footer p {
+  font-size: 0.9rem;
   line-height: 1.6;
+  color: #bdc3c7;
 }
 
+/* Listas y Enlaces del footer */
 #footer ul {
   list-style: none;
   padding: 0;
 }
 
 #footer ul li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 8px;
 }
 
 #footer a {
-  color: #cce4ff;
+  color: #bdc3c7;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.3s;
 }
 
 #footer a:hover {
-  color: #ffffff;
-  text-decoration: underline;
+  color: #4a90e2; /* Azul al pasar el ratón */
 }
 
-/* FOOTER BOTTOM */
+/* Copyright (div final) */
 #footer > div:last-child {
   text-align: center;
-  font-size: 13px;
-  opacity: 0.85;
+  border-top: 1px solid #34495e;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.85rem;
+  color: #7f8c8d;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
+/* 4. RESPONSIVE (Móviles) */
+@media (max-width: 600px) {
   #nav {
-    flex-direction: column;
-    gap: 0.8rem;
-    text-align: center;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+  
+  #logo {
+    height: 40px;
   }
 
-  .content-wrap {
-    padding: 1.2rem;
+  /* En móvil, bajamos los controles un poco si no caben */
+  #nav button {
+    margin-left: auto; /* Sigue a la derecha */
+    padding: 6px 12px;
+    font-size: 0.85rem;
   }
 
   .footer-content {
-    flex-direction: column;
+    grid-template-columns: 1fr; /* Una sola columna en móviles */
     text-align: center;
+  }
+  
+  #footer h3 {
+    border-bottom: none; /* Quitamos la raya en móvil si queremos simplificar */
+    text-decoration: underline;
+    text-decoration-color: #4a90e2;
   }
 }

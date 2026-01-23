@@ -1,0 +1,106 @@
+{
+  "footer": {
+    "descripcion": "Quality Vocational Training in Bilbao. Your future starts here.",
+    "contacto": "Contact",
+    "enlaces": "Useful Links",
+    "aviso_legal": "Legal Notice",
+    "derechos": "All rights reserved."
+  },
+  "login": {
+    "titulo": "Login",
+    "error_msg": "Incorrect username or password",
+    "placeholder_email": "mail@example.com",
+    "placeholder_pass": "Password",
+    "btn_entrar": "Login"
+  },
+  "admin": {
+    "num_alumnos": "Number of students",
+    "num_profesores": "Number of teachers",
+    "num_reuniones": "Number of meetings today",
+    "filtro_todos": "All",
+    "placeholder_barra_buscar": "Search",
+    "placeholder_email": "Email",
+    "placeholder_user": "Username",
+    "placeholder_pass": "Password",
+    "placeholder_nombre": "First Name",
+    "placeholder_apellido": "Last Name",
+    "placeholder_dni": "National ID (12345678X)",
+    "placeholder_dir": "Address",
+    "placeholder_tel": "Phone",
+    "placeholder_tel2": "Secondary Phone",
+    "select_tipo_defecto": "Select a type",
+    "btn_atras": "Back",
+    "btn_guardar": "Save"
+  },
+  "perfil": {
+    "no_foto": "No photo",
+    "usuario": "Username",
+    "nombre_apellidos": "Full Name",
+    "email": "Email",
+    "telefono": "Phone",
+    "dni": "National ID",
+    "direccion": "Address"
+  },
+  "menu_user": {
+    "datos": "Details",
+    "horario": "Schedule",
+    "reuniones": "Meetings",
+    "alumnos": "Students",
+    "error_no_profesor": "This user is not a teacher",
+    "error_no_alumno": "This user is not a student"
+  },
+  "ordutegia": {
+    "titulo": "Schedule for:",
+    "tabla": {
+      "hora": "Time",
+      "modulo": "Module",
+      "aula": "Classroom"
+    },
+    "dias": {
+      "LUNES": "Monday",
+      "MARTES": "Tuesday",
+      "MIERCOLES": "Wednesday",
+      "JUEVES": "Thursday",
+      "VIERNES": "Friday"
+    }
+  },
+  "ikasleak": {
+    "titulo": "Student List",
+    "ordenar_por": "Sort by:",
+    "opcion_nombre": "First Name",
+    "opcion_apellidos": "Last Name",
+    "tabla": {
+      "nombre": "First Name",
+      "apellidos": "Last Name",
+      "email": "Email",
+      "telefono": "Phone",
+      "direccion": "Address"
+    },
+    "paginacion": {
+      "anterior": "Previous",
+      "siguiente": "Next"
+    },
+    "sin_resultados": "No students found."
+  },
+  "bilerak": {
+    "titulo_usuario": "Meetings for {{nombre}}",
+    "sin_reuniones": "You have no scheduled meetings.",
+    "tabla": {
+      "fecha": "Date and Time",
+      "asunto": "Subject",
+      "alumno": "Student",
+      "estado": "Status"
+    },
+    "boton_anadir": "Request a meeting"
+  },
+  "sortu_bilera": {
+    "titulo_centro": "1. Select Center",
+    "cargando_centros": "Loading list of centers...",
+    "mapa_placeholder": "Select a center from the list to view it on the map",
+    "titulo_profe": "2. Select Teacher",
+    "titulo_fecha": "3. Date and Time",
+    "label_dia": "Day:",
+    "label_hora": "Time:",
+    "btn_crear": "Create Meeting"
+  }
+}
