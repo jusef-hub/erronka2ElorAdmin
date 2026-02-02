@@ -1,13 +1,13 @@
-/* 1. CONTENEDOR PRINCIPAL */
+/* container */
 .container {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  overflow-x: auto; /* IMPORTANTE: Permite scroll horizontal en móviles */
+  overflow-x: auto; 
 }
 
-/* 2. TÍTULO */
+/* Titulua*/
 h2 {
   color: #2c3e50;
   font-size: 1.8rem;
@@ -17,14 +17,14 @@ h2 {
   padding-bottom: 5px;
 }
 
-/* 3. ESTRUCTURA DE LA TABLA */
+/*Taularen estructura */
 .tabla-horario {
   width: 100%;
-  border-collapse: collapse; /* Elimina espacios entre bordes */
+  border-collapse: collapse;
   background-color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  table-layout: fixed; /* IMPORTANTE: Hace que todas las columnas de días midan lo mismo */
-  min-width: 800px; /* Asegura que no se aplaste demasiado en móviles */
+  table-layout: fixed;
+  min-width: 800px;
 }
 
 /* Bordes generales de celdas */
@@ -33,12 +33,12 @@ h2 {
   border: 1px solid #e0e0e0;
   padding: 10px;
   text-align: center;
-  vertical-align: middle; /* Contenido centrado verticalmente */
+  vertical-align: middle; 
 }
 
-/* 4. CABECERA (Días de la semana) */
+/* egutegiaren eguna */
 .tabla-horario thead th {
-  background-color: #2c3e50; /* Fondo oscuro */
+  background-color: #2c3e50;
   color: white;
   text-transform: uppercase;
   font-size: 0.9rem;
@@ -46,23 +46,22 @@ h2 {
   letter-spacing: 1px;
 }
 
-/* 5. PRIMERA COLUMNA (Las Horas) */
+/* Orduak */
 .hora-celda {
-  background-color: #f8f9fa; /* Gris muy clarito */
+  background-color: #f8f9fa; 
   color: #555;
   font-weight: bold;
-  width: 100px; /* Ancho fijo para la columna de hora */
+  width: 100px;
   font-size: 0.9rem;
 }
 
-/* 6. CELDAS CON CLASE (Contenido) */
-/* Estilo del div .clase-info que envuelve el texto */
+/* Taularen gorputza */
 .clase-info {
-  background-color: #eef6fc; /* Fondo azul muy pálido */
-  border-left: 4px solid #4a90e2; /* Borde azul a la izquierda para destacar */
+  background-color: #eef6fc; 
+  border-left: 4px solid #4a90e2;
   padding: 8px;
   border-radius: 4px;
-  text-align: left; /* Texto alineado a la izquierda queda mejor aquí */
+  text-align: left;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -73,11 +72,11 @@ h2 {
 /* Efecto al pasar el ratón por encima de una clase */
 .clase-info:hover {
   background-color: #ddebf7;
-  transform: translateY(-2px); /* Pequeña elevación */
+  transform: translateY(-2px); 
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Texto del Módulo (Negrita) */
+
 .clase-info strong {
   color: #2c3e50;
   font-size: 0.95rem;
@@ -85,16 +84,16 @@ h2 {
   margin-bottom: 4px;
 }
 
-/* Texto del Aula (Más pequeño) */
+
 .clase-info span {
   font-size: 0.85rem;
   color: #7f8c8d;
   font-weight: 500;
 }
 
-/* 7. RESPONSIVE (Móviles) */
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  /* En móviles, reducimos el padding para ganar espacio */
+
   .tabla-horario th, 
   .tabla-horario td {
     padding: 5px;

@@ -8,6 +8,7 @@ import { Bilerak } from './component/bilerak/bilerak';
 import { Ikasleak } from './component/ikasleak/ikasleak';
 import { AddBilerak } from './component/add-bilerak/add-bilerak';
 import{Lista} from './component/lista/lista'
+import { Ikastetxea } from './component/ikastetxea/ikastetxea'; 
 
 export const routes: Routes = [
     { path: '', component: Login, pathMatch: 'full' },
@@ -17,7 +18,8 @@ export const routes: Routes = [
         { path: 'datuP', component: Datuak },
         {path:'ordutegia', component:Ordutegia},
         {path:'bilera', component:Bilerak,},
-        {path:'addBilerak', component:AddBilerak}
+        {path:'addBilerak', component:AddBilerak},
+        {path:'ikastetxea/:idIkastetxe', component:Ikastetxea}
     ]},
     { path: 'irakasle/:id', component: HomeIrakasle , children:[
         { path: '', component: Datuak, pathMatch: 'full' }, 

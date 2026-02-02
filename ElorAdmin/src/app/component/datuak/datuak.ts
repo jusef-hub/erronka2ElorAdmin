@@ -1,23 +1,22 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { User } from '../../interface/interfaces';
 import { Users } from '../../services/users';
-import { Observable } from 'rxjs';
-import { RouterOutlet, Router, ActivatedRoute, RouterLink } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-datuak',
-  imports: [AsyncPipe, TranslatePipe],
+  imports: [TranslatePipe],
   templateUrl: './datuak.html',
   styleUrl: './datuak.css',
 })
 export class Datuak {
   userService=inject(Users);
-  private translate=inject(TranslateService)
   user: User| undefined;
+  //kargatzeko
     private cd = inject(ChangeDetectorRef);
 
+    //Hartu erabiltzailea
   constructor(private router:Router, private route:ActivatedRoute){
    let datuak = sessionStorage.getItem('usuarioLogueado');
     

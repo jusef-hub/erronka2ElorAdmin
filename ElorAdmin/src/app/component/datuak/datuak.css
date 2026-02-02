@@ -1,40 +1,38 @@
-/* 1. CONTENEDOR DE LA TARJETA */
+/* Txartelaren edukiontzia */
 .user-card {
   background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   padding: 2.5rem;
-  max-width: 800px; /* Ancho máximo para que no se estire demasiado */
-  margin: 2rem auto; /* Centrado en la pantalla */
-  display: flex; /* Flexbox para poner imagen y texto lado a lado */
-  align-items: center; /* Centrado vertical */
-  gap: 3rem; /* Espacio entre la foto y los datos */
+  max-width: 800px;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* 2. CONTENEDOR DE LA IMAGEN (Círculo) */
+/* Irudiaren edukiontzia */
 .image-container {
-  flex-shrink: 0; /* Evita que la imagen se aplaste si falta espacio */
+  flex-shrink: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%; /* Hace que sea un círculo */
-  overflow: hidden; /* Recorta lo que sobre del círculo */
-  border: 4px solid #f0f4f8; /* Un borde gris/azulito elegante */
-  background-color: #e9ecef; /* Fondo por si no hay foto */
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #f0f4f8;
+  background-color: #e9ecef;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* La imagen real */
 .image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* IMPORTANTE: Mantiene la proporción y rellena el círculo */
+  object-fit: cover;
 }
 
-/* Texto si no hay foto */
 .image-container p {
   font-size: 0.8rem;
   color: #7f8c8d;
@@ -43,77 +41,72 @@
   padding: 10px;
 }
 
-/* 3. LISTA DE DATOS (Derecha) */
+/* Datuen zerrenda */
 .user-card > div:last-child {
-  flex-grow: 1; /* Ocupa el resto del espacio */
+  flex-grow: 1;
   width: 100%;
 }
 
-/* Cada fila de datos */
 .user-card > div:last-child > div {
   padding: 12px 0;
-  border-bottom: 1px solid #f1f1f1; /* Línea separadora sutil */
+  border-bottom: 1px solid #f1f1f1;
   display: flex;
-  align-items: baseline; /* Alinea el texto base */
+  align-items: baseline;
 }
 
-/* Quitar la línea del último elemento */
 .user-card > div:last-child > div:last-child {
   border-bottom: none;
 }
 
-/* Etiquetas (Nombre, Email...) */
 label {
-  width: 140px; /* Ancho fijo para que todo se alinee verticalmente */
+  width: 140px;
   color: #2c3e50;
   font-size: 0.95rem;
-  flex-shrink: 0; /* Que no se encoja */
+  flex-shrink: 0;
 }
 
 strong {
   font-weight: 600;
 }
 
-/* Valores (El nombre real, el email real...) */
 span {
   color: #555;
   font-size: 1rem;
-  word-break: break-all; /* Si el email es muy largo, que baje de línea */
+  word-break: break-all;
 }
 
-/* 4. RESPONSIVE (Móviles) */
+/* Mugikorrak */
 @media (max-width: 650px) {
   .user-card {
-    flex-direction: column; /* Pone la imagen arriba y texto abajo */
+    flex-direction: column;
     padding: 1.5rem;
     gap: 1.5rem;
-    text-align: center; /* Centra todo */
+    text-align: center;
   }
 
   .image-container {
-    margin: 0 auto; /* Centra la imagen horizontalmente */
+    margin: 0 auto;
     width: 120px;
     height: 120px;
   }
 
-  /* En móvil, quitamos el estilo de "columna izquierda" para las etiquetas */
   .user-card > div:last-child > div {
-    flex-direction: column; /* Etiqueta arriba, valor abajo */
-    align-items: flex-start; /* Todo a la izquierda (o center si prefieres) */
+    flex-direction: column;
+    align-items: flex-start;
     text-align: left;
     gap: 5px;
   }
   
   label {
     width: 100%;
-    color: #4a90e2; /* Ponemos la etiqueta en azul para destacar en móvil */
+    color: #4a90e2;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
   span {
-    font-size: 1.1rem; /* Texto un poco más grande para leer bien */
+    font-size: 1.1rem;
     padding-left: 0;
   }
 }

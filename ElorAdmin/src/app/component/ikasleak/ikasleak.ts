@@ -3,13 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Users } from '../../services/users';
-import { Horario, Matriculacion, Modulo, User } from '../../interface/interfaces';
+import {User } from '../../interface/interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Moduloa } from '../../services/moduloa';
-import { Matrikulazioak } from '../../services/matrikulazioak';
-import { Egutegia } from '../../services/egutegia';
+
 
 @Component({
   selector: 'app-ikasleak',
@@ -28,12 +26,14 @@ export class Ikasleak {
   currentPage: number = 1;
   criterioOrden: string = 'izena'; 
 
+  //Hartu erabiltzailea
   constructor(private router: Router, private route: ActivatedRoute) {
     let datuak=sessionStorage.getItem('usuarioLogueado');
       if (datuak) {
         let user$ =JSON.parse(datuak)
+        //Hartu erabiltzaile guztiak
         this.userService.getUser().subscribe((users: User[]) => {
-            
+            //Bilatu ikasleak direnak
             const alumnosFiltrados = users.filter(u => u.tipo_id == 4);
             
             this.ikasleakSubject.next(alumnosFiltrados);
@@ -41,23 +41,28 @@ export class Ikasleak {
       }
     
   }
-
-  ordenarLista() {
+//Select option ordenatu
+  antolatuLista() {
+    //Jatorrizko lista
     const listaActual = [...this.ikasleakSubject.value];
 
+    //zerrenda berrantolatzeko Sort
     listaActual.sort((a, b) => {
+      //Benetako propietateak hartu
       const valA = (a as any)[this.mapCriterio(this.criterioOrden)] || '';
       const valB = (b as any)[this.mapCriterio(this.criterioOrden)] || '';
 
       if (typeof valA === 'string') {
+        //localeCompare azentoal kudeaketa
           return valA.localeCompare(valB);
       }
+      //ordenatu txikienetik handienera
       return valA - valB;
     });
 
     this.ikasleakSubject.next(listaActual);
   }
-
+//Datu-baserako
   mapCriterio(criterio: string): string {
       switch(criterio) {
           case 'izena': return 'nombre';

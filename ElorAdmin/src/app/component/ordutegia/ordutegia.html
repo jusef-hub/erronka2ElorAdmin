@@ -8,19 +8,19 @@
         <tr>
           <th>{{ 'ordutegia.tabla.hora' | translate }}</th>
           
-          @for (dia of dias; track dia) {
-            <th>{{ 'ordutegia.dias.' + dia | translate }}</th>
+          @for (eguna of egunak; track eguna) {
+            <th>{{ 'ordutegia.dias.' + eguna | translate }}</th>
           }
         </tr>
       </thead>
       <tbody>
-        @for (franja of franjasHorarias; track franja.id) {
+        @for (ordua of orduak; track ordua.id) {
           <tr>
-            <td class="hora-celda">{{ franja.texto }}</td>
+            <td class="hora-celda">{{ ordua.texto }}</td>
             
-            @for (dia of dias; track dia) {
+            @for (eguna of egunak; track eguna) {
               <td>
-                @if (getClase(dia, franja.id); as clase) {
+                @if (getKlasea(eguna, ordua.id); as clase) {
                   <div class="clase-info">
                     
                     <strong>

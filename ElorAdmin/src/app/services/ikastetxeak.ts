@@ -18,15 +18,15 @@ export class Ikastetxeak {
        return this.http.get<Ikastetxea>(`${this.apiUrl}/${id}`);
      }
  
-     addIkastetxea(item: Ikastetxea): Observable<Ikastetxea> {
-       return this.http.post<Ikastetxea>(this.apiUrl, item);
+     addIkastetxea(item: Ikastetxea): Observable<Ikastetxea[]> {
+       return this.http.post<Ikastetxea[]>(this.apiUrl, item);
      }
  
-     updateIkastetxea(item: Ikastetxea): Observable<Ikastetxea> {
-        return this.http.put<Ikastetxea>(`${this.apiUrl}/${item.CCEN}`, item);
+     updateIkastetxea(item: Ikastetxea): Observable<Ikastetxea[]> {
+        return this.http.put<Ikastetxea[]>(`${this.apiUrl}/${item.CCEN}`, item);
      }
       
-     deleteIkastetxea(id: number): Observable<Ikastetxea> {
-       return this.http.delete<Ikastetxea>(`${this.apiUrl}/${id}`);
+     deleteIkastetxea(id: number): Observable<Ikastetxea[]> {
+       return this.http.delete<Ikastetxea[]>(`${this.apiUrl}/${id}`);
      }
 }

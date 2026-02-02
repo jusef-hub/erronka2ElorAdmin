@@ -18,6 +18,7 @@
     "num_profesores": "Irakasle kopurua",
     "num_reuniones": "Gaurko bilera kopurua",
     "filtro_todos": "Denak",
+    "placeholder_img": "Argazkia",
     "placeholder_email": "Posta elektronikoa",
     "placeholder_user": "Erabiltzaile izena",
     "placeholder_barra_buscar":"Bilatu",
@@ -94,14 +95,33 @@
   },
   "boton_anadir":"Bilera bat eskatu "
 },
-"crear_bilera": {
+"sortu_bilera": {
     "titulo_centro": "1. Aukeratu Zentroa",
     "cargando_centros": "Zentroen zerrenda kargatzen...",
     "mapa_placeholder": "Aukeratu zentro bat zerrendatik mapan ikusteko",
     "titulo_profe": "2. Aukeratu Irakaslea",
-    "titulo_fecha": "3. Eguna eta Ordua",
+   "titulo_titulo":"3. Aukeratu Titulua",
+    "titulo_asunto":"4. Aukeratu Kontua",
+    "titulo_aula":"5.Aukeratu Gela",
+    "titulo_fecha": "6. Eguna eta Ordua",
     "label_dia": "Eguna:",
     "label_hora": "Ordua:",
     "btn_crear": "Bilera Sortu"
-  }
+  },
+  "ikastetxea_info": {
+    "btn_volver": "Zerrendara itzuli",
+    "codigo": "Kodea",
+    "titulo_contacto": "Kontaktua",
+    "tel": "Telefonoa",
+    "fax": "Faxa",
+    "email": "E-posta",
+    "web": "Webgunea",
+    "btn_web": "Webgunea bisitatu",
+    "titulo_ubicacion": "Kokapena",
+    "direccion": "Helbidea",
+    "municipio": "Udalerria",
+    "territorio": "Lurraldea",
+    "titularidad": "Titulartasuna",
+    "cargando": "Datuak kargatzen..."
+}
 }

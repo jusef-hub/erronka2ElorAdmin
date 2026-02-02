@@ -9,7 +9,6 @@ import { FormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule } 
 import { Observable } from 'rxjs';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { debounceTime, distinctUntilKeyChanged } from 'rxjs';
 
 @Component({
   selector: 'app-lista',
@@ -21,8 +20,6 @@ export class Lista {
  bileraS: Bilera = inject(Bilera);
   usersS: Users = inject(Users);
   motaS: Mota = inject(Mota);
-  private translate = inject(TranslateService);
-  searchCOntrol= new FormControl('')
 
   reunionList: Reunion[] = [];
   motaList: Tipo[] = [];
@@ -45,6 +42,7 @@ export class Lista {
   bilatuTextua=''
 
   newUser = new FormGroup({
+    img: new FormControl(''),
     nombre: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     username: new FormControl('', [Validators.required]),
@@ -58,6 +56,7 @@ export class Lista {
   });
 
   modUser = new FormGroup({
+    img:new FormControl(''),
     nombre: new FormControl(''),
     email: new FormControl('', [Validators.email]),
     username: new FormControl(''),
@@ -71,11 +70,7 @@ export class Lista {
   });
 
   constructor(private router: Router) {
- 
-    this.translate.get('admin.titulo').subscribe({
-        next: (res) => console.log('Traducción cargada:', res),
-        error: (err) => console.error('Error traducción:', err)
-    });
+ //Hartu erabiltzailea
     const datuak = sessionStorage.getItem('usuarioLogueado');
 
     if (datuak) {
@@ -84,12 +79,13 @@ export class Lista {
       this.kargatuDatuak();
 
     } else {
-      console.warn('No hay sesión activa. Redirigiendo...');
+      console.warn('Ez dago sesiorik sortuta');
       this.router.navigate(['/login']);
     }
   }
 
   kargatuDatuak() {
+    //Hartu erabiltzaile guztiak
     this.users$ = this.usersS.getUser();
     this.users$.subscribe({
       next: (users: User[]) => {
@@ -102,6 +98,7 @@ export class Lista {
       error: err => console.log(err)
     });
 
+    //Hartu bilera guztiak
     this.bilerak$ = this.bileraS.getBilera();
     this.bilerak$.subscribe({
       next: (bileraList: Reunion[]) => {
@@ -112,11 +109,13 @@ export class Lista {
       error: err => console.log(err)
     });
 
+    //Hartu mota guztiak
     this.motak$ = this.motaS.getMota();
     this.motak$.subscribe({
       next: (motaList: Tipo[]) => {
         console.log(motaList);
         this.motaList = motaList;
+        //Hartu motaren izenak select option-rentzat
         this.aukeratu = [...new Set(this.motaList.map(j => j.name))];
         console.log("aukeratu: " + this.aukeratu);
       },
@@ -124,33 +123,36 @@ export class Lista {
     });
   }
 
-
+//Goiko kopuruak
   kopuruak(): void {
     let ikKop = 0;
     let irKop = 0;
+    let gaurkoBilKop =0;
+    const gaurStr = new Date().toISOString().split('T')[0];
+
   
     if (this.UserList) {
-        for (let i = 0; i < this.UserList.length; i++) {
-            if (this.UserList[i].tipo_id == 4) {
-                ikKop++;
-            } else if (this.UserList[i].tipo_id == 3) {
-                irKop++;
-            }
-        }
+        ikKop = this.UserList.filter(u => u.tipo_id === 4).length;
+        irKop = this.UserList.filter(u => u.tipo_id === 3).length;
     }
-    
-    let gaurkoBilKop = this.reunionList ? this.reunionList.length : 0;
+    gaurkoBilKop = this.reunionList.filter(bilera => {
+      const bileraDataStr = new Date(bilera.fecha).toISOString().split('T')[0];
+      return bileraDataStr === gaurStr;
+    }).length;
     this.kopuruakArray = [ikKop, irKop, gaurkoBilKop];
   }
-
+//Select option
   filtratu(selectedValue: string) {
     console.log("filtratu");
     if (selectedValue === 'Guztiak') {
+      //Filtratu erabiltzaile guztiak
       this.filteredList = [...this.UserList];
     } else {
+      //Hartu aukeratutako mota
       const selectedMota = this.motaList.find(m => m.name === selectedValue);
       if (selectedMota) {
         const selectedMotaId = selectedMota.id;
+        //Listan erakutsi mota horretako erabiltzaileak
         this.filteredList = this.UserList.filter(user => user.tipo_id === selectedMotaId);
       } else {
         this.filteredList = [...this.UserList];
@@ -158,24 +160,24 @@ export class Lista {
     }
     console.log(this.filteredList);
   }
-
+  //bilatzailea
   bilatu(){
-
+    //Hasi erabiltzaile guztiekin
     let resultados = [...this.UserList];
-
-
+    //Ez bada "Guztiak" bilatu izena
     if (this.selected !== 'Guztiak') {
        const motaEncontrada = this.motaList.find(m => m.name === this.selected);
        if (motaEncontrada) {
          resultados = resultados.filter(u => u.tipo_id === motaEncontrada.id);
        }
     }
-
+    //Kendu espazioak eta pasatu guztia minuskulara
     const texto = this.bilatuTextua.trim().toLowerCase();
     
     if (texto !== '') {
         resultados = resultados.filter(user => {
-            return (
+          //Bilatu izena, abizena email edo dni-aren arabera 
+          return (
                 user.nombre.toLowerCase().includes(texto) ||
                 user.apellidos.toLowerCase().includes(texto) ||
                 user.email.toLowerCase().includes(texto) ||
@@ -189,7 +191,7 @@ export class Lista {
   }
 
   kendu(id: number) {
-    if(confirm('¿Seguro que quieres borrar este usuario?')) { 
+    if(confirm('Ziur kendu nahi duzula?')) { 
         this.usersS.deleteUser(id).subscribe({
         next: () => {
             console.log(`Erabiltzaile ${id} kenduta`);
@@ -200,38 +202,26 @@ export class Lista {
         });
     }
   }
-
+//Sortu erabiltzailea
   gehitu() {
     if (this.newUser.valid) {
-      const dniValor = this.newUser.value.dni || '';
-      if (dniValor !== '') {
-        const nanOndo = this.konprobatuNAN(dniValor);
-        if (!nanOndo) {
-          alert("NAN-a txarto (El formato o la letra no coinciden)");
-          return;
-        }
-      }
+      
       this.users$.subscribe({
         next: (users) => {
-          const hurrengoId =
-            users.length > 0
-              ? Math.max(...users.map(h => h.id)) + 1
-              : 1;
 
-          const AddUser: User = {
-            id: hurrengoId,
+          const AddUser: any = {
             email: this.newUser.value.email!,
             username: this.newUser.value.username!,
             password: this.newUser.value.password!,
             nombre: this.newUser.value.nombre!,
             apellidos: this.newUser.value.apellidos!,
-            dni: dniValor,
+            dni: this.newUser.value.dni || '',
             direccion: this.newUser.value.direccion || '',
             telefono1: this.newUser.value.telefono ? Number(this.newUser.value.telefono) : null,
             telefono2: this.newUser.value.telefono2 ? Number(this.newUser.value.telefono2) : null,
-            tipo_id: this.newUser.value.tipo_id!,
-            argazkia_url: 'foto.webp',
-            created_at: new Date(),
+            tipo_id: Number(this.newUser.value.tipo_id!),
+            argazkia_url: this.newUser.value.img ||'foto.webp',
+            created_at: new Date(), 
             updated_at: new Date()
           };
 
@@ -251,18 +241,10 @@ export class Lista {
         error: (err) => console.error('Errorea gehitzean:', err)
       });
     }
+  
   }
 
-  konprobatuNAN(nan: string): boolean {
-    if (!/^[0-9]{8}[A-Za-z]$/.test(nan)) {
-      return false;
-    }
-    const zbk = parseInt(nan.substring(0, 8));
-    const letraUsuario = nan.substring(8).toUpperCase();
-    const letrasValidas = "TRWAGMYFPDXBNJZSQVHLCKE";
-    const letraCorrecta = letrasValidas[zbk % 23];
-    return letraUsuario === letraCorrecta;
-  }
+
 
   erakutsiForm() {
     this.ezkutatuta = !this.ezkutatuta;
@@ -286,19 +268,13 @@ export class Lista {
       telefono: user.telefono1 ? user.telefono1.toString() : '',
       telefono2: user.telefono2 ? user.telefono2.toString() : '',
       tipo_id: user.tipo_id,
+      img:user.argazkia_url,
       password: user.password
     });
   }
 
   modifikatu() {
     if (this.modUser.valid) {
-      const dniValor = this.modUser.value.dni || '';
-      if (dniValor !== '') {
-        const nanOndo = this.konprobatuNAN(dniValor);
-        if (!nanOndo) {
-          alert("NAN-a txarto (El formato o la letra no coinciden)");
-          return;
-        }
       }
       const modiUser: User = {
         id: this.idEditatzeko,
@@ -307,12 +283,12 @@ export class Lista {
         password: this.modUser.value.password!,
         nombre: this.modUser.value.nombre!,
         apellidos: this.modUser.value.apellidos!,
-        dni: dniValor,
+        dni: this.modUser.value.dni|| '',
         direccion: this.modUser.value.direccion || '',
-        telefono1: Number(this.modUser.value.telefono),
-        telefono2: Number(this.modUser.value.telefono2),
+        telefono1: Number(this.modUser.value.telefono) || null,
+        telefono2: Number(this.modUser.value.telefono2)|| null,
         tipo_id: this.modUser.value.tipo_id!,
-        argazkia_url: 'foto.webp',
+        argazkia_url: this.modUser.value.img ||'foto.webp',
         updated_at: new Date()
       };
       
@@ -331,4 +307,3 @@ export class Lista {
       });
     }
   }
-}

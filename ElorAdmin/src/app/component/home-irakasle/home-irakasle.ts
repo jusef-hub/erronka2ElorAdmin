@@ -3,11 +3,10 @@ import { User } from '../../interface/interfaces';
 import { Users } from '../../services/users';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RouterOutlet, RouterLink, Router, ActivatedRoute } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
+import { RouterOutlet, RouterLink} from '@angular/router';
 @Component({
   selector: 'app-home-irakasle',
-  imports: [RouterLink, AsyncPipe, RouterOutlet, TranslatePipe],
+  imports: [RouterLink, RouterOutlet, TranslatePipe],
   templateUrl: './home-irakasle.html',
   styleUrl: './home-irakasle.css',
 })
@@ -18,7 +17,7 @@ export class HomeIrakasle {
   user$!:Observable<User>
   user:User | undefined
 
-
+//Hartu erabiltzailea
   constructor(){
     let datuak = sessionStorage.getItem('usuarioLogueado');
     

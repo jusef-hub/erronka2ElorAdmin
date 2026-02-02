@@ -9,9 +9,9 @@ app.use(bodyParser.json());
 
 // Configurar la conexión a la base de datos MySQL
 const db = mysql.createConnection({
-    host: 'localhost', // Dirección del servidor MySQL
-    user: 'root', // Usuario de MySQL
-    port: '3307',
+    host: '10.5.104.111', // Dirección del servidor MySQL
+    user: 'Web', // Usuario de MySQL
+    port: '3306',
     password: '', // Contraseña de MySQL
     database: 'eduelorrieta', // Nombre de tu base de datos
 });
@@ -302,6 +302,17 @@ app.get('/ciclos/:id', (req, res) => {
         if (results.length != 1) throw err;
         res.send(results);
     });
+});
+
+app.get('/centros/:id', (req, res) => {
+    const jsonData = require('./ikastetxeak.json');
+    const { id } = req.params;
+    var centro = jsonData.CENTROS.find(c=>c.CCEN==id);
+    if(centro){
+    res.json(centro)
+    }else{
+        console.log("Ez da aurkitu")
+    }
 });
 
 app.get('/centros', (req, res) => {

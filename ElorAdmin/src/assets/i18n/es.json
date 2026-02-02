@@ -19,6 +19,7 @@
     "num_reuniones": "Número de reuniones de hoy",
     "filtro_todos": "Todos",
     "placeholder_barra_buscar":"Buscar",
+    "placeholder_img": "Imagen",
     "placeholder_email": "Email",
     "placeholder_user": "Nombre de usuario",
     "placeholder_pass": "Contraseña",
@@ -98,9 +99,28 @@
     "cargando_centros": "Cargando lista de centros...",
     "mapa_placeholder": "Selecciona un centro de la lista para verlo en el mapa",
     "titulo_profe": "2. Selecciona el Profesor/a",
-    "titulo_fecha": "3. Fecha y Hora",
+    "titulo_titulo":"3.Selecciona Titulo",
+    "titulo_asunto":"4.Selecciona Asunto",
+    "titulo_aula":"5.Selecciona Aula",
+    "titulo_fecha": "6. Fecha y Hora",
     "label_dia": "Día:",
     "label_hora": "Hora:",
     "btn_crear": "Crear Reunión"
+  },
+  "ikastetxea_info": {
+    "btn_volver": "Volver a la lista",
+    "codigo": "Código",
+    "titulo_contacto": "Contacto",
+    "tel": "Teléfono",
+    "fax": "Fax",
+    "email": "Email",
+    "web": "Web",
+    "btn_web": "Visitar sitio web",
+    "titulo_ubicacion": "Ubicación",
+    "direccion": "Dirección",
+    "municipio": "Municipio",
+    "territorio": "Territorio",
+    "titularidad": "Titularidad",
+    "cargando": "Cargando datos..."
   }
 }

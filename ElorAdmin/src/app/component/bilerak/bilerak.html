@@ -31,7 +31,9 @@
             <tr>
               <td>{{ reunion.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
               <td>{{ reunion.asunto }}</td>
-              <td><strong>{{ getNombreInterlocutor(reunion) }}</strong></td> 
+              
+              <td><strong>{{ solaskideaLortu(reunion) }}</strong></td> 
+              
               <td class="td-estado">
                 <div class="estado-container">
                   <span class="badge-texto" [class]="reunion.estado">
@@ -42,7 +44,7 @@
                     <select 
                       class="select-mini" 
                       [value]="reunion.estado"
-                      (change)="actualizarDesdeSelect(reunion, $event)">
+                      (change)="selectBidezEguneratu(reunion, $event)">
                       <option [value]="eEstado.pendiente">Pendiente</option>
                       <option [value]="eEstado.aceptada">Aceptada</option>
                       <option [value]="eEstado.denegada">Denegada</option>

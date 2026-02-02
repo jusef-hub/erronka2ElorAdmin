@@ -1,11 +1,11 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import{Users} from '../../services/users';
 import{User} from '../../interface/interfaces';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import{FormsModule} from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TranslatePipe, TranslateDirective, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -30,9 +30,10 @@ userForm = new FormGroup({
 });
 
    constructor(private router: Router){
+    //Itzultzailea
     this.translate.get('login.titulo').subscribe({
-        next: (res) => console.log('Traducción cargada:', res),
-        error: (err) => console.error('Error traducción:', err)
+        next: (res) => console.log('Itzultzailea ondo doa:', res),
+        error: (err) => console.error('Errorea itzultzailearekin:', err)
     });
     this.usersS.getUser().subscribe({
       next:value => {
@@ -49,9 +50,11 @@ userForm = new FormGroup({
         const erabiltzailea=this.UserList[i]
         this.aurkituta=true;
         console.log("Login exitoso");
+        //Hartu erabiltzailea sessionStorage-ekin eta bidali
         sessionStorage.setItem('usuarioLogueado', JSON.stringify(erabiltzailea) )
         const id= this.UserList[i].id;
         const tipoid= this.UserList[i].tipo_id;
+        //Tipo_id-aren arabera konponente batera bidali
         switch(tipoid){
           case 1:
           this.router.navigate(['/lista', id]);

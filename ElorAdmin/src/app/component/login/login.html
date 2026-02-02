@@ -3,10 +3,11 @@
     <img src="logo.png" alt="Logo" class="login-logo" width="300" />
     
     <h2>{{ 'login.titulo' | translate }}</h2>
-
-    <div *ngIf="loginError" class="simple-alert">
+    @if(loginError){
+    <div class="simple-alert">
       {{ 'login.error_msg' | translate }}
     </div>
+  }
 
     <form (ngSubmit)="login()">
       <input

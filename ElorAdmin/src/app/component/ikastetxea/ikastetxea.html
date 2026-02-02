@@ -1,0 +1,65 @@
+<div class="container">
+  
+  <button class="btn-volver" routerLink="../..">{{ 'ikastetxea_info.btn_volver' | translate }}</button>
+
+  @if(ikas$ | async; as ikas){
+    <div class="ficha-centro">
+      
+      <header class="header-centro">
+        <div class="titulo">
+          <h1>{{ ikas.NOM }}</h1>
+          <span class="subtitulo">{{ ikas.DGENRC }} ({{ ikas.DGENRE }})</span>
+        </div>
+        <div class="codigo-centro">
+          <span class="label">{{ 'ikastetxea_info.codigo' | translate }}</span>
+          <span class="valor">{{ ikas.CCEN }}</span>
+        </div>
+      </header>
+
+      <div class="grid-layout">
+        
+        <section class="card info-contacto">
+          <h3>{{ 'ikastetxea_info.titulo_contacto' | translate }}</h3>
+          <ul>
+            <li>
+              <strong>{{ 'ikastetxea_info.tel' | translate }}</strong> 
+              <a href="{{ ikas.TEL1 }}">{{ ikas.TEL1 }}</a>
+            </li>
+            <li>
+              <strong>{{ 'ikastetxea_info.fax' | translate }}</strong> {{ ikas.TFAX }}
+            </li>
+            <li>
+              <strong>{{ 'ikastetxea_info.email' | translate }}</strong> 
+              <a href="{{ ikas.EMAIL }}">{{ ikas.EMAIL }}</a>
+            </li>
+            @if(ikas.PAGINA && ikas.PAGINA !== ' ' && ikas.PAGINA.length > 5) {
+                <li>
+                  <strong>{{ 'ikastetxea_info.web' | translate }}</strong> 
+                  <a [href]="ikas.PAGINA" target="_blank" rel="noopener noreferrer">
+                    {{ 'ikastetxea_info.btn_web' | translate }}
+                  </a>
+                </li>
+            }
+          </ul>
+        </section>
+
+        <section class="card info-ubicacion">
+          <h3>{{ 'ikastetxea_info.titulo_ubicacion' | translate }}</h3>
+          <address>
+            <p><strong>{{ 'ikastetxea_info.direcion' | translate }}</strong> {{ ikas.DOMI }}</p>
+            <p><strong>{{ 'ikastetxea_info.municipio' | translate }}</strong> {{ ikas.DMUNIC }} ({{ ikas.CPOS }})</p>
+            <p><strong>{{ 'ikastetxea_info.territorio' | translate }}</strong> {{ ikas.DTERRC }}</p>
+          </address>
+          
+          <div class="titularidad" style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #ccc;">
+            <strong>{{ 'ikastetxea_info.titularidad' | translate }}</strong> {{ ikas.DTITUC }}
+          </div>
+        </section> 
+
+      </div> 
+    </div> 
+  } @else {
+      <div class="loading">{{ 'ikastetxea_info.cargando' | translate }}</div>
+  }
+
+</div>

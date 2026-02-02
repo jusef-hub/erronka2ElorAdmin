@@ -19,6 +19,7 @@
     "num_reuniones": "Number of meetings today",
     "filtro_todos": "All",
     "placeholder_barra_buscar": "Search",
+    "placeholder_img": "Image",
     "placeholder_email": "Email",
     "placeholder_user": "Username",
     "placeholder_pass": "Password",
@@ -98,9 +99,29 @@
     "cargando_centros": "Loading list of centers...",
     "mapa_placeholder": "Select a center from the list to view it on the map",
     "titulo_profe": "2. Select Teacher",
-    "titulo_fecha": "3. Date and Time",
+    "titulo_titulo":"3.Select Title",
+    "titulo_asunto":"4.Select Subject",
+    "titulo_aula":"5.Select Classroom",
+    "titulo_fecha": "6. Date and Time",
     "label_dia": "Day:",
     "label_hora": "Time:",
     "btn_crear": "Create Meeting"
+  },
+  
+  "ikastetxea_info": {
+    "btn_volver": "Back to list",
+    "codigo": "Code",
+    "titulo_contacto": "Contact",
+    "tel": "Phone",
+    "fax": "Fax",
+    "email": "Email",
+    "web": "Web",
+    "btn_web": "Visit website",
+    "titulo_ubicacion": "Location",
+    "direccion": "Address",
+    "municipio": "Municipality",
+    "territorio": "Territory",
+    "titularidad": "Ownership",
+    "cargando": "Loading data..."
   }
 }

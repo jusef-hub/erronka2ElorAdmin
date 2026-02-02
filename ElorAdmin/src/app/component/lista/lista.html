@@ -63,6 +63,7 @@
         @if(ezkutatuta){
         <div class="ezkutatuta">
              <form (ngSubmit)="gehitu()" [formGroup]="newUser">
+                <input type="text" formControlName="img" [placeholder]="'admin.placeholder_img' | translate">
                     <input type="email" formControlName="email" 
                            [placeholder]="'admin.placeholder_email' | translate" required>
                     
@@ -105,6 +106,7 @@
         @if(ezkutatutaMod){
         <div class="ezkutatuta">
              <form (ngSubmit)="modifikatu()" [formGroup]="modUser">
+                    <input type="text" formControlName="img" [placeholder]="'admin.placeholder_img' | translate">
                     <input type="email" formControlName="email" 
                            [placeholder]="'admin.placeholder_email' | translate" >
                     

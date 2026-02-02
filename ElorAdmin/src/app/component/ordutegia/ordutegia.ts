@@ -4,36 +4,31 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core'; 
 import { Horario, User } from '../../interface/interfaces';
 import { Egutegia } from '../../services/egutegia';
-import { Users } from '../../services/users';
 import { Matrikulazioak } from '../../services/matrikulazioak';
 import { Moduloa } from '../../services/moduloa';
 
 @Component({
   selector: 'app-ordutegia',
   standalone: true,
-  imports: [CommonModule, TranslateModule], // Quitamos AsyncPipe de aquí
+  imports: [CommonModule, TranslateModule],
   templateUrl: './ordutegia.html',
   styleUrl: './ordutegia.css',
 })
 export class Ordutegia  { 
   
-  // Inyecciones
   private egutegiaService = inject(Egutegia);
-  private userService = inject(Users); 
   private matriculacionService = inject(Matrikulazioak);
   private modulosService = inject(Moduloa);
   private cd = inject(ChangeDetectorRef);
-  private router = inject(Router);
-
 
   esProfesor: boolean = false;
-  dias = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES'];
+  egunak = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES'];
   egutegia: Horario[] = []; 
   
 
   currentUser: User | undefined; 
 
-  franjasHorarias = [
+  orduak = [
     { id: 1, texto: '08:00 - 09:00' },
     { id: 2, texto: '09:00 - 10:00' },
     { id: 3, texto: '10:00 - 11:00' },
@@ -41,7 +36,7 @@ export class Ordutegia  {
     { id: 5, texto: '12:30 - 13:30' },
     { id: 6, texto: '13:30 - 14:30' }
   ];
-
+//Hartu erabiltzailea sessionStorage-arekin
   constructor() {
      const datos = sessionStorage.getItem('usuarioLogueado');
 
@@ -50,16 +45,17 @@ export class Ordutegia  {
 
 
       if (this.currentUser) {
+        //irakaslea ID hori dauka
         this.esProfesor = this.currentUser.tipo_id === 3;
         
-        this.cargarHorario();
+        this.kargatuEgutegia();
       }
     } else {
-      console.warn("No hay usuario en sesión");
+      console.warn("Ez dago erabiltzailerik sesioan");
     }
   }
 
-  cargarHorario() {
+  kargatuEgutegia() {
     const usuario = this.currentUser!;
 
     this.egutegiaService.getEgutegia().subscribe({
@@ -71,16 +67,16 @@ export class Ordutegia  {
           this.cd.detectChanges();
         
         } else {
-          this.matriculacionService.getMatrikulazioak().subscribe((matriculas) => {
+          this.matriculacionService.getMatrikulazioak().subscribe((matrikulak) => {
             
-            const miMatricula = matriculas.find(m => m.alum_id === usuario.id);
+            const matrikulazioa= matrikulak.find(m => m.alum_id === usuario.id);
 
-            if (miMatricula) {
+            if (matrikulazioa) {
               this.modulosService.getModuluak().subscribe((modulos) => {
                 
-               
+               //Filtratu ziklo eta kurtsoan dauden moduloak (ID-a hartu)
                 const misModulosIds = modulos
-                  .filter(m => m.ciclo_id === miMatricula.ciclo_id && m.curso === miMatricula.curso)
+                  .filter(m => m.ciclo_id === matrikulazioa.ciclo_id && m.curso === matrikulazioa.curso)
                   .map(m => m.id); 
 
                 
@@ -95,8 +91,8 @@ export class Ordutegia  {
       error: (err) => console.error('Error al cargar horario:', err)
     }); 
   }
-
-  getClase(dia: string, horaId: number): Horario | undefined {
-    return this.egutegia.find(h => h.dia === dia && h.hora === horaId);
+//Bilatu klasea eguna eta orduaren arabera
+  getKlasea(eguna: string, ordua: number): Horario | undefined {
+    return this.egutegia.find(h => h.dia === eguna && h.hora === ordua);
   }
 }

@@ -1,87 +1,123 @@
-/* ============================= */
-/* CONTENEDOR PRINCIPAL */
-/* ============================= */
-#contenedor-principal {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
+/* ESTILO OROKORRAK */
+body {
+  background-color: #f4f7f6;
+  margin: 0;
 }
 
-/* ============================= */
-/* TARJETAS */
-/* ============================= */
-#aukeratuZentroa,
-#aukeratuIrakaslea,
-#aukeratuData {
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+form {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+  color: #333;
 }
 
-/* ============================= */
-/* TÍTULOS */
-/* ============================= */
-#aukeratuZentroa h2,
-#aukeratuIrakaslea h2,
-#aukeratuData h2 {
-  margin-bottom: 18px;
-  color: #003366;
-  font-size: 1.4rem;
+h2 {
+  font-size: 1.25rem;
   font-weight: 600;
-  border-bottom: 2px solid #eef1f4;
-  padding-bottom: 8px;
+  color: #2c3e50;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  margin-top: 0;
 }
 
-/* ============================= */
-/* SELECT */
-/* ============================= */
-#aukeratu {
-  width: 100%;
-  padding: 10px 14px;
-  margin-bottom: 16px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #495057;
   font-size: 0.95rem;
 }
 
-/* ============================= */
-/* LISTA + MAPA */
-/* ============================= */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+  outline: none;
+}
+
+/* EDUKIONTZIAK */
+#contenedor-principal > div, 
+#titulo, 
+#asunto, 
+#aula, 
+#aukeratuIrakaslea, 
+#aukeratuData {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  margin-bottom: 25px;
+  border: 1px solid #f0f0f0;
+}
+
+/* ZENTROA AUKERATU */
+#aukeratuZentroa {
+  position: relative;
+}
+
+#zentroKop {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
 #listaMapa {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
   gap: 20px;
+  height: 380px; 
 }
 
-#lista-centros {
-  width: 45%;
+/* ZERRENDAK */
+#lista-centros,
+#lista-profes {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow-y: auto; 
+  height: 100%;
+  background-color: #fff;
 }
 
-#mapa {
-  width: 55%;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid #ddd;
+#lista-centros::-webkit-scrollbar,
+#lista-profes::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  #listaMapa {
-    flex-direction: column;
-  }
-
-  #lista-centros,
-  #mapa {
-    width: 100%;
-  }
+#lista-centros::-webkit-scrollbar-track,
+#lista-profes::-webkit-scrollbar-track {
+  background: #f1f1f1; 
 }
 
-/* ============================= */
-/* LISTAS */
-/* ============================= */
+#lista-centros::-webkit-scrollbar-thumb,
+#lista-profes::-webkit-scrollbar-thumb {
+  background: #ccc; 
+  border-radius: 4px;
+}
+
+#lista-centros::-webkit-scrollbar-thumb:hover,
+#lista-profes::-webkit-scrollbar-thumb:hover {
+  background: #aaa; 
+}
+
 #lista-centros ul,
 #lista-profes ul {
   list-style: none;
@@ -89,111 +125,146 @@
   margin: 0;
 }
 
-#lista-centros,
-#lista-profes {
-  max-height: 280px;
-  overflow-y: auto;
-}
-
-/* Scroll moderno */
-#lista-centros::-webkit-scrollbar,
-#lista-profes::-webkit-scrollbar {
-  width: 6px;
-}
-
-#lista-centros::-webkit-scrollbar-thumb,
-#lista-profes::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
-}
-
-/* ============================= */
-/* ITEMS */
-/* ============================= */
 #lista-centros li,
 #lista-profes li {
-  padding: 12px 14px;
-  border-radius: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #f1f3f5;
   cursor: pointer;
-  margin-bottom: 8px;
-  border: 1px solid transparent;
-  transition: all 0.2s ease;
-}
-
-/* Hover */
-#lista-centros li:hover:not(.seleccionado),
-#lista-profes li:hover:not(.seleccionado) {
-  background: #f4f6f8;
-}
-
-/* Seleccionado */
-#lista-centros li.seleccionado,
-#lista-profes li.seleccionado {
-  background: #eaf2ff;
-  border-color: #004e92;
-  color: #004e92;
-  font-weight: 600;
-}
-
-/* ============================= */
-/* MAPA PLACEHOLDER */
-/* ============================= */
-.mapa-placeholder {
-  height: 300px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  background: #f5f7fa;
-  color: #666;
-  border-radius: 14px;
-  font-style: italic;
-}
-
-/* ============================= */
-/* FECHA / HORA */
-/* ============================= */
-#aukeratuData .input-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-}
-
-#aukeratuData label {
-  margin-bottom: 6px;
-  font-weight: 600;
-  color: #444;
-}
-
-#aukeratuData input {
-  padding: 11px 14px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  transition: all 0.2s ease;
   font-size: 0.95rem;
 }
 
-/* ============================= */
-/* BOTÓN */
-/* ============================= */
-.btn-guardar {
-  margin-top: 32px;
-  width: 100%;
-  padding: 16px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #004e92, #000428);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+#lista-centros li:last-child,
+#lista-profes li:last-child {
+  border-bottom: none;
 }
 
-.btn-guardar:hover:not(:disabled) {
+#lista-centros li:hover,
+#lista-profes li:hover {
+  background-color: #f8f9fa;
+  padding-left: 22px; 
+}
+
+/* AUKERATUTAKO ELEMENTUA */
+li.seleccionado {
+  background-color: #e7f1ff !important;
+  color: #0056b3;
+  font-weight: 600;
+  border-left: 4px solid #007bff;
+}
+
+/* ZENTROKO BOTOIA */
+#lista-centros button {
+  background-color: transparent;
+  color: #adb5bd;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  font-weight: bold;
+}
+
+#lista-centros button:hover {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* MAPA */
+#mapa {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #dee2e6;
+  height: 100%;
+  background-color: #e9ecef;
+}
+
+.mapa-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #868e96;
+  font-weight: 500;
+}
+
+/* IRAKASLEAK */
+#lista-profes {
+  height: 220px;
+}
+
+/* DATA ETA ORDUA */
+#aukeratuData {
+  display: flex;
+  gap: 25px;
+}
+
+.input-group {
+  flex: 1; 
+}
+
+/* GORDE BOTOIA */
+.btn-guardar {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 10px;
+  box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
+}
+
+.btn-guardar:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+}
+
+.btn-guardar:active {
+  transform: translateY(0);
 }
 
 .btn-guardar:disabled {
-  background: #b5b5b5;
+  background: #ccc;
+  box-shadow: none;
   cursor: not-allowed;
+  transform: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  #listaMapa {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  
+  #lista-centros {
+    height: 280px;
+    margin-bottom: 20px;
+  }
+
+  #mapa {
+    height: 250px;
+  }
+
+  #aukeratuData {
+    flex-direction: column;
+    gap: 15px;
+  }
 }

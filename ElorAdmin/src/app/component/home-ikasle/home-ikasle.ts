@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
-import {Router, ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import {RouterLink, RouterOutlet } from '@angular/router';
 import { User } from '../../interface/interfaces';
 import { Users } from '../../services/users';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import {TranslatePipe } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-home-ikasle',
@@ -14,9 +13,8 @@ import { AsyncPipe } from '@angular/common';
 })
 export class HomeIkasle {
   userService=inject(Users)
-  private translate=inject(TranslateService)
   user:User |undefined
-
+//Hartu erabiltzailea
   constructor(){
     let datuak = sessionStorage.getItem('usuarioLogueado');
     

@@ -1,6 +1,6 @@
 import { Component, importProvidersFrom, signal, inject } from '@angular/core';
 import { RouterOutlet, Router, RouterLink } from '@angular/router';
-import { TranslateService, TranslatePipe, TranslateDirective } from '@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',

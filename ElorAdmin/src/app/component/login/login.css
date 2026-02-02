@@ -1,32 +1,32 @@
-/* 1. CONTENEDOR PRINCIPAL: Centra todo en la pantalla */
+/* EDUKITZAILE NAGUSIA */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Altura completa de la ventana */
-  background-color: #f4f7f6; /* Gris muy suave de fondo */
+  min-height: 100vh;
+  background-color: #f4f7f6;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* 2. LA TARJETA (CARD): La caja blanca */
+/* TXARTELA */
 .login-card {
   background-color: #ffffff;
   padding: 2.5rem;
-  border-radius: 12px; /* Bordes redondeados */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px; /* Que no sea demasiado ancha en PC */
+  max-width: 400px;
   text-align: center;
 }
 
-/* 3. LOGO */
+/* LOGOTIPOA */
 .login-logo {
-  max-width: 150px; /* Forzamos un tamaño máximo para que no se rompa */
+  max-width: 150px;
   height: auto;
   margin-bottom: 1.5rem;
 }
 
-/* 4. TÍTULO */
+/* IZENBURUA */
 h2 {
   color: #333;
   margin-bottom: 1.5rem;
@@ -34,31 +34,30 @@ h2 {
   font-weight: 600;
 }
 
-/* 5. INPUTS (Campos de texto) */
+/* SARRERA EREMUAK */
 input[type="text"],
 input[type="password"] {
-  width: 100%; /* Ocupan todo el ancho disponible */
+  width: 100%;
   padding: 12px 15px;
-  margin-bottom: 15px; /* Espacio entre inputs */
+  margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  box-sizing: border-box; /* Importante para que el padding no rompa el ancho */
+  box-sizing: border-box;
 }
 
-/* Efecto al hacer clic en el input */
 input:focus {
-  border-color: #4a90e2; /* Azul al escribir */
+  border-color: #4a90e2;
   outline: none;
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
 }
 
-/* 6. BOTÓN */
+/* BOTOIA */
 button {
   width: 100%;
   padding: 12px;
-  background-color: #4a90e2; /* Azul principal */
+  background-color: #4a90e2;
   color: white;
   border: none;
   border-radius: 8px;
@@ -70,13 +69,13 @@ button {
 }
 
 button:hover {
-  background-color: #357abd; /* Azul más oscuro al pasar el ratón */
+  background-color: #357abd;
 }
 
-/* 7. MENSAJE DE ERROR (Alerta) */
+/* ERRORE MEZUA */
 .simple-alert {
-  background-color: #fee2e2; /* Fondo rojo claro */
-  color: #dc2626; /* Texto rojo oscuro */
+  background-color: #fee2e2;
+  color: #dc2626;
   border: 1px solid #fecaca;
   padding: 10px;
   border-radius: 8px;
@@ -84,11 +83,11 @@ button:hover {
   font-size: 0.9rem;
 }
 
-/* 8. RESPONSIVE (Móviles) */
+/* RESPONSIVE */
 @media (max-width: 480px) {
   .login-card {
     padding: 1.5rem;
-    box-shadow: none; /* Quitamos sombra en móviles si quieres */
-    background-color: transparent; /* O dejamos que se funda con el fondo */
+    box-shadow: none;
+    background-color: transparent;
   }
 }

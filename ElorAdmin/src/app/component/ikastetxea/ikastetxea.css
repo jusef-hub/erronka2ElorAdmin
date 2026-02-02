@@ -1,0 +1,202 @@
+/* ESTILO OROKORRAK */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* ATZERA BOTOIA */
+.btn-volver {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 25px;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-volver:hover {
+  background-color: #0056b3;
+}
+
+/* FITXA NAGUSIA */
+.ficha-centro {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  padding: 30px;
+  border: 1px solid #e0e0e0;
+}
+
+/* GOIBURUA */
+.header-centro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.titulo h1 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.subtitulo {
+  color: #666;
+  font-size: 1rem;
+  margin-top: 8px;
+  display: block;
+}
+
+.codigo-centro {
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-align: right;
+  border: 1px solid #e9ecef;
+  min-width: 120px;
+}
+
+.codigo-centro .label {
+  display: block;
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.codigo-centro .valor {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+/* MAKETAZIOA */
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+/* TXARTELAK */
+.card {
+  background-color: #fdfdfd;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 25px;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  border-bottom: 3px solid #007bff;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  display: inline-block;
+}
+
+/* HARREMANETARAKO DATUAK */
+.info-contacto ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-contacto li {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-contacto li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.info-contacto strong {
+  color: #555;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
+.info-contacto a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.info-contacto a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* HELBIDEAK ETA TITULARTASUNA */
+.info-ubicacion address {
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.info-ubicacion p {
+  margin: 0 0 15px 0;
+}
+
+.titularidad {
+  color: #555;
+  font-size: 0.95rem;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* KARGATZEN */
+.loading {
+  text-align: center;
+  padding: 60px;
+  font-size: 1.2rem;
+  color: #888;
+  font-style: italic;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .header-centro {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .codigo-centro {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
+}

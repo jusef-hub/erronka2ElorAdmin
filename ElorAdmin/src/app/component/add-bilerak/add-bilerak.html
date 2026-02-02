@@ -5,25 +5,22 @@
       
       <div id="aukeratuZentroa">
         <h2>{{ 'sortu_bilera.titulo_centro' | translate }}</h2>
-       <select id="aukeratu" name="aukeratu" 
-        [(ngModel)]="selected" 
-        (ngModelChange)="filtratu($event)"
-        [ngModelOptions]="{standalone: true}"> <option value="Guztiak">{{ 'admin.filtro_todos' | translate }}</option>
-    
+       <select id="aukeratu" name="aukeratu" [ngModelOptions]="{standalone: true}"  [(ngModel)]="selected" (ngModelChange)="filtratu($event)"> <option value="Guztiak">{{ 'admin.filtro_todos' | translate }}</option>
     @for (option of aukeratu; track option) {
         <option value="{{ option }}">{{ option }}</option>
     }
 </select>
-
+ <p id="zentroKop">{{ filteredList.length }}</p>
 <div id="listaMapa">
     <div id="lista-centros">
         <ul>
             @for (ikastetxea of filteredList; track ikastetxea.CCEN) {
             
-                <li (click)="seleccionarCentro(ikastetxea)" 
+                <li (click)="ikastetxeaAukeratu(ikastetxea)" 
                     [class.seleccionado]="bileraForm.get('centro')?.value === ikastetxea.CCEN">
                     
-                    <span>{{ ikastetxea.NOM }}</span>                
+                    <span>{{ ikastetxea.NOM }}</span>    
+                   <button type="button" (click)="ikastetxeaOrria(ikastetxea.CCEN)">></button>            
                 </li>
 
             } @empty {
@@ -34,7 +31,7 @@
 
     <div id="mapa">
         @if (mapaUrl) {
-            <iframe [src]="mapaUrl" width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen></iframe>
+            <iframe [src]="mapaUrl" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen></iframe>
         } @else {
             <div class="mapa-placeholder">
                 {{ 'sortu_bilera.mapa_placeholder' | translate }}
@@ -42,7 +39,19 @@
         }
     </div>
 </div>
-      </div>
+</div>
+<div id="titulo">
+    <label>{{ 'sortu_bilera.titulo_titulo' | translate }}</label>
+    <input type="text" formControlName="titulo" class="form-control">
+  </div>
+  <div id="asunto">
+    <label>{{ 'sortu_bilera.titulo_asunto' | translate }}</label>
+    <input type="text" formControlName="asunto" class="form-control">
+  </div>
+  <div id="aula">
+    <label>{{ 'sortu_bilera.titulo_aula' | translate }}</label>
+    <input type="text" formControlName="aula" class="form-control">
+  </div>
 
       <div id="aukeratuIrakaslea">
         <h2>{{ 'sortu_bilera.titulo_profe' | translate }}</h2>
@@ -51,7 +60,7 @@
             @if (irakasleak$ | async; as zerrenda) {
               @for (irakaslea of zerrenda; track irakaslea.id) {
                 
-                <li (click)="seleccionarProfesor(irakaslea)"
+                <li (click)="irakasleaAukeratu(irakaslea)"
                     [class.seleccionado]="bileraForm.get('profesorId')?.value === irakaslea.id">
                   
                   <span>{{ irakaslea.nombre }} {{ irakaslea.apellidos }}</span>
@@ -67,7 +76,7 @@
         
         <div class="input-group">
           <label>{{ 'sortu_bilera.label_dia' | translate }}</label>
-          <input type="date" formControlName="fecha">
+          <input type="date" formControlName="fecha" [min]="minDate">
         </div>
 
         <div class="input-group">
