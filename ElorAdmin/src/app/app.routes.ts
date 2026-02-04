@@ -7,25 +7,25 @@ import { Ordutegia } from './component/ordutegia/ordutegia';
 import { Bilerak } from './component/bilerak/bilerak';
 import { Ikasleak } from './component/ikasleak/ikasleak';
 import { AddBilerak } from './component/add-bilerak/add-bilerak';
-import{Lista} from './component/lista/lista'
+import { Lista } from './component/lista/lista'
 import { Ikastetxea } from './component/ikastetxea/ikastetxea'; 
 
 export const routes: Routes = [
     { path: '', component: Login, pathMatch: 'full' },
     { path: 'lista/:id', component: Lista },
     { path: 'ikasle/:id', component: HomeIkasle, children:[
-        { path: '', component: Datuak, pathMatch: 'full' }, 
-        { path: 'datuP', component: Datuak },
+        {path: '', component: Datuak, pathMatch: 'full' }, 
+        {path: 'datuP', component: Datuak },
         {path:'ordutegia', component:Ordutegia},
         {path:'bilera', component:Bilerak,},
-        {path:'addBilerak', component:AddBilerak},
         {path:'ikastetxea/:idIkastetxe', component:Ikastetxea}
     ]},
     { path: 'irakasle/:id', component: HomeIrakasle , children:[
-        { path: '', component: Datuak, pathMatch: 'full' }, 
-        { path: 'datuP', component: Datuak },
+        {path: '', component: Datuak, pathMatch: 'full' }, 
+        {path: 'datuP', component: Datuak },
         {path:'ordutegia', component:Ordutegia},
         {path:'bilera', component:Bilerak},
+        {path:'addBilerak', component:AddBilerak},
         {path:'ikasleak', component:Ikasleak}
     ]},
     

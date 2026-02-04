@@ -219,3 +219,15 @@ pagination-controls {
   background: #4a90e2 !important;
   border-radius: 4px;
 }
+/*Errorea*/
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+    border: 2px solid red;
+    background-color: #ffe6e6; 
+}
+
+.error-msg {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}

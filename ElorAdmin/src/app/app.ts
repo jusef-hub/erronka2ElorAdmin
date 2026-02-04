@@ -19,7 +19,7 @@ export class App {
     console.log("Aldatu hizkuntza:", lang);
     this.translate.use(lang);
     //LocalStorage: nabigatzaile barruan nahi dudan datuak gorde eta datuak mantenduko dira
-    //session Storage:sesioaren barruan mantenduko dira. Itxi datuak galdu
+    //sessionStorage:sesioaren barruan mantenduko dira. Itxi datuak galdu
     localStorage.setItem('lang', lang)
   }
   

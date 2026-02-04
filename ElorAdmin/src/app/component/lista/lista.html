@@ -36,15 +36,15 @@
                 @for (user of filteredList|paginate:{ itemsPerPage: 10, currentPage: currentPage }; track user.id ) {
                     <li>
                        @if (user.argazkia_url) {
-                        <img [src]="user.argazkia_url" alt="Foto de usuario">
+                        <img [src]="user.argazkia_url" (error)="irudiaKargatzenEzBada($event, user.id )" alt="Foto de usuario">
                         } @else {
-                        <img src="foto.webp" alt="Foto por defecto">
+                        <img  src="foto.webp" alt="Foto por defecto">
                         }
                         {{ user.nombre }} - {{ user.email }}
                         @if(currentUser){
                          @if(user.tipo_id!=1 ){
                             <div>
-                                <img id="modifikatu" (click)="formMod(user)" src="editar.png" width="15">
+                                <img  id="modifikatu" (click)="formMod(user)" src="editar.png" width="15">
                                 
                                 @if(currentUser.tipo_id != user.tipo_id ){
                                 <button id="Kendu" (click)="kendu(user.id)">X</button>
@@ -90,14 +90,14 @@
                            [placeholder]="'admin.placeholder_tel2' | translate">
                     
                     <select id="tipo_usuario" formControlName="tipo_id"> 
-                        <option value=" ">{{ 'admin.select_tipo_defecto' | translate }}</option>
+                        <option [ngValue]="null">{{ 'admin.select_tipo_defecto' | translate }}</option>
                         
                         @for (mota of motaList; track mota.id) {
                             <option [ngValue]="mota.id">{{ mota.name }}</option>
                         }
                     </select>
                     <button class="atras" type="button" (click)="atzera()">{{ 'admin.btn_atras' | translate }}</button>
-                    <button type="submit" [disabled]="!newUser.valid">
+                    <button type="submit">
                         {{ 'admin.btn_guardar' | translate }}
                     </button>
              </form>
@@ -135,14 +135,14 @@
                            [placeholder]="'admin.placeholder_tel2' | translate">
                     
                     <select id="tipo_usuario" formControlName="tipo_id"> 
-                        <option value="null">{{ 'admin.select_tipo_defecto' | translate }}</option>
+                        <option [ngValue]="null">{{ 'admin.select_tipo_defecto' | translate }}</option>
                         
                         @for (mota of motaList; track mota.id) {
                             <option [ngValue]="mota.id">{{ mota.name }}</option>
                         }
                     </select>
                     <button class="atras" type="button" (click)="atzera()">{{ 'admin.btn_atras' | translate }}</button>
-                    <button type="submit" [disabled]="!modUser.valid">
+                    <button type="submit" >
                         {{ 'admin.btn_guardar' | translate }}
                     </button>
              </form>

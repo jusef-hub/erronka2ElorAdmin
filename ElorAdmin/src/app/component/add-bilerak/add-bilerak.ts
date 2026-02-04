@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -6,10 +6,10 @@ import { User, Ikastetxea, Reunion, Estado } from '../../interface/interfaces';
 import { Users } from '../../services/users';
 import { Ikastetxeak } from '../../services/ikastetxeak';
 import { AsyncPipe } from '@angular/common'; 
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Bilera } from '../../services/bilera';
-import { TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import mapboxgl from 'mapbox-gl';
 
 @Component({
   selector: 'app-add-bilerak',
@@ -18,13 +18,11 @@ import { TranslatePipe} from '@ngx-translate/core';
   templateUrl: './add-bilerak.html',
   styleUrl: './add-bilerak.css',
 })
-export class AddBilerak {
+export class AddBilerak implements OnDestroy {
   private userService = inject(Users);   
   private ikastetxeService = inject(Ikastetxeak); 
-  private sanitizer = inject(DomSanitizer);
   private bileraService = inject(Bilera);
 
- 
   user: User | undefined;     
   irakasleak$!: Observable<User[]>; 
   ikastetxeak$!: Observable<Ikastetxea[]>; 
@@ -34,25 +32,29 @@ export class AddBilerak {
   filteredList: Ikastetxea[] = []; 
   allIkastetxeak: Ikastetxea[] = []; 
   
-  mapaUrl: SafeResourceUrl | undefined; 
-  
+
+  map: mapboxgl.Map | undefined;
+  marker: mapboxgl.Marker | undefined;
+  mapboxToken = 'pk.eyJ1IjoiaXJ1bmVndWVyZSIsImEiOiJjbWw3c2huNzUwMDFpM2RzNWxhOTNtMjR6In0.zRamaC7jFthDRmDpam8s0w';
 
   selected: string = "Guztiak";  
   minDate: string = '';        
   aukeratu: string[] = [];       
 
- 
   bileraForm = new FormGroup({
      centro: new FormControl<number | null>(null, [Validators.required]),  
      profesorId: new FormControl<number | null>(null, [Validators.required]),
      titulo: new FormControl(''),
      asunto: new FormControl(''),
-     aula:new FormControl(''),
+     aula: new FormControl(''),
      fecha: new FormControl('', [Validators.required]),
      hora: new FormControl('', [Validators.required])
   });
 
   constructor(private router: Router, private route: ActivatedRoute) {
+    // KOnfiguratu token
+    mapboxgl.accessToken = this.mapboxToken;
+
     // 1. Erabiltzailea kargatu saiotik
     const datuak = sessionStorage.getItem('usuarioLogueado');
     if (datuak) {
@@ -60,7 +62,7 @@ export class AddBilerak {
       this.gaurkoEgunaKalkulatu();
     }
 
-    //Ikastetxeak kargatu
+    // Ikastetxeak kargatu
     this.ikastetxeak$ = this.ikastetxeService.getIkastetxeak();
     this.ikastetxeak$.subscribe({
       next: (data) => {
@@ -72,12 +74,13 @@ export class AddBilerak {
       error: (err) => console.error('Errorea:', err)
     });
 
-    //Irakasleak kargatu 
-    //pipe datuak eraldatu eta map array osoa hartzeko eta filtratzeko
+    // Irakasleak kargatu 
+    // pipe datuak eraldatu eta map array osoa hartzeko eta filtratzeko
     this.irakasleak$ = this.userService.getUser().pipe(
-    map(users => users.filter(u => u.tipo_id === 3))
-);
-    //Bilerak kargatu 
+      map(users => users.filter(u => u.tipo_id === 4))
+    );
+
+    // Bilerak kargatu 
     this.bilerak$ = this.bileraService.getBilera();
     this.bilerak$.subscribe({
       next: (allBilerak) => {
@@ -85,7 +88,6 @@ export class AddBilerak {
       }
     });
   }
-
 
   ikastetxeaAukeratu(centro: Ikastetxea) {
     // Formularioan balioa ezarri
@@ -99,7 +101,7 @@ export class AddBilerak {
   }
 
   // Egutegian gaur baino lehenagoko egunak ezin aukeratzeko
-  gaurkoEgunaKalkulatu(){
+  gaurkoEgunaKalkulatu() {
     const gaur = new Date();
     const urte = gaur.getFullYear();
     const hilea = ('0' + (gaur.getMonth() + 1)).slice(-2); // 0 gehitu 
@@ -108,14 +110,39 @@ export class AddBilerak {
     this.minDate = `${urte}-${hilea}-${eguna}`;
   }
 
-//Mapa kargatu
-  mapaKargatu(lat: number, lon: number) {
+  // Mapa kargatu ¡
+  mapaKargatu(lon: number, lat: number) {
     if (lat && lon) {
-      const url = `https://maps.google.com/maps?q=${lat},${lon}&z=15&output=embed`;
-      this.mapaUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      //Tick-a itxaron zihurtatzeko mapa dagoela
+      setTimeout(() => {
+        // mapa badago kendu
+        if (this.map) {
+          this.map.remove();
+        }
+
+        // Sortu mapa berria
+        this.map = new mapboxgl.Map({
+          container: 'map', 
+          style: 'mapbox://styles/mapbox/streets-v12', 
+          center: [lat, lon], 
+          zoom: 15
+        });
+
+        //kendu lehen zegoen marker
+        if (this.marker) {
+          this.marker.remove();
+        }
+
+        // Gehitu markadorea
+        this.marker = new mapboxgl.Marker()
+          .setLngLat([lat, lon])
+          .addTo(this.map);
+
+        // Gehitu kontroleak
+        this.map.addControl(new mapboxgl.NavigationControl());
+      }, 100);
     }
   }
-
 
   gehitu() {
     if (this.bileraForm.valid && this.user) {
@@ -130,24 +157,22 @@ export class AddBilerak {
 
       const addBilera: Reunion = {
           id_reunion: hurrengoId,
-          estado: Estado.pendiente, //hasieran pendiente
-          profesor_id: Number(this.bileraForm.value.profesorId), 
-          alumno_id: this.user.id, 
+          estado: Estado.pendiente, // hasieran pendiente
+          alumno_id: Number(this.bileraForm.value.profesorId), 
+          profesor_id: this.user.id, 
           id_centro: Number(this.bileraForm.value.centro), 
           titulo: this.bileraForm.value.titulo || '',
           asunto: this.bileraForm.value.asunto || '',
-          aula:this.bileraForm.value.aula || '',
+          aula: this.bileraForm.value.aula || '',
           fecha: fechaCompleta, 
           created_at: new Date(),
           updated_at: new Date()
       };
 
-  
       this.bileraService.addBilera(addBilera).subscribe({
         next: (sortuBilera) => {
           console.log("Sortu da bilera", sortuBilera);
           alert('Bilera sortuta'); 
-          
         },
         error: (err) => console.error(err)
       });
@@ -157,7 +182,6 @@ export class AddBilerak {
     }
   }
 
- 
   filtratu(selectedValue: string) {
     console.log("filtratu", selectedValue);
     if (selectedValue === 'Guztiak') {
@@ -171,11 +195,18 @@ export class AddBilerak {
     console.log(this.filteredList);
   }
 
-//Eraman ikastetxe horrira
+  // Eraman ikastetxe horrira
   ikastetxeaOrria(id: number) {
     sessionStorage.setItem('ikastetxeaHartu', JSON.stringify(id));
     console.log("Bilatu id-a:", id);
     // URL erlatiboa 
-    this.router.navigate(['../ikastetxea', id], { relativeTo: this.route })
+    this.router.navigate(['../ikastetxea', id], { relativeTo: this.route });
+  }
+
+  // Mapa garbitu konponentea kentzen denean
+  ngOnDestroy() {
+    if (this.map) {
+      this.map.remove();
+    }
   }
 }

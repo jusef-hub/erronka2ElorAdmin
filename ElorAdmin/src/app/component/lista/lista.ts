@@ -7,7 +7,7 @@ import { Bilera } from '../../services/bilera';
 import { Mota } from '../../services/mota';
 import { FormGroup, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
@@ -32,6 +32,7 @@ export class Lista {
   users$!: Observable<User[]>; 
   bilerak$!: Observable<Reunion[]>;
   motak$!: Observable<Tipo[]>;
+  userImg$!:Observable<User>
 
 
   currentUser: User | undefined; 
@@ -57,16 +58,16 @@ export class Lista {
 
   modUser = new FormGroup({
     img:new FormControl(''),
-    nombre: new FormControl(''),
-    email: new FormControl('', [Validators.email]),
-    username: new FormControl(''),
-    apellidos: new FormControl(''),
-    password: new FormControl(''),
+    nombre: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    username: new FormControl('', [Validators.required]),
+    apellidos: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
     dni: new FormControl('', [Validators.pattern('^[0-9]{8}[A-Za-z]$')]),
     direccion: new FormControl(''),
     telefono: new FormControl('', [Validators.pattern('^[0-9]{9}$')]),
     telefono2: new FormControl('', [Validators.pattern('^[0-9]{9}$')]),
-    tipo_id: new FormControl<number | null>(null)
+    tipo_id: new FormControl<number | null>(null, [Validators.required])
   });
 
   constructor(private router: Router) {
@@ -204,8 +205,11 @@ export class Lista {
   }
 //Sortu erabiltzailea
   gehitu() {
-    if (this.newUser.valid) {
-      
+    if (this.newUser.invalid) {
+      this.newUser.markAllAsTouched();
+      alert('Ez duzu formulario ondo bete. Egiaztatu eremu guztiak.');
+      return;
+    }
       this.users$.subscribe({
         next: (users) => {
 
@@ -235,12 +239,12 @@ export class Lista {
             },
             error: (err) => {
               console.error('Errorea erabiltzailea sortzerakoan:', err);
+            
             }
           });
         },
         error: (err) => console.error('Errorea gehitzean:', err)
       });
-    }
   
   }
 
@@ -274,8 +278,11 @@ export class Lista {
   }
 
   modifikatu() {
-    if (this.modUser.valid) {
-      }
+    if (this.modUser.invalid) {
+      this.modUser.markAllAsTouched();
+      alert('Ez duzu formulario ondo bete. Egiaztatu eremu guztiak.');
+      return;
+    }
       const modiUser: User = {
         id: this.idEditatzeko,
         email: this.modUser.value.email!,
@@ -305,5 +312,28 @@ export class Lista {
           alert('Ez da eguneratu.');
         }
       });
-    }
+   
   }
+  irudiaKargatzenEzBada(event: any, id:number) {
+  event.target.src = 'foto.webp';
+    this.userImg$=this.usersS.getUserById(id)
+    this.userImg$.subscribe({
+      next:(user)=>{
+        user.argazkia_url='foto.webp';
+        this.usersS.updateUser(user).subscribe({
+          next:()=>{
+            console.log('Argazkia eguneratu da')
+            this.usersS.getUser();
+            window.location.reload();
+          },
+          error:(err)=>{
+            console.error('Ez da modifikatu');
+          }
+        })
+      },
+      error:(err)=>{
+        console.error('Ez da aurkitu', err)
+      }
+    })
+}
+}

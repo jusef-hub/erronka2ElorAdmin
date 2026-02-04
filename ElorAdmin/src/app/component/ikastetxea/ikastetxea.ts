@@ -5,6 +5,7 @@ import { Ikastetxea as IkasIn } from '../../interface/interfaces';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ikastetxea',
@@ -15,12 +16,30 @@ import { RouterLink } from '@angular/router';
 export class Ikastetxea {
   public ikas$: Observable<IkasIn> | undefined; 
   private ikasService = inject(Ikastetxeak);
+
+  public mapaUrl: SafeResourceUrl | undefined;
+  private sanitizer=inject(DomSanitizer)
 //Hartu ikastetxearen idA eta bilatu 
   constructor(){
     const idA = sessionStorage.getItem('ikastetxeaHartu');
     if (idA) {
       const id = JSON.parse(idA);
       this.ikas$ = this.ikasService.getIkastetxeaById(id);
+      this.ikas$.subscribe({
+        next:(datuak)=>{
+          this.mapaKargatu(datuak.LONGITUD, datuak.LATITUD);
+        }
+      })
+      
+    }
+    
+  }
+
+  //Mapa kargatu
+  mapaKargatu(lat: number, lon: number) {
+    if (lat && lon) {
+      const url = `https://maps.google.com/maps?q=${lat},${lon}&z=15&output=embed`;
+      this.mapaUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
   }
 }

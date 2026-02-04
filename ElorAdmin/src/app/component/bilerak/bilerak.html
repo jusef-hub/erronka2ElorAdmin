@@ -5,8 +5,8 @@
         {{ 'bilerak.titulo_usuario' | translate: { nombre: user.nombre } }}
       </h2>
 
-      @if (!esProfesor) {
-        <button class="btn btn-primary" [routerLink]="['/ikasle', user.id, 'addBilerak']">
+      @if (esProfesor) {
+        <button class="btn btn-primary" [routerLink]="['/irakasle', user.id, 'addBilerak']">
            {{ 'bilerak.boton_anadir' | translate }} 
         </button>
       }

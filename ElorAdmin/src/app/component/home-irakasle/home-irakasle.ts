@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { User } from '../../interface/interfaces';
 import { Users } from '../../services/users';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import {TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { RouterOutlet, RouterLink} from '@angular/router';
 @Component({
@@ -12,8 +12,7 @@ import { RouterOutlet, RouterLink} from '@angular/router';
 })
 export class HomeIrakasle {
   userService=inject(Users)
-  cd=inject(ChangeDetectorRef)
-  private translate=inject(TranslateService)
+
   user$!:Observable<User>
   user:User | undefined
 
