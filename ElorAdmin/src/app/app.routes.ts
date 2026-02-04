@@ -17,8 +17,8 @@ export const routes: Routes = [
         {path: '', component: Datuak, pathMatch: 'full' }, 
         {path: 'datuP', component: Datuak },
         {path:'ordutegia', component:Ordutegia},
-        {path:'bilera', component:Bilerak,},
-        {path:'ikastetxea/:idIkastetxe', component:Ikastetxea}
+        {path:'bilera', component:Bilerak,}
+        
     ]},
     { path: 'irakasle/:id', component: HomeIrakasle , children:[
         {path: '', component: Datuak, pathMatch: 'full' }, 
@@ -26,7 +26,8 @@ export const routes: Routes = [
         {path:'ordutegia', component:Ordutegia},
         {path:'bilera', component:Bilerak},
         {path:'addBilerak', component:AddBilerak},
-        {path:'ikasleak', component:Ikasleak}
+        {path:'ikasleak', component:Ikasleak},
+        {path:'ikastetxea/:idIkastetxe', component:Ikastetxea}
     ]},
     
 ];
